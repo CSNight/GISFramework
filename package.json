@@ -9,7 +9,7 @@
     "test": "mocha --require babel-register --colors ./test/*.spec.js",
     "test:watch": "mocha --require babel-register --colors -w ./test/*.spec.js",
     "test:cover": "cross-env NODE_ENV=test nyc mocha --require babel-register --colors test/*.js",
-    "repl": "node -i -e \"$(< ./lib/GISFramework.js)\""
+    "repl": "node -i -e \"$(< ./dist/GISFramework.js)\""
   },
   "keywords": [
     "webpack",

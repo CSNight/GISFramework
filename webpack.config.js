@@ -6,7 +6,7 @@ const path = require('path');
 const env = require('yargs').argv.env; // use --env with webpack 2
 const pkg = require('./package.json');
 
-let libraryName = "tmap";
+let libraryName = 'tmap';
 
 let outputFile, mode;
 
@@ -21,14 +21,14 @@ if (env === 'build') {
 const config = {
   mode: mode,
   entry: __dirname + '/src/index.js',
-  devtool: 'inline-source-map',
+ // devtool: 'inline-source-map',
   output: {
     path: __dirname + '/dist',
     filename: outputFile,
     library: libraryName,
     libraryTarget: 'umd',
     umdNamedDefine: true,
-    globalObject: "typeof self !== 'undefined' ? self : this"
+    globalObject: 'typeof self !== \'undefined\' ? self : this'
   },
   module: {
     rules: [
@@ -36,7 +36,10 @@ const config = {
         test: /(\.jsx|\.js)$/,
         loader: 'babel-loader',
         exclude: /(node_modules|bower_components)/
-      },
+      }, {
+        test: /\.css$/,
+        use: ['style-loader', 'css-loader']
+      }
     ]
   },
   resolve: {

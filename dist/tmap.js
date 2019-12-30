@@ -96,6 +96,41 @@ return /******/ (function(modules) { // webpackBootstrap
 /************************************************************************/
 /******/ ({
 
+/***/ "./node_modules/css-loader/dist/cjs.js!./src/plugins/scalebar/L.Control.BetterScale.css":
+/*!**********************************************************************************************!*\
+  !*** ./node_modules/css-loader/dist/cjs.js!./src/plugins/scalebar/L.Control.BetterScale.css ***!
+  \**********************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+eval("// Imports\nvar ___CSS_LOADER_API_IMPORT___ = __webpack_require__(/*! ../../../node_modules/css-loader/dist/runtime/api.js */ \"./node_modules/css-loader/dist/runtime/api.js\");\nexports = ___CSS_LOADER_API_IMPORT___(false);\n// Module\nexports.push([module.i, \".leaflet-control-better-scale {\\n  margin-bottom: 15px !important;\\n  margin-right: 300px !important;\\n  height: 20px;\\n}\\n\\n.leaflet-control-better-scale-upper-first-piece {\\n  top: 0%;\\n  left: 0%;\\n  width: 25%;\\n  background-color: transparent !important;\\n  border: none !important;\\n}\\n\\n.leaflet-control-better-scale-upper-second-piece {\\n  top: 0%;\\n  left: 50%;\\n  width: 25%;\\n  background-color: transparent !important;\\n  border: none !important;\\n  border-left: 1px solid #444444;\\n  border-right: 1px solid #444444;\\n}\\n\\n.leaflet-control-better-scale-lower-first-piece {\\n  top: 50%;\\n  left: 25%;\\n  width: 25%;\\n  border-left: 1px solid #444444;\\n  border-right: 1px solid #444444;\\n}\\n\\n.leaflet-control-better-scale-lower-second-piece {\\n  top: 50%;\\n  left: 75%;\\n  width: 30%;\\n}\\n\\n.leaflet-control-better-scale-ruler-block {\\n  overflow: hidden;\\n  position: absolute;\\n  height: 50%;\\n  background-color: #444444;\\n}\\n\\n.leaflet-control-better-scale-ruler {\\n  overflow: hidden;\\n  position: relative;\\n  width: 100%;\\n  height: 7px;\\n  background-color: transparent;\\n  border-bottom: 2px solid #444444;\\n}\\n\\n.leaflet-control-better-scale-label-div {\\n  position: relative;\\n  width: 100%;\\n}\\n\\n.leaflet-control-better-scale-label {\\n  position: absolute;\\n  width: 10%;\\n  text-align: center;\\n  color: #fff;\\n  font-family: sans-serif;\\n  font-weight: bold;\\n  font-size: 12px;\\n  height: 5px;\\n  top: -1px;\\n  text-shadow: 1px 0 0 #000, 0 -1px 0 #000, 0 1px 0 #000, -1px 0 0 #000;\\n}\\n\\n.leaflet-control-better-scale-first-number {\\n  left: 45%;\\n}\\n\\n.leaflet-control-better-scale-second-number {\\n  left: 95%;\\n}\\n\", \"\"]);\n// Exports\nmodule.exports = exports;\n\n\n//# sourceURL=webpack://tmap/./src/plugins/scalebar/L.Control.BetterScale.css?./node_modules/css-loader/dist/cjs.js");
+
+/***/ }),
+
+/***/ "./node_modules/css-loader/dist/runtime/api.js":
+/*!*****************************************************!*\
+  !*** ./node_modules/css-loader/dist/runtime/api.js ***!
+  \*****************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+eval("\n\n/*\n  MIT License http://www.opensource.org/licenses/mit-license.php\n  Author Tobias Koppers @sokra\n*/\n// css base code, injected by the css-loader\n// eslint-disable-next-line func-names\nmodule.exports = function (useSourceMap) {\n  var list = []; // return the list of modules as css string\n\n  list.toString = function toString() {\n    return this.map(function (item) {\n      var content = cssWithMappingToString(item, useSourceMap);\n\n      if (item[2]) {\n        return \"@media \".concat(item[2], \" {\").concat(content, \"}\");\n      }\n\n      return content;\n    }).join('');\n  }; // import a list of modules into the list\n  // eslint-disable-next-line func-names\n\n\n  list.i = function (modules, mediaQuery) {\n    if (typeof modules === 'string') {\n      // eslint-disable-next-line no-param-reassign\n      modules = [[null, modules, '']];\n    }\n\n    for (var i = 0; i < modules.length; i++) {\n      var item = [].concat(modules[i]);\n\n      if (mediaQuery) {\n        if (!item[2]) {\n          item[2] = mediaQuery;\n        } else {\n          item[2] = \"\".concat(mediaQuery, \" and \").concat(item[2]);\n        }\n      }\n\n      list.push(item);\n    }\n  };\n\n  return list;\n};\n\nfunction cssWithMappingToString(item, useSourceMap) {\n  var content = item[1] || ''; // eslint-disable-next-line prefer-destructuring\n\n  var cssMapping = item[3];\n\n  if (!cssMapping) {\n    return content;\n  }\n\n  if (useSourceMap && typeof btoa === 'function') {\n    var sourceMapping = toComment(cssMapping);\n    var sourceURLs = cssMapping.sources.map(function (source) {\n      return \"/*# sourceURL=\".concat(cssMapping.sourceRoot).concat(source, \" */\");\n    });\n    return [content].concat(sourceURLs).concat([sourceMapping]).join('\\n');\n  }\n\n  return [content].join('\\n');\n} // Adapted from convert-source-map (MIT)\n\n\nfunction toComment(sourceMap) {\n  // eslint-disable-next-line no-undef\n  var base64 = btoa(unescape(encodeURIComponent(JSON.stringify(sourceMap))));\n  var data = \"sourceMappingURL=data:application/json;charset=utf-8;base64,\".concat(base64);\n  return \"/*# \".concat(data, \" */\");\n}\n\n//# sourceURL=webpack://tmap/./node_modules/css-loader/dist/runtime/api.js?");
+
+/***/ }),
+
+/***/ "./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js":
+/*!****************************************************************************!*\
+  !*** ./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js ***!
+  \****************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+eval("\n\nvar isOldIE = function isOldIE() {\n  var memo;\n  return function memorize() {\n    if (typeof memo === 'undefined') {\n      // Test for IE <= 9 as proposed by Browserhacks\n      // @see http://browserhacks.com/#hack-e71d8692f65334173fee715c222cb805\n      // Tests for existence of standard globals is to allow style-loader\n      // to operate correctly into non-standard environments\n      // @see https://github.com/webpack-contrib/style-loader/issues/177\n      memo = Boolean(window && document && document.all && !window.atob);\n    }\n\n    return memo;\n  };\n}();\n\nvar getTarget = function getTarget() {\n  var memo = {};\n  return function memorize(target) {\n    if (typeof memo[target] === 'undefined') {\n      var styleTarget = document.querySelector(target); // Special case to return head of iframe instead of iframe itself\n\n      if (window.HTMLIFrameElement && styleTarget instanceof window.HTMLIFrameElement) {\n        try {\n          // This will throw an exception if access to iframe is blocked\n          // due to cross-origin restrictions\n          styleTarget = styleTarget.contentDocument.head;\n        } catch (e) {\n          // istanbul ignore next\n          styleTarget = null;\n        }\n      }\n\n      memo[target] = styleTarget;\n    }\n\n    return memo[target];\n  };\n}();\n\nvar stylesInDom = {};\n\nfunction modulesToDom(moduleId, list, options) {\n  for (var i = 0; i < list.length; i++) {\n    var part = {\n      css: list[i][1],\n      media: list[i][2],\n      sourceMap: list[i][3]\n    };\n\n    if (stylesInDom[moduleId][i]) {\n      stylesInDom[moduleId][i](part);\n    } else {\n      stylesInDom[moduleId].push(addStyle(part, options));\n    }\n  }\n}\n\nfunction insertStyleElement(options) {\n  var style = document.createElement('style');\n  var attributes = options.attributes || {};\n\n  if (typeof attributes.nonce === 'undefined') {\n    var nonce =  true ? __webpack_require__.nc : undefined;\n\n    if (nonce) {\n      attributes.nonce = nonce;\n    }\n  }\n\n  Object.keys(attributes).forEach(function (key) {\n    style.setAttribute(key, attributes[key]);\n  });\n\n  if (typeof options.insert === 'function') {\n    options.insert(style);\n  } else {\n    var target = getTarget(options.insert || 'head');\n\n    if (!target) {\n      throw new Error(\"Couldn't find a style target. This probably means that the value for the 'insert' parameter is invalid.\");\n    }\n\n    target.appendChild(style);\n  }\n\n  return style;\n}\n\nfunction removeStyleElement(style) {\n  // istanbul ignore if\n  if (style.parentNode === null) {\n    return false;\n  }\n\n  style.parentNode.removeChild(style);\n}\n/* istanbul ignore next  */\n\n\nvar replaceText = function replaceText() {\n  var textStore = [];\n  return function replace(index, replacement) {\n    textStore[index] = replacement;\n    return textStore.filter(Boolean).join('\\n');\n  };\n}();\n\nfunction applyToSingletonTag(style, index, remove, obj) {\n  var css = remove ? '' : obj.css; // For old IE\n\n  /* istanbul ignore if  */\n\n  if (style.styleSheet) {\n    style.styleSheet.cssText = replaceText(index, css);\n  } else {\n    var cssNode = document.createTextNode(css);\n    var childNodes = style.childNodes;\n\n    if (childNodes[index]) {\n      style.removeChild(childNodes[index]);\n    }\n\n    if (childNodes.length) {\n      style.insertBefore(cssNode, childNodes[index]);\n    } else {\n      style.appendChild(cssNode);\n    }\n  }\n}\n\nfunction applyToTag(style, options, obj) {\n  var css = obj.css;\n  var media = obj.media;\n  var sourceMap = obj.sourceMap;\n\n  if (media) {\n    style.setAttribute('media', media);\n  } else {\n    style.removeAttribute('media');\n  }\n\n  if (sourceMap && btoa) {\n    css += \"\\n/*# sourceMappingURL=data:application/json;base64,\".concat(btoa(unescape(encodeURIComponent(JSON.stringify(sourceMap)))), \" */\");\n  } // For old IE\n\n  /* istanbul ignore if  */\n\n\n  if (style.styleSheet) {\n    style.styleSheet.cssText = css;\n  } else {\n    while (style.firstChild) {\n      style.removeChild(style.firstChild);\n    }\n\n    style.appendChild(document.createTextNode(css));\n  }\n}\n\nvar singleton = null;\nvar singletonCounter = 0;\n\nfunction addStyle(obj, options) {\n  var style;\n  var update;\n  var remove;\n\n  if (options.singleton) {\n    var styleIndex = singletonCounter++;\n    style = singleton || (singleton = insertStyleElement(options));\n    update = applyToSingletonTag.bind(null, style, styleIndex, false);\n    remove = applyToSingletonTag.bind(null, style, styleIndex, true);\n  } else {\n    style = insertStyleElement(options);\n    update = applyToTag.bind(null, style, options);\n\n    remove = function remove() {\n      removeStyleElement(style);\n    };\n  }\n\n  update(obj);\n  return function updateStyle(newObj) {\n    if (newObj) {\n      if (newObj.css === obj.css && newObj.media === obj.media && newObj.sourceMap === obj.sourceMap) {\n        return;\n      }\n\n      update(obj = newObj);\n    } else {\n      remove();\n    }\n  };\n}\n\nmodule.exports = function (moduleId, list, options) {\n  options = options || {}; // Force single-tag solution on IE6-9, which has a hard limit on the # of <style>\n  // tags it will allow on a page\n\n  if (!options.singleton && typeof options.singleton !== 'boolean') {\n    options.singleton = isOldIE();\n  }\n\n  moduleId = options.base ? moduleId + options.base : moduleId;\n  list = list || [];\n\n  if (!stylesInDom[moduleId]) {\n    stylesInDom[moduleId] = [];\n  }\n\n  modulesToDom(moduleId, list, options);\n  return function update(newList) {\n    newList = newList || [];\n\n    if (Object.prototype.toString.call(newList) !== '[object Array]') {\n      return;\n    }\n\n    if (!stylesInDom[moduleId]) {\n      stylesInDom[moduleId] = [];\n    }\n\n    modulesToDom(moduleId, newList, options);\n\n    for (var j = newList.length; j < stylesInDom[moduleId].length; j++) {\n      stylesInDom[moduleId][j]();\n    }\n\n    stylesInDom[moduleId].length = newList.length;\n\n    if (stylesInDom[moduleId].length === 0) {\n      delete stylesInDom[moduleId];\n    }\n  };\n};\n\n//# sourceURL=webpack://tmap/./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js?");
+
+/***/ }),
+
 /***/ "./src/component/MapOption.js":
 /*!************************************!*\
   !*** ./src/component/MapOption.js ***!
@@ -104,49 +139,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-var options = {
-  crs: L.CRS.EPSG3857,
-  center: [0, 0],
-  zoom: 0,
-  boxZoom: true,
-  doubleClickZoom: true,
-  minZoom: 0,
-  maxZoom: 18,
-  layers: [],
-  maxBounds: undefined,
-  renderer: L.svg(),
-  attributionControl: false,
-  zoomControl: false,
-  zoomAnimation: true,
-  zoomAnimationThreshold: 4,
-  fadeAnimation: true,
-  markerZoomAnimation: true,
-  transform3DLimit: 8388608,
-  // Precision limit of a 32-bit float
-  zoomSnap: 1,
-  zoomDelta: 1,
-  trackResize: true,
-  maxBoundsViscosity: 0,
-  closePopupOnClick: true
-};
-var MapOption = new Proxy(options, {
-  get: function get(target, key, receiver) {
-    return Reflect.get(target, key, receiver);
-  },
-  set: function set(target, p, value, receiver) {
-    Reflect.set(target, p, value, receiver);
-    return true;
-  }
-});
-var _default = MapOption;
-exports.default = _default;
-module.exports = exports["default"];
+eval("\n\nObject.defineProperty(exports, \"__esModule\", {\n  value: true\n});\nexports.default = void 0;\nvar options = {\n  crs: L.CRS.EPSG3857,\n  center: [0, 0],\n  zoom: 0,\n  boxZoom: true,\n  doubleClickZoom: true,\n  minZoom: 0,\n  maxZoom: 18,\n  layers: [],\n  maxBounds: undefined,\n  renderer: L.svg(),\n  attributionControl: false,\n  zoomControl: false,\n  zoomAnimation: true,\n  zoomAnimationThreshold: 4,\n  fadeAnimation: true,\n  markerZoomAnimation: true,\n  transform3DLimit: 8388608,\n  // Precision limit of a 32-bit float\n  zoomSnap: 1,\n  zoomDelta: 1,\n  trackResize: true,\n  maxBoundsViscosity: 0,\n  closePopupOnClick: true\n};\nvar MapOption = new Proxy(options, {\n  get: function get(target, key, receiver) {\n    return Reflect.get(target, key, receiver);\n  },\n  set: function set(target, p, value, receiver) {\n    Reflect.set(target, p, value, receiver);\n    return true;\n  }\n});\nvar _default = MapOption;\nexports.default = _default;\nmodule.exports = exports[\"default\"];\n\n//# sourceURL=webpack://tmap/./src/component/MapOption.js?");
 
 /***/ }),
 
@@ -158,43 +151,7 @@ module.exports = exports["default"];
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.circleProxy = circleProxy;
-exports.circle = circle;
-
-var _TPath = _interopRequireDefault(__webpack_require__(/*! ./TPath */ "./src/component/TPath.js"));
-
-var _VectorOptProxy = __webpack_require__(/*! ./VectorOptProxy */ "./src/component/VectorOptProxy.js");
-
-var _TMap = _interopRequireDefault(__webpack_require__(/*! ../core/TMap */ "./src/core/TMap.js"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var circleOption = {
-  radius: 0.0,
-  t: 'circle'
-};
-circleOption = Object.assign(_TPath.default, circleOption);
-circleOption.fill = true;
-
-function circleProxy(layer) {
-  return (0, _VectorOptProxy.resetStyleHandler)(layer);
-}
-
-function circle(geo, options) {
-  var opt = (0, _VectorOptProxy.optionFill)(options, circleOption);
-  var Te = L.circle(geo, options);
-  Te.$options = opt;
-  Te = circleProxy(Te);
-
-  _TMap.default.map.addLayer(Te);
-
-  return Te;
-}
+eval("\n\nObject.defineProperty(exports, \"__esModule\", {\n  value: true\n});\nexports.circleProxy = circleProxy;\nexports.circle = circle;\n\nvar _TPath = _interopRequireDefault(__webpack_require__(/*! ./TPath */ \"./src/component/TPath.js\"));\n\nvar _VectorOptProxy = __webpack_require__(/*! ./VectorOptProxy */ \"./src/component/VectorOptProxy.js\");\n\nvar _TMap = _interopRequireDefault(__webpack_require__(/*! ../core/TMap */ \"./src/core/TMap.js\"));\n\nfunction _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }\n\nvar circleOption = {\n  radius: 0.0,\n  t: 'circle'\n};\ncircleOption = Object.assign(_TPath.default, circleOption);\ncircleOption.fill = true;\n\nfunction circleProxy(layer) {\n  return (0, _VectorOptProxy.resetStyleHandler)(layer);\n}\n\nfunction circle(geo, options) {\n  var opt = (0, _VectorOptProxy.optionFill)(options, circleOption);\n  var Te = L.circle(geo, options);\n  Te.$options = opt;\n  Te = circleProxy(Te);\n\n  _TMap.default.map.addLayer(Te);\n\n  return Te;\n}\n\n//# sourceURL=webpack://tmap/./src/component/TCircle.js?");
 
 /***/ }),
 
@@ -206,43 +163,7 @@ function circle(geo, options) {
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.circleMarkerProxy = circleMarkerProxy;
-exports.circleMarker = circleMarker;
-
-var _TPath = _interopRequireDefault(__webpack_require__(/*! ./TPath */ "./src/component/TPath.js"));
-
-var _VectorOptProxy = __webpack_require__(/*! ./VectorOptProxy */ "./src/component/VectorOptProxy.js");
-
-var _TMap = _interopRequireDefault(__webpack_require__(/*! ../core/TMap */ "./src/core/TMap.js"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var cMarkerOption = {
-  radius: 10,
-  t: 'circleMarker'
-};
-cMarkerOption = Object.assign(_TPath.default, cMarkerOption);
-cMarkerOption.fill = true;
-
-function circleMarkerProxy(layer) {
-  return (0, _VectorOptProxy.resetStyleHandler)(layer);
-}
-
-function circleMarker(geo, options) {
-  var opt = (0, _VectorOptProxy.optionFill)(options, cMarkerOption);
-  var Te = L.circleMarker(geo, options);
-  Te.$options = opt;
-  Te = circleMarkerProxy(Te);
-
-  _TMap.default.map.addLayer(Te);
-
-  return Te;
-}
+eval("\n\nObject.defineProperty(exports, \"__esModule\", {\n  value: true\n});\nexports.circleMarkerProxy = circleMarkerProxy;\nexports.circleMarker = circleMarker;\n\nvar _TPath = _interopRequireDefault(__webpack_require__(/*! ./TPath */ \"./src/component/TPath.js\"));\n\nvar _VectorOptProxy = __webpack_require__(/*! ./VectorOptProxy */ \"./src/component/VectorOptProxy.js\");\n\nvar _TMap = _interopRequireDefault(__webpack_require__(/*! ../core/TMap */ \"./src/core/TMap.js\"));\n\nfunction _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }\n\nvar cMarkerOption = {\n  radius: 10,\n  t: 'circleMarker'\n};\ncMarkerOption = Object.assign(_TPath.default, cMarkerOption);\ncMarkerOption.fill = true;\n\nfunction circleMarkerProxy(layer) {\n  return (0, _VectorOptProxy.resetStyleHandler)(layer);\n}\n\nfunction circleMarker(geo, options) {\n  var opt = (0, _VectorOptProxy.optionFill)(options, cMarkerOption);\n  var Te = L.circleMarker(geo, options);\n  Te.$options = opt;\n  Te = circleMarkerProxy(Te);\n\n  _TMap.default.map.addLayer(Te);\n\n  return Te;\n}\n\n//# sourceURL=webpack://tmap/./src/component/TCircleMarker.js?");
 
 /***/ }),
 
@@ -254,35 +175,7 @@ function circleMarker(geo, options) {
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-var pathOption = {
-  stroke: true,
-  color: '#3388ff',
-  weight: 3,
-  opacity: 1.0,
-  lineCap: 'round',
-  lineJoin: 'round',
-  dashArray: null,
-  dashOffset: null,
-  fill: false,
-  fillColor: null,
-  fillOpacity: 0.2,
-  fillRule: 'evenodd',
-  bubblingMouseEvents: true,
-  renderer: undefined,
-  className: '',
-  interactive: true,
-  pane: 'overlayPane',
-  attribution: null
-};
-var _default = pathOption;
-exports.default = _default;
-module.exports = exports["default"];
+eval("\n\nObject.defineProperty(exports, \"__esModule\", {\n  value: true\n});\nexports.default = void 0;\nvar pathOption = {\n  stroke: true,\n  color: '#3388ff',\n  weight: 3,\n  opacity: 1.0,\n  lineCap: 'round',\n  lineJoin: 'round',\n  dashArray: null,\n  dashOffset: null,\n  fill: false,\n  fillColor: null,\n  fillOpacity: 0.2,\n  fillRule: 'evenodd',\n  bubblingMouseEvents: true,\n  renderer: undefined,\n  className: '',\n  interactive: true,\n  pane: 'overlayPane',\n  attribution: null\n};\nvar _default = pathOption;\nexports.default = _default;\nmodule.exports = exports[\"default\"];\n\n//# sourceURL=webpack://tmap/./src/component/TPath.js?");
 
 /***/ }),
 
@@ -294,44 +187,7 @@ module.exports = exports["default"];
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.polygonProxy = polygonProxy;
-exports.polygon = polygon;
-
-var _TPath = _interopRequireDefault(__webpack_require__(/*! ./TPath */ "./src/component/TPath.js"));
-
-var _VectorOptProxy = __webpack_require__(/*! ./VectorOptProxy */ "./src/component/VectorOptProxy.js");
-
-var _TMap = _interopRequireDefault(__webpack_require__(/*! ../core/TMap */ "./src/core/TMap.js"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var polygonOption = {
-  smoothFactor: 1.0,
-  noClip: false,
-  t: 'polygon'
-};
-polygonOption = Object.assign(_TPath.default, polygonOption);
-polygonOption.fill = true;
-
-function polygonProxy(layer) {
-  return (0, _VectorOptProxy.resetStyleHandler)(layer);
-}
-
-function polygon(geo, options) {
-  var opt = (0, _VectorOptProxy.optionFill)(options, polygonOption);
-  var Te = L.polygon(geo, options);
-  Te.$options = opt;
-  Te = polygonProxy(Te);
-
-  _TMap.default.map.addLayer(Te);
-
-  return Te;
-}
+eval("\n\nObject.defineProperty(exports, \"__esModule\", {\n  value: true\n});\nexports.polygonProxy = polygonProxy;\nexports.polygon = polygon;\n\nvar _TPath = _interopRequireDefault(__webpack_require__(/*! ./TPath */ \"./src/component/TPath.js\"));\n\nvar _VectorOptProxy = __webpack_require__(/*! ./VectorOptProxy */ \"./src/component/VectorOptProxy.js\");\n\nvar _TMap = _interopRequireDefault(__webpack_require__(/*! ../core/TMap */ \"./src/core/TMap.js\"));\n\nfunction _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }\n\nvar polygonOption = {\n  smoothFactor: 1.0,\n  noClip: false,\n  t: 'polygon'\n};\npolygonOption = Object.assign(_TPath.default, polygonOption);\npolygonOption.fill = true;\n\nfunction polygonProxy(layer) {\n  return (0, _VectorOptProxy.resetStyleHandler)(layer);\n}\n\nfunction polygon(geo, options) {\n  var opt = (0, _VectorOptProxy.optionFill)(options, polygonOption);\n  var Te = L.polygon(geo, options);\n  Te.$options = opt;\n  Te = polygonProxy(Te);\n\n  _TMap.default.map.addLayer(Te);\n\n  return Te;\n}\n\n//# sourceURL=webpack://tmap/./src/component/TPolygon.js?");
 
 /***/ }),
 
@@ -343,43 +199,7 @@ function polygon(geo, options) {
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.polylineProxy = polylineProxy;
-exports.polyline = polyline;
-
-var _TPath = _interopRequireDefault(__webpack_require__(/*! ./TPath */ "./src/component/TPath.js"));
-
-var _VectorOptProxy = __webpack_require__(/*! ./VectorOptProxy */ "./src/component/VectorOptProxy.js");
-
-var _TMap = _interopRequireDefault(__webpack_require__(/*! ../core/TMap */ "./src/core/TMap.js"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var polylineOption = {
-  smoothFactor: 1.0,
-  noClip: false,
-  t: 'polyline'
-};
-polylineOption = Object.assign(_TPath.default, polylineOption);
-
-function polylineProxy(layer) {
-  return (0, _VectorOptProxy.resetStyleHandler)(layer);
-}
-
-function polyline(geo, options) {
-  var opt = (0, _VectorOptProxy.optionFill)(options, polylineOption);
-  var Te = L.polyline(geo, options);
-  Te.$options = opt;
-  Te = polylineProxy(Te);
-
-  _TMap.default.map.addLayer(Te);
-
-  return Te;
-}
+eval("\n\nObject.defineProperty(exports, \"__esModule\", {\n  value: true\n});\nexports.polylineProxy = polylineProxy;\nexports.polyline = polyline;\n\nvar _TPath = _interopRequireDefault(__webpack_require__(/*! ./TPath */ \"./src/component/TPath.js\"));\n\nvar _VectorOptProxy = __webpack_require__(/*! ./VectorOptProxy */ \"./src/component/VectorOptProxy.js\");\n\nvar _TMap = _interopRequireDefault(__webpack_require__(/*! ../core/TMap */ \"./src/core/TMap.js\"));\n\nfunction _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }\n\nvar polylineOption = {\n  smoothFactor: 1.0,\n  noClip: false,\n  t: 'polyline'\n};\npolylineOption = Object.assign(_TPath.default, polylineOption);\n\nfunction polylineProxy(layer) {\n  return (0, _VectorOptProxy.resetStyleHandler)(layer);\n}\n\nfunction polyline(geo, options) {\n  var opt = (0, _VectorOptProxy.optionFill)(options, polylineOption);\n  var Te = L.polyline(geo, options);\n  Te.$options = opt;\n  Te = polylineProxy(Te);\n\n  _TMap.default.map.addLayer(Te);\n\n  return Te;\n}\n\n//# sourceURL=webpack://tmap/./src/component/TPolyline.js?");
 
 /***/ }),
 
@@ -391,44 +211,7 @@ function polyline(geo, options) {
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.rectangleProxy = rectangleProxy;
-exports.rectangle = rectangle;
-
-var _TPath = _interopRequireDefault(__webpack_require__(/*! ./TPath */ "./src/component/TPath.js"));
-
-var _VectorOptProxy = __webpack_require__(/*! ./VectorOptProxy */ "./src/component/VectorOptProxy.js");
-
-var _TMap = _interopRequireDefault(__webpack_require__(/*! ../core/TMap */ "./src/core/TMap.js"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var rectangleOption = {
-  smoothFactor: 1.0,
-  noClip: false,
-  t: 'rectangle'
-};
-rectangleOption = Object.assign(_TPath.default, rectangleOption);
-rectangleOption.fill = true;
-
-function rectangleProxy(layer) {
-  return (0, _VectorOptProxy.resetStyleHandler)(layer);
-}
-
-function rectangle(geo, options) {
-  var opt = (0, _VectorOptProxy.optionFill)(options, rectangleOption);
-  var Te = L.rectangle(geo, options);
-  Te.$options = opt;
-  Te = rectangleProxy(Te);
-
-  _TMap.default.map.addLayer(Te);
-
-  return Te;
-}
+eval("\n\nObject.defineProperty(exports, \"__esModule\", {\n  value: true\n});\nexports.rectangleProxy = rectangleProxy;\nexports.rectangle = rectangle;\n\nvar _TPath = _interopRequireDefault(__webpack_require__(/*! ./TPath */ \"./src/component/TPath.js\"));\n\nvar _VectorOptProxy = __webpack_require__(/*! ./VectorOptProxy */ \"./src/component/VectorOptProxy.js\");\n\nvar _TMap = _interopRequireDefault(__webpack_require__(/*! ../core/TMap */ \"./src/core/TMap.js\"));\n\nfunction _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }\n\nvar rectangleOption = {\n  smoothFactor: 1.0,\n  noClip: false,\n  t: 'rectangle'\n};\nrectangleOption = Object.assign(_TPath.default, rectangleOption);\nrectangleOption.fill = true;\n\nfunction rectangleProxy(layer) {\n  return (0, _VectorOptProxy.resetStyleHandler)(layer);\n}\n\nfunction rectangle(geo, options) {\n  var opt = (0, _VectorOptProxy.optionFill)(options, rectangleOption);\n  var Te = L.rectangle(geo, options);\n  Te.$options = opt;\n  Te = rectangleProxy(Te);\n\n  _TMap.default.map.addLayer(Te);\n\n  return Te;\n}\n\n//# sourceURL=webpack://tmap/./src/component/TRectangle.js?");
 
 /***/ }),
 
@@ -440,72 +223,55 @@ function rectangle(geo, options) {
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
+eval("\n\nObject.defineProperty(exports, \"__esModule\", {\n  value: true\n});\nexports.optionFill = optionFill;\nexports.resetStyleHandler = resetStyleHandler;\n\nfunction _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread(); }\n\nfunction _nonIterableSpread() { throw new TypeError(\"Invalid attempt to spread non-iterable instance\"); }\n\nfunction _iterableToArray(iter) { if (Symbol.iterator in Object(iter) || Object.prototype.toString.call(iter) === \"[object Arguments]\") return Array.from(iter); }\n\nfunction _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } }\n\nfunction optionFill(source, template) {\n  if (!source || source === {}) {\n    return new Proxy(template, {});\n  }\n\n  var temp = JSON.parse(JSON.stringify(template));\n\n  for (var key in temp) {\n    if (source.hasOwnProperty(key)) {\n      temp[key] = source[key];\n    }\n  }\n\n  for (var _key in source) {\n    if (!temp.hasOwnProperty(_key)) {\n      temp[_key] = source[_key];\n    }\n  }\n\n  return new Proxy(temp, {});\n}\n\nfunction resetStyleHandler(layer) {\n  var handler = {\n    //setStyle 后 同步options 内容至$options\n    apply: function apply(target, _this, args) {\n      var result = Reflect.apply.apply(Reflect, arguments);\n      layer.$options = Object.assign.apply(Object, [layer.$options].concat(_toConsumableArray(args)));\n      layer.redraw();\n      return result;\n    }\n  }; //直接修改options 更新属性 设置样式，重绘\n\n  var handlerLayer = {\n    set: function set(target, p, value, receiver) {\n      Reflect.set(target, p, value, receiver);\n\n      if (p === 'options') {\n        target.option = optionFill(target[p], target.$options);\n        target.setStyle(target.option);\n        target.redraw();\n      }\n\n      return true;\n    }\n  };\n  layer.setStyle = new Proxy(layer.setStyle, handler);\n  layer = new Proxy(layer, handlerLayer);\n  return layer;\n}\n\n//# sourceURL=webpack://tmap/./src/component/VectorOptProxy.js?");
 
+/***/ }),
 
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.optionFill = optionFill;
-exports.resetStyleHandler = resetStyleHandler;
+/***/ "./src/controls/Graticule.js":
+/*!***********************************!*\
+  !*** ./src/controls/Graticule.js ***!
+  \***********************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
 
-function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread(); }
+"use strict";
+eval("\n\nObject.defineProperty(exports, \"__esModule\", {\n  value: true\n});\nexports.latLngGraticule = void 0;\n\n__webpack_require__(/*! ../plugins/graticule/L.LatlngGraticule */ \"./src/plugins/graticule/L.LatlngGraticule.js\");\n\nvar graticuleOpt = {\n  show: true,\n  activate: true,\n  opt: {\n    showLabel: true,\n    color: '#333333',\n    dashArray: [5, 5],\n    zoomInterval: [{\n      start: 1,\n      end: 3,\n      interval: 10\n    }, {\n      start: 4,\n      end: 4,\n      interval: 5\n    }, {\n      start: 5,\n      end: 7,\n      interval: 1\n    }, {\n      start: 8,\n      end: 10,\n      interval: 0.5\n    }, {\n      start: 10,\n      end: 12,\n      interval: 0.2\n    }, {\n      start: 13,\n      end: 15,\n      interval: 0.1\n    }]\n  }\n};\n\nvar latLngGraticule = function latLngGraticule() {\n  var options = new Proxy(Object.assign({}, graticuleOpt), {});\n  var Tz = L.latlngGraticule(options.opt);\n  Tz.$options = options;\n\n  Tz.__proto__.show = function () {\n    T.map.removeLayer(this);\n    this.$options.show = true;\n    this.$options.activate = true;\n    T.map.addLayer(this);\n  };\n\n  Tz.__proto__.hide = function () {\n    this.$options.show = false;\n    this.$options.activate = false;\n    T.map.removeLayer(this);\n  };\n\n  return Tz;\n};\n\nexports.latLngGraticule = latLngGraticule;\n\n//# sourceURL=webpack://tmap/./src/controls/Graticule.js?");
 
-function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance"); }
+/***/ }),
 
-function _iterableToArray(iter) { if (Symbol.iterator in Object(iter) || Object.prototype.toString.call(iter) === "[object Arguments]") return Array.from(iter); }
+/***/ "./src/controls/Position.js":
+/*!**********************************!*\
+  !*** ./src/controls/Position.js ***!
+  \**********************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
 
-function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } }
+"use strict";
+eval("\n\nObject.defineProperty(exports, \"__esModule\", {\n  value: true\n});\nexports.pointer = void 0;\nvar pointerOpt = {\n  show: true,\n  activate: true,\n  opt: {\n    position: 'bottomright'\n  }\n};\n\nvar pointer = function pointer() {\n  var options = new Proxy(Object.assign({}, pointerOpt), {});\n  var Tz = L.control(pointerOpt.opt);\n  Tz._leaflet_id = 'pointer_control';\n\n  Tz.onAdd = function () {\n    var me = this;\n    me._container = L.DomUtil.create('div');\n    me._container.style.width = '250px';\n    me._container.style.height = '20px';\n    me._container.style.position = 'absolute';\n    me._container.style.right = '10px';\n    me._container.style.bottom = '0px';\n    me._container.style.zindex = 2;\n    me._container.style.textAlign = 'center';\n    var inner = L.DomUtil.create('div');\n    inner.style.fontSize = '14px';\n    inner.style.color = '#222';\n\n    me._container.appendChild(inner);\n\n    return me._container;\n  };\n\n  T.map.on('mousemove', function (e) {\n    Tz._container.innerText = Number(e.latlng.lng).toFixed(6) + ',' + Number(e.latlng.lat).toFixed(6);\n  });\n  Tz.$options = options;\n\n  Tz.__proto__.show = function () {\n    this.$options.show = true;\n    this.$options.activate = true;\n    this._container.style.display = 'block';\n  };\n\n  Tz.__proto__.hide = function () {\n    this.$options.show = false;\n    this.$options.activate = false;\n    this._container.style.display = 'none';\n  };\n\n  return Tz;\n};\n\nexports.pointer = pointer;\n\n//# sourceURL=webpack://tmap/./src/controls/Position.js?");
 
-function optionFill(source, template) {
-  if (!source || source === {}) {
-    return new Proxy(template, {});
-  }
+/***/ }),
 
-  var temp = JSON.parse(JSON.stringify(template));
+/***/ "./src/controls/Printer.js":
+/*!*********************************!*\
+  !*** ./src/controls/Printer.js ***!
+  \*********************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
 
-  for (var key in temp) {
-    if (source.hasOwnProperty(key)) {
-      temp[key] = source[key];
-    }
-  }
+"use strict";
+eval("\n\nObject.defineProperty(exports, \"__esModule\", {\n  value: true\n});\nexports.printer = void 0;\n\n__webpack_require__(/*! ../plugins/print/leaflet.browser.print.min */ \"./src/plugins/print/leaflet.browser.print.min.js\");\n\nvar printerOpt = {\n  show: true,\n  activate: true,\n  opt: {\n    position: 'topright'\n  }\n};\n\nvar printer = function printer() {\n  var options = new Proxy(Object.assign({}, printerOpt), {});\n  var Tz = L.control.browserPrint(printerOpt.opt);\n  Tz.$options = options;\n  Tz.$options.title = document.title;\n\n  Tz.__proto__.show = function () {\n    this.$options.show = true;\n    this.$options.activate = true;\n    this._container.style.display = 'block';\n  };\n\n  Tz.__proto__.hide = function () {\n    this.$options.show = false;\n    this.$options.activate = false;\n    this._container.style.display = 'none';\n  };\n\n  T.map.on('browser-print', function (e) {\n    var tit = prompt('输入地图名称：', Tz.$options.title);\n\n    if (tit) {\n      e.printMap._container.ownerDocument.title = tit;\n    } else {\n      e.printMap._container.ownerDocument.title = Tz.$options.title;\n    }\n\n    var canvas = e.printMap.getPane('overlayPane').querySelector('canvas');\n\n    if (canvas) {\n      canvas.style.border = '2px solid #666666';\n      canvas.style.width = parseInt(canvas.style.width.replace('px', '')) - 3 + 'px';\n      canvas.style.height = parseInt(canvas.style.height.replace('px', '')) - 3 + 'px';\n    }\n  });\n  T.map.on('browser-print-end', function (e) {\n    document.title = Tz.$options.title;\n    location.reload();\n  });\n\n  var afterPrint = function afterPrint() {\n    Tz._clearPrint();\n\n    document.body.className = document.body.className.replace(' leaflet--printing', '');\n\n    Tz._map.invalidateSize({\n      reset: !0,\n      animate: !1,\n      pan: !1\n    });\n  };\n\n  if (window.matchMedia) {\n    var mediaQueryList = window.matchMedia('print');\n    mediaQueryList.addListener(function (mql) {\n      if (mql.matches) {} else {\n        afterPrint();\n      }\n    });\n  }\n\n  window.onafterprint = afterPrint;\n  return Tz;\n};\n\nexports.printer = printer;\n\n//# sourceURL=webpack://tmap/./src/controls/Printer.js?");
 
-  for (var _key in source) {
-    if (!temp.hasOwnProperty(_key)) {
-      temp[_key] = source[_key];
-    }
-  }
+/***/ }),
 
-  return new Proxy(temp, {});
-}
+/***/ "./src/controls/ScaleBar.js":
+/*!**********************************!*\
+  !*** ./src/controls/ScaleBar.js ***!
+  \**********************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
 
-function resetStyleHandler(layer) {
-  var handler = {
-    //setStyle 后 同步options 内容至$options
-    apply: function apply(target, _this, args) {
-      var result = Reflect.apply.apply(Reflect, arguments);
-      layer.$options = Object.assign.apply(Object, [layer.$options].concat(_toConsumableArray(args)));
-      layer.redraw();
-      return result;
-    }
-  }; //直接修改options 更新属性 设置样式，重绘
-
-  var handlerLayer = {
-    set: function set(target, p, value, receiver) {
-      Reflect.set(target, p, value, receiver);
-
-      if (p === 'options') {
-        target.option = optionFill(target[p], target.$options);
-        target.setStyle(target.option);
-        target.redraw();
-      }
-
-      return true;
-    }
-  };
-  layer.setStyle = new Proxy(layer.setStyle, handler);
-  layer = new Proxy(layer, handlerLayer);
-  return layer;
-}
+"use strict";
+eval("\n\nObject.defineProperty(exports, \"__esModule\", {\n  value: true\n});\nexports.scaleBar = void 0;\n\n__webpack_require__(/*! ../plugins/scalebar/L.Control.BetterScale.css */ \"./src/plugins/scalebar/L.Control.BetterScale.css\");\n\n__webpack_require__(/*! ../plugins/scalebar/L.Control.BetterScale */ \"./src/plugins/scalebar/L.Control.BetterScale.js\");\n\nvar scaleBarOpt = {\n  show: true,\n  activate: true,\n  opt: {\n    position: 'bottomright',\n    metric: true,\n    imperial: false\n  }\n};\n\nvar scaleBar = function scaleBar() {\n  var options = new Proxy(Object.assign({}, scaleBarOpt), {});\n  var Tz = L.control.betterscale(scaleBarOpt.opt);\n  Tz._leaflet_id = 'scalebar_control';\n  Tz.$options = options;\n\n  Tz.__proto__.show = function () {\n    this.$options.show = true;\n    this.$options.activate = true;\n    this._container.style.display = 'block';\n  };\n\n  Tz.__proto__.hide = function () {\n    this.$options.show = false;\n    this.$options.activate = false;\n    this._container.style.display = 'none';\n  };\n\n  return Tz;\n};\n\nexports.scaleBar = scaleBar;\n\n//# sourceURL=webpack://tmap/./src/controls/ScaleBar.js?");
 
 /***/ }),
 
@@ -517,45 +283,7 @@ function resetStyleHandler(layer) {
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.zoomControl = void 0;
-var zoomOpt = {
-  show: true,
-  activate: true,
-  opt: {
-    position: 'topleft',
-    zoomInText: '+',
-    zoomInTitle: 'Zoom in',
-    zoomOutText: '&#x2212	',
-    zoomOutTitle: 'Zoom out'
-  }
-};
-
-var zoomControl = function zoomControl() {
-  var options = new Proxy(Object.assign({}, zoomOpt), {});
-  var Tz = L.control.zoom(options.opt);
-  Tz.$options = options;
-
-  Tz.__proto__.show = function () {
-    this.$options.show = true;
-    this.$options.activate = true;
-    this._container.style.display = 'block';
-  };
-
-  Tz.__proto__.hide = function () {
-    this.$options.show = false;
-    this.$options.activate = false;
-    this._container.style.display = 'none';
-  };
-
-  return Tz;
-};
-
-exports.zoomControl = zoomControl;
+eval("\n\nObject.defineProperty(exports, \"__esModule\", {\n  value: true\n});\nexports.zoomControl = void 0;\nvar zoomOpt = {\n  show: true,\n  activate: true,\n  opt: {\n    position: 'topleft',\n    zoomInText: '+',\n    zoomInTitle: 'Zoom in',\n    zoomOutText: '&#x2212\t',\n    zoomOutTitle: 'Zoom out'\n  }\n};\n\nvar zoomControl = function zoomControl() {\n  var options = new Proxy(Object.assign({}, zoomOpt), {});\n  var Tz = L.control.zoom(options.opt);\n  Tz.$options = options;\n\n  Tz.__proto__.show = function () {\n    this.$options.show = true;\n    this.$options.activate = true;\n    this._container.style.display = 'block';\n  };\n\n  Tz.__proto__.hide = function () {\n    this.$options.show = false;\n    this.$options.activate = false;\n    this._container.style.display = 'none';\n  };\n\n  return Tz;\n};\n\nexports.zoomControl = zoomControl;\n\n//# sourceURL=webpack://tmap/./src/controls/Zoom.js?");
 
 /***/ }),
 
@@ -567,105 +295,7 @@ exports.zoomControl = zoomControl;
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-var _TMap = _interopRequireDefault(__webpack_require__(/*! ./TMap */ "./src/core/TMap.js"));
-
-var _Zoom = __webpack_require__(/*! ../controls/Zoom */ "./src/controls/Zoom.js");
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
-
-var controls = {
-  zoom: _Zoom.zoomControl,
-  drawer: '',
-  scaleBar: '',
-  graticule: '',
-  printer: '',
-  cts: {},
-  init: function init() {
-    _TMap.default.map.addControl = new Proxy(_TMap.default.map.addControl, {
-      apply: function apply(target, _this, argArray) {
-        var result = Reflect.apply.apply(Reflect, arguments);
-
-        if (argArray.length > 0 && argArray[0].hasOwnProperty('_leaflet_id')) {
-          var ct = argArray[0];
-          _TMap.default.controls.cts[ct._leaflet_id] = ct;
-        }
-
-        return result;
-      }
-    });
-    _TMap.default.map.removeControl = new Proxy(_TMap.default.map.removeControl, {
-      apply: function apply(target, _this, argArray) {
-        var result = Reflect.apply.apply(Reflect, arguments);
-
-        if (argArray.length > 0 && argArray[0].hasOwnProperty('_leaflet_id')) {
-          var ct = argArray[0];
-
-          if (_TMap.default.controls.cts[ct._leaflet_id]) {
-            delete _TMap.default.controls.cts[ct._leaflet_id];
-          }
-        }
-
-        return result;
-      }
-    });
-  },
-  addControl: function addControl(control, type) {
-    var ct = _TMap.default.map.addControl(control);
-
-    this.cts[type] = ct;
-    return ct;
-  },
-  removeControl: function removeControl(ct) {
-    if (_typeof(ct) === 'object') {
-      _TMap.default.map.removeControl(ct);
-
-      for (var k in this.cts) {
-        var tmpCt = this.cts[k];
-
-        if (tmpCt._leaflet_id === ct._leaflet_id) {
-          delete this.cts[k];
-          break;
-        }
-      }
-    } else {
-      var _tmpCt = this.cts[ct];
-
-      if (_tmpCt !== undefined) {
-        _TMap.default.map.removeControl(_tmpCt);
-
-        delete this.cts[ct];
-      }
-    }
-  },
-  hide: function hide(ct) {
-    ct.hide();
-  },
-  show: function show(ct) {
-    ct.show();
-  },
-  hideAll: function hideAll() {
-    for (var k in this.cts) {
-      this.cts[k].hide();
-    }
-  },
-  showAll: function showAll() {
-    for (var k in this.cts) {
-      this.cts[k].show();
-    }
-  }
-};
-var _default = controls;
-exports.default = _default;
-module.exports = exports["default"];
+eval("\n\nObject.defineProperty(exports, \"__esModule\", {\n  value: true\n});\nexports.default = void 0;\n\nvar _TMap = _interopRequireDefault(__webpack_require__(/*! ./TMap */ \"./src/core/TMap.js\"));\n\nvar _Zoom = __webpack_require__(/*! ../controls/Zoom */ \"./src/controls/Zoom.js\");\n\nvar _Graticule = __webpack_require__(/*! ../controls/Graticule */ \"./src/controls/Graticule.js\");\n\nvar _ScaleBar = __webpack_require__(/*! ../controls/ScaleBar */ \"./src/controls/ScaleBar.js\");\n\nvar _Position = __webpack_require__(/*! ../controls/Position */ \"./src/controls/Position.js\");\n\nvar _Printer = __webpack_require__(/*! ../controls/Printer */ \"./src/controls/Printer.js\");\n\nfunction _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }\n\nfunction _typeof(obj) { if (typeof Symbol === \"function\" && typeof Symbol.iterator === \"symbol\") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === \"function\" && obj.constructor === Symbol && obj !== Symbol.prototype ? \"symbol\" : typeof obj; }; } return _typeof(obj); }\n\nvar controls = {\n  zoom: _Zoom.zoomControl,\n  drawer: '',\n  scaleBar: _ScaleBar.scaleBar,\n  graticule: _Graticule.latLngGraticule,\n  printer: _Printer.printer,\n  pointer: _Position.pointer,\n  legend: '',\n  cts: {},\n  init: function init() {\n    _TMap.default.map.addControl = new Proxy(_TMap.default.map.addControl, {\n      apply: function apply(target, _this, argArray) {\n        var result = Reflect.apply.apply(Reflect, arguments);\n\n        if (argArray.length > 0 && argArray[0].hasOwnProperty('_leaflet_id')) {\n          var ct = argArray[0];\n          _TMap.default.controls.cts[ct._leaflet_id] = ct;\n        }\n\n        return result;\n      }\n    });\n    _TMap.default.map.removeControl = new Proxy(_TMap.default.map.removeControl, {\n      apply: function apply(target, _this, argArray) {\n        var result = Reflect.apply.apply(Reflect, arguments);\n\n        if (argArray.length > 0 && argArray[0].hasOwnProperty('_leaflet_id')) {\n          var ct = argArray[0];\n\n          if (_TMap.default.controls.cts[ct._leaflet_id]) {\n            delete _TMap.default.controls.cts[ct._leaflet_id];\n          }\n        }\n\n        return result;\n      }\n    });\n  },\n  addControl: function addControl(control, type) {\n    var ct = _TMap.default.map.addControl(control);\n\n    this.cts[type] = ct;\n    return ct;\n  },\n  removeControl: function removeControl(ct) {\n    if (_typeof(ct) === 'object') {\n      _TMap.default.map.removeControl(ct);\n\n      for (var k in this.cts) {\n        var tmpCt = this.cts[k];\n\n        if (tmpCt._leaflet_id === ct._leaflet_id) {\n          delete this.cts[k];\n          break;\n        }\n      }\n    } else {\n      var _tmpCt = this.cts[ct];\n\n      if (_tmpCt !== undefined) {\n        _TMap.default.map.removeControl(_tmpCt);\n\n        delete this.cts[ct];\n      }\n    }\n  },\n  hide: function hide(ct) {\n    ct.hide();\n  },\n  show: function show(ct) {\n    ct.show();\n  },\n  hideAll: function hideAll() {\n    for (var k in this.cts) {\n      this.cts[k].hide();\n    }\n  },\n  showAll: function showAll() {\n    for (var k in this.cts) {\n      this.cts[k].show();\n    }\n  }\n};\nvar _default = controls;\nexports.default = _default;\nmodule.exports = exports[\"default\"];\n\n//# sourceURL=webpack://tmap/./src/core/ControlManager.js?");
 
 /***/ }),
 
@@ -677,51 +307,7 @@ module.exports = exports["default"];
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-var _MapOption = _interopRequireDefault(__webpack_require__(/*! ../component/MapOption */ "./src/component/MapOption.js"));
-
-var _TRectangle = __webpack_require__(/*! ../component/TRectangle */ "./src/component/TRectangle.js");
-
-var _TCircle = __webpack_require__(/*! ../component/TCircle */ "./src/component/TCircle.js");
-
-var _TPolyline = __webpack_require__(/*! ../component/TPolyline */ "./src/component/TPolyline.js");
-
-var _TCircleMarker = __webpack_require__(/*! ../component/TCircleMarker */ "./src/component/TCircleMarker.js");
-
-var _TPolygon = __webpack_require__(/*! ../component/TPolygon */ "./src/component/TPolygon.js");
-
-var _ControlManager = _interopRequireDefault(__webpack_require__(/*! ./ControlManager */ "./src/core/ControlManager.js"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var T = new Proxy({
-  map: null,
-  rectangle: _TRectangle.rectangle,
-  circle: _TCircle.circle,
-  circleMarker: _TCircleMarker.circleMarker,
-  marker: null,
-  polyline: _TPolyline.polyline,
-  polygon: _TPolygon.polygon,
-  controls: _ControlManager.default
-}, {});
-
-T.createMap = function (dom) {
-  T.map = L.map(dom, _MapOption.default);
-  T.controls.init();
-  return T.map;
-};
-
-T.marker = function (options) {};
-
-var _default = T;
-exports.default = _default;
-module.exports = exports["default"];
+eval("\n\nObject.defineProperty(exports, \"__esModule\", {\n  value: true\n});\nexports.default = void 0;\n\nvar _MapOption = _interopRequireDefault(__webpack_require__(/*! ../component/MapOption */ \"./src/component/MapOption.js\"));\n\nvar _TRectangle = __webpack_require__(/*! ../component/TRectangle */ \"./src/component/TRectangle.js\");\n\nvar _TCircle = __webpack_require__(/*! ../component/TCircle */ \"./src/component/TCircle.js\");\n\nvar _TPolyline = __webpack_require__(/*! ../component/TPolyline */ \"./src/component/TPolyline.js\");\n\nvar _TCircleMarker = __webpack_require__(/*! ../component/TCircleMarker */ \"./src/component/TCircleMarker.js\");\n\nvar _TPolygon = __webpack_require__(/*! ../component/TPolygon */ \"./src/component/TPolygon.js\");\n\nvar _ControlManager = _interopRequireDefault(__webpack_require__(/*! ./ControlManager */ \"./src/core/ControlManager.js\"));\n\nfunction _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }\n\nvar T = new Proxy({\n  map: null,\n  rectangle: _TRectangle.rectangle,\n  circle: _TCircle.circle,\n  circleMarker: _TCircleMarker.circleMarker,\n  marker: null,\n  polyline: _TPolyline.polyline,\n  polygon: _TPolygon.polygon,\n  controls: _ControlManager.default\n}, {});\n\nT.createMap = function (dom) {\n  T.map = L.map(dom, _MapOption.default);\n  T.controls.init();\n  return T.map;\n};\n\nT.marker = function (options) {};\n\nvar _default = T;\nexports.default = _default;\nmodule.exports = exports[\"default\"];\n\n//# sourceURL=webpack://tmap/./src/core/TMap.js?");
 
 /***/ }),
 
@@ -733,37 +319,53 @@ module.exports = exports["default"];
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
+eval("\n\nvar _TMap = _interopRequireDefault(__webpack_require__(/*! ./core/TMap */ \"./src/core/TMap.js\"));\n\nfunction _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }\n\nwindow.T = _TMap.default;\n\n_TMap.default.createMap('map');\n\nL.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png?{foo}', {\n  foo: 'bar'\n}).addTo(_TMap.default.map);\nvar bounds = [[54.559322, 20.767822], [56.1210604, 33.021240]]; // create an orange rectangle\n\nvar s = _TMap.default.rectangle(bounds, {\n  color: '#ff7800',\n  weight: 1\n}).addTo(_TMap.default.map);\n\nwindow.s = s; // zoom the map to the rectangle bounds\n\n_TMap.default.map.fitBounds(bounds);\n\n_TMap.default.map.addControl(_TMap.default.controls.zoom());\n\n_TMap.default.map.addControl(_TMap.default.controls.scaleBar());\n\n_TMap.default.map.addControl(_TMap.default.controls.graticule());\n\n_TMap.default.map.addControl(_TMap.default.controls.pointer());\n\n_TMap.default.map.addControl(_TMap.default.controls.printer());\n\nconsole.log(s);\nconsole.log(_TMap.default);\n\n//# sourceURL=webpack://tmap/./src/index.js?");
 
+/***/ }),
 
-var _TMap = _interopRequireDefault(__webpack_require__(/*! ./core/TMap */ "./src/core/TMap.js"));
+/***/ "./src/plugins/graticule/L.LatlngGraticule.js":
+/*!****************************************************!*\
+  !*** ./src/plugins/graticule/L.LatlngGraticule.js ***!
+  \****************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+eval("L.Control.BetterScale = L.Control.extend({\n  options: {\n    position: \"bottomright\",\n    maxWidth: 150,\n    metric: !1,\n    imperial: !0,\n    updateWhenIdle: !1\n  },\n  onAdd: function onAdd(t) {\n    this._map = t;\n    var e = \"leaflet-control-better-scale\",\n        i = L.DomUtil.create(\"div\", e),\n        n = this.options,\n        s = L.DomUtil.create(\"div\", e + \"-ruler\", i);\n    L.DomUtil.create(\"div\", e + \"-ruler-block \" + e + \"-upper-first-piece\", s), L.DomUtil.create(\"div\", e + \"-ruler-block \" + e + \"-upper-second-piece\", s), L.DomUtil.create(\"div\", e + \"-ruler-block \" + e + \"-lower-first-piece\", s), L.DomUtil.create(\"div\", e + \"-ruler-block \" + e + \"-lower-second-piece\", s);\n    return this._addScales(n, e, i), this.ScaleContainer = i, t.on(n.updateWhenIdle ? \"moveend\" : \"move\", this._update, this), t.whenReady(this._update, this), i;\n  },\n  onRemove: function onRemove(t) {\n    t.off(this.options.updateWhenIdle ? \"moveend\" : \"move\", this._update, this);\n  },\n  _addScales: function _addScales(t, e, i) {\n    this._iScale = L.DomUtil.create(\"div\", e + \"-label-div\", i), this._iScaleLabel = L.DomUtil.create(\"div\", e + \"-label\", this._iScale), this._iScaleFirstNumber = L.DomUtil.create(\"div\", e + \"-label \" + e + \"-first-number\", this._iScale), this._iScaleSecondNumber = L.DomUtil.create(\"div\", e + \"-label \" + e + \"-second-number\", this._iScale);\n  },\n  _update: function _update() {\n    var t = this._map.getBounds(),\n        e = t.getCenter().lat,\n        i = 6378137 * Math.PI * Math.cos(e * Math.PI / 180),\n        n = i * (t.getNorthEast().lng - t.getSouthWest().lng) / 180,\n        o = this._map.getSize(),\n        s = this.options,\n        a = 0;\n\n    o.x > 0 && (a = n * (s.maxWidth / o.x)), this._updateScales(s, a);\n  },\n  _updateScales: function _updateScales(t, e) {\n    t.metric && e && this._updateMetric(e), t.imperial && e && this._updateImperial(e);\n  },\n  _updateMetric_old: function _updateMetric_old(t) {\n    var e = this._getRoundNum(t);\n\n    this._iScale.style.width = this._getScaleWidth(e / t) + \"px\", this._iScaleLabel.innerHTML = 1e3 > e ? e + \" m\" : e / 1e3 + \" km\";\n  },\n  _updateMetric: function _updateMetric(t) {\n    var e,\n        i,\n        n,\n        o,\n        s,\n        a = t,\n        r = this._iScaleFirstNumber,\n        h = this._iScaleSecondNumber,\n        l = this._iScale,\n        u = this._iScaleLabel;\n    u.innerHTML = \"0\", a > 500 ? (e = a / 1000, i = this._getRoundNum(e), o = this._getRoundNum(e / 2), l.style.width = this._getScaleWidth(i / e) + \"px\", r.innerHTML = o, h.innerHTML = i + \"km\") : (n = this._getRoundNum(a), s = this._getRoundNum(a / 2), l.style.width = this._getScaleWidth(n / a) + \"px\", r.innerHTML = s, h.innerHTML = n + \"m\");\n  },\n  _updateImperial: function _updateImperial(t) {\n    var e,\n        i,\n        n,\n        o,\n        s,\n        a = 3.2808399 * t,\n        r = this._iScaleFirstNumber,\n        h = this._iScaleSecondNumber,\n        l = this._iScale,\n        u = this._iScaleLabel;\n    u.innerHTML = \"0\", a > 2640 ? (e = a / 5280, i = this._getRoundNum(e), o = this._getRoundNum(e / 2), l.style.width = this._getScaleWidth(i / e) + \"px\", r.innerHTML = o, h.innerHTML = i + \"mi\") : (n = this._getRoundNum(a), s = this._getRoundNum(a / 2), l.style.width = this._getScaleWidth(n / a) + \"px\", r.innerHTML = s, h.innerHTML = n + \"ft\");\n  },\n  _getScaleWidth: function _getScaleWidth(t) {\n    return Math.round(this.options.maxWidth * t) - 10;\n  },\n  _getRoundNum: function _getRoundNum(t) {\n    if (t >= 2) {\n      var e = Math.pow(10, (Math.floor(t) + \"\").length - 1),\n          i = t / e;\n      return i = i >= 10 ? 10 : i >= 5 ? 5 : i >= 3 ? 3 : i >= 2 ? 2 : 1, e * i;\n    }\n\n    return (Math.round(100 * t) / 100).toFixed(1);\n  }\n});\n\nL.control.betterscale = function (options) {\n  return new L.Control.BetterScale(options);\n};\n\n(function (window, document, undefined) {\n  L.LatLngGraticule = L.Layer.extend({\n    includes: L.Mixin.Events,\n    options: {\n      showLabel: true,\n      opacity: 1,\n      weight: 0.8,\n      color: '#aaa',\n      font: '12px Verdana',\n      dashArray: [0, 0],\n      lngLineCurved: 0,\n      latLineCurved: 0,\n      zoomInterval: [{\n        start: 2,\n        end: 2,\n        interval: 40\n      }, {\n        start: 3,\n        end: 3,\n        interval: 20\n      }, {\n        start: 4,\n        end: 4,\n        interval: 10\n      }, {\n        start: 5,\n        end: 7,\n        interval: 5\n      }, {\n        start: 8,\n        end: 20,\n        interval: 1\n      }]\n    },\n    initialize: function initialize(options) {\n      L.setOptions(this, options);\n      var defaultFontName = 'Verdana';\n\n      var _ff = this.options.font.split(' ');\n\n      if (_ff.length < 2) {\n        this.options.font += ' ' + defaultFontName;\n      }\n\n      if (!this.options.fontColor) {\n        this.options.fontColor = this.options.color;\n      }\n\n      if (this.options.zoomInterval) {\n        if (this.options.zoomInterval.latitude) {\n          this.options.latInterval = this.options.zoomInterval.latitude;\n\n          if (!this.options.zoomInterval.longitude) {\n            this.options.lngInterval = this.options.zoomInterval.latitude;\n          }\n        }\n\n        if (this.options.zoomInterval.longitude) {\n          this.options.lngInterval = this.options.zoomInterval.longitude;\n\n          if (!this.options.zoomInterval.latitude) {\n            this.options.latInterval = this.options.zoomInterval.longitude;\n          }\n        }\n\n        if (!this.options.latInterval) {\n          this.options.latInterval = this.options.zoomInterval;\n        }\n\n        if (!this.options.lngInterval) {\n          this.options.lngInterval = this.options.zoomInterval;\n        }\n      }\n    },\n    onAdd: function onAdd(map) {\n      this._map = map;\n\n      if (!this._canvas) {\n        this._initCanvas();\n      }\n\n      map._panes.overlayPane.appendChild(this._canvas);\n\n      map.on('viewreset', this._reset, this);\n      map.on('move', this._reset, this);\n      map.on('moveend', this._reset, this);\n\n      if (map.options.zoomAnimation && L.Browser.any3d) {\n        map.on('zoomanim', this._animateZoom, this);\n      }\n\n      this._reset();\n    },\n    onRemove: function onRemove(map) {\n      L.DomUtil.remove(this._canvas);\n      map.off('viewreset', this._reset, this);\n      map.off('move', this._reset, this);\n      map.off('moveend', this._reset, this);\n\n      if (map.options.zoomAnimation) {\n        map.off('zoomanim', this._animateZoom, this);\n      }\n    },\n    addTo: function addTo(map) {\n      map.addLayer(this);\n      return this;\n    },\n    setOpacity: function setOpacity(opacity) {\n      this.options.opacity = opacity;\n\n      this._updateOpacity();\n\n      return this;\n    },\n    bringToFront: function bringToFront() {\n      if (this._canvas) {//this._map._panes.overlayPane.appendChild(this._canvas);\n      }\n\n      return this;\n    },\n    bringToBack: function bringToBack() {\n      var pane = this._map._panes.overlayPane;\n\n      if (this._canvas) {//pane.insertBefore(this._canvas, pane.firstChild);\n      }\n\n      return this;\n    },\n    getAttribution: function getAttribution() {\n      return this.options.attribution;\n    },\n    _initCanvas: function _initCanvas() {\n      this._canvas = L.DomUtil.create('canvas', '');\n\n      if (this._map.options.zoomAnimation && L.Browser.any3d) {\n        L.DomUtil.addClass(this._canvas, 'leaflet-zoom-animated');\n      } else {\n        L.DomUtil.addClass(this._canvas, 'leaflet-zoom-hide');\n      }\n\n      this._updateOpacity();\n\n      L.extend(this._canvas, {\n        onselectstart: L.Util.falseFn,\n        onmousemove: L.Util.falseFn,\n        onload: L.bind(this._onCanvasLoad, this)\n      });\n    },\n    _animateZoom: function _animateZoom(e) {\n      var map = this._map,\n          canvas = this._canvas,\n          scale = map.getZoomScale(e.zoom),\n          nw = map.containerPointToLatLng([0, 0]),\n          se = map.containerPointToLatLng([canvas.width, canvas.height]),\n          topLeft = map._latLngToNewLayerPoint(nw, e.zoom, e.center),\n          size = map._latLngToNewLayerPoint(se, e.zoom, e.center)._subtract(topLeft),\n          origin = topLeft._add(size._multiplyBy(1 / 2 * (1 - 1 / scale)));\n\n      L.DomUtil.setTransform(canvas, origin, scale);\n    },\n    _reset: function _reset() {\n      var canvas = this._canvas,\n          size = this._map.getSize(),\n          lt = this._map.containerPointToLayerPoint([0, 0]);\n\n      L.DomUtil.setPosition(canvas, lt);\n      canvas.width = size.x;\n      canvas.height = size.y;\n      canvas.style.width = size.x + 'px';\n      canvas.style.height = size.y + 'px';\n\n      this.__calcInterval();\n\n      this.__draw(true);\n    },\n    _onCanvasLoad: function _onCanvasLoad() {\n      this.fire('load');\n    },\n    _updateOpacity: function _updateOpacity() {\n      L.DomUtil.setOpacity(this._canvas, this.options.opacity);\n    },\n    __format_lat: function __format_lat(lat) {\n      if (this.options.latFormatTickLabel) {\n        return this.options.latFormatTickLabel(lat);\n      } // todo: format type of float\n\n\n      if (lat < 0) {\n        return '' + Number(lat * -1).toFixed(2) + 'S';\n      } else if (lat > 0) {\n        return '' + Number(lat).toFixed(2) + 'N';\n      }\n\n      return '' + Number(lat).toFixed(2);\n    },\n    __format_lng: function __format_lng(lng) {\n      if (this.options.lngFormatTickLabel) {\n        return this.options.lngFormatTickLabel(lng);\n      } // todo: format type of float\n\n\n      if (lng > 180) {\n        return '' + (360 - lng) + 'W';\n      } else if (lng > 0 && lng < 180) {\n        return '' + Number(lng).toFixed(2) + 'E';\n      } else if (lng < 0 && lng > -180) {\n        return '' + Number(lng * -1).toFixed(2) + 'W';\n      } else if (lng == -180) {\n        return '' + Number(lng * -1).toFixed(2);\n      } else if (lng < -180) {\n        return '' + Number(360 + lng).toFixed(2) + 'W';\n      }\n\n      return '' + lng;\n    },\n    __calcInterval: function __calcInterval() {\n      var zoom = this._map.getZoom();\n\n      if (this._currZoom != zoom) {\n        this._currLngInterval = 0;\n        this._currLatInterval = 0;\n        this._currZoom = zoom;\n      }\n\n      var interv;\n\n      if (!this._currLngInterval) {\n        try {\n          for (var idx in this.options.lngInterval) {\n            var dict = this.options.lngInterval[idx];\n\n            if (dict.start <= zoom) {\n              if (dict.end && dict.end >= zoom) {\n                this._currLngInterval = dict.interval;\n                break;\n              }\n            }\n          }\n        } catch (e) {\n          this._currLngInterval = 0;\n        }\n      }\n\n      if (!this._currLatInterval) {\n        try {\n          for (var idx in this.options.latInterval) {\n            var dict = this.options.latInterval[idx];\n\n            if (dict.start <= zoom) {\n              if (dict.end && dict.end >= zoom) {\n                this._currLatInterval = dict.interval;\n                break;\n              }\n            }\n          }\n        } catch (e) {\n          this._currLatInterval = 0;\n        }\n      }\n    },\n    __draw: function __draw(label) {\n      function _parse_px_to_int(txt) {\n        if (txt.length > 2) {\n          if (txt.charAt(txt.length - 2) == 'p') {\n            txt = txt.substr(0, txt.length - 2);\n          }\n        }\n\n        try {\n          return parseInt(txt, 10);\n        } catch (e) {}\n\n        return 0;\n      }\n\n      ;\n      var self = this,\n          canvas = this._canvas,\n          map = this._map,\n          curvedLon = this.options.lngLineCurved,\n          curvedLat = this.options.latLineCurved;\n\n      if (L.Browser.canvas && map) {\n        var __draw_lat_line = function __draw_lat_line(self, lat_tick) {\n          ll = self._latLngToCanvasPoint(L.latLng(lat_tick, _lon_l));\n          latstr = self.__format_lat(lat_tick);\n          txtWidth = ctx.measureText(latstr).width;\n\n          if (curvedLat) {\n            if (typeof curvedLat == 'number') {\n              _lon_delta = curvedLat;\n            }\n\n            var __lon_left = _lon_l,\n                __lon_right = _lon_r;\n\n            if (ll.x > 0) {\n              var __lon_left = map.containerPointToLatLng(L.point(0, ll.y));\n\n              __lon_left = __lon_left.lng - _point_per_lon;\n              ll.x = 0;\n            }\n\n            var rr = self._latLngToCanvasPoint(L.latLng(lat_tick, __lon_right));\n\n            if (rr.x < ww) {\n              __lon_right = map.containerPointToLatLng(L.point(ww, rr.y));\n              __lon_right = __lon_right.lng + _point_per_lon;\n\n              if (__lon_left > 0 && __lon_right < 0) {\n                __lon_right += 360;\n              }\n            }\n\n            ctx.beginPath();\n            ctx.moveTo(ll.x, ll.y);\n            var _prev_p = null;\n\n            for (var j = __lon_left; j <= __lon_right; j += _lon_delta) {\n              rr = self._latLngToCanvasPoint(L.latLng(lat_tick, j));\n              ctx.lineTo(rr.x, rr.y);\n\n              if (self.options.showLabel && label && _prev_p != null) {\n                if (_prev_p.x < 0 && rr.x >= 0) {\n                  var _s = (rr.x - 0) / (rr.x - _prev_p.x);\n\n                  var _y = rr.y - (rr.y - _prev_p.y) * _s;\n\n                  ctx.fillText(latstr, 0, _y + txtHeight / 2);\n                } else if (_prev_p.x <= ww - txtWidth && rr.x > ww - txtWidth) {\n                  var _s = (rr.x - ww) / (rr.x - _prev_p.x);\n\n                  var _y = rr.y - (rr.y - _prev_p.y) * _s;\n\n                  ctx.fillText(latstr, ww - txtWidth, _y + txtHeight / 2 - 2);\n                }\n              }\n\n              _prev_p = {\n                x: rr.x,\n                y: rr.y,\n                lon: j,\n                lat: i\n              };\n            }\n\n            ctx.stroke();\n          } else {\n            var __lon_right = _lon_r;\n\n            var rr = self._latLngToCanvasPoint(L.latLng(lat_tick, __lon_right));\n\n            if (curvedLon) {\n              __lon_right = map.containerPointToLatLng(L.point(0, rr.y));\n              __lon_right = __lon_right.lng;\n              rr = self._latLngToCanvasPoint(L.latLng(lat_tick, __lon_right));\n\n              var __lon_left = map.containerPointToLatLng(L.point(ww, rr.y));\n\n              __lon_left = __lon_left.lng;\n              ll = self._latLngToCanvasPoint(L.latLng(lat_tick, __lon_left));\n            }\n\n            ctx.beginPath();\n            ctx.moveTo(ll.x + 1, ll.y);\n            ctx.lineTo(rr.x - 1, rr.y);\n            ctx.stroke();\n\n            if (self.options.showLabel && label) {\n              var _yy = ll.y + txtHeight / 2 - 2;\n\n              ctx.fillText(latstr, 0, _yy);\n              ctx.fillText(latstr, ww - txtWidth, _yy);\n            }\n          }\n        };\n\n        var __draw_lon_line = function __draw_lon_line(self, lon_tick) {\n          lngstr = self.__format_lng(lon_tick);\n          txtWidth = ctx.measureText(lngstr).width;\n\n          var bb = self._latLngToCanvasPoint(L.latLng(_lat_b, lon_tick));\n\n          if (curvedLon) {\n            if (typeof curvedLon == 'number') {\n              _lat_delta = curvedLon;\n            }\n\n            ctx.beginPath();\n            ctx.moveTo(bb.x, bb.y);\n            var _prev_p = null;\n\n            for (var j = _lat_b; j < _lat_t; j += _lat_delta) {\n              var tt = self._latLngToCanvasPoint(L.latLng(j, lon_tick));\n\n              ctx.lineTo(tt.x, tt.y);\n\n              if (self.options.showLabel && label && _prev_p != null) {\n                if (_prev_p.y > 8 && tt.y <= 8) {\n                  ctx.fillText(lngstr, tt.x - txtWidth / 2, txtHeight);\n                } else if (_prev_p.y >= hh && tt.y < hh) {\n                  ctx.fillText(lngstr, tt.x - txtWidth / 2, hh - 2);\n                }\n              }\n\n              _prev_p = {\n                x: tt.x,\n                y: tt.y,\n                lon: lon_tick,\n                lat: j\n              };\n            }\n\n            ctx.stroke();\n          } else {\n            var __lat_top = _lat_t;\n\n            var tt = self._latLngToCanvasPoint(L.latLng(__lat_top, lon_tick));\n\n            if (curvedLat) {\n              __lat_top = map.containerPointToLatLng(L.point(tt.x, 0));\n              __lat_top = __lat_top.lat;\n\n              if (__lat_top > 90) {\n                __lat_top = 90;\n              }\n\n              tt = self._latLngToCanvasPoint(L.latLng(__lat_top, lon_tick));\n\n              var __lat_bottom = map.containerPointToLatLng(L.point(bb.x, hh));\n\n              __lat_bottom = __lat_bottom.lat;\n\n              if (__lat_bottom < -90) {\n                __lat_bottom = -90;\n              }\n\n              bb = self._latLngToCanvasPoint(L.latLng(__lat_bottom, lon_tick));\n            }\n\n            ctx.beginPath();\n            ctx.moveTo(tt.x, tt.y + 1);\n            ctx.lineTo(bb.x, bb.y - 1);\n            ctx.stroke();\n\n            if (self.options.showLabel && label) {\n              ctx.fillText(lngstr, tt.x - txtWidth / 2, txtHeight + 1);\n              ctx.fillText(lngstr, bb.x - txtWidth / 2, hh - 3);\n            }\n          }\n        };\n\n        if (!this._currLngInterval || !this._currLatInterval) {\n          this.__calcInterval();\n        }\n\n        var latInterval = this._currLatInterval,\n            lngInterval = this._currLngInterval;\n        var ctx = canvas.getContext('2d');\n        ctx.clearRect(0, 0, canvas.width, canvas.height);\n        ctx.lineWidth = this.options.weight;\n        ctx.strokeStyle = this.options.color;\n        ctx.fillStyle = this.options.fontColor;\n        ctx.setLineDash(this.options.dashArray);\n\n        if (this.options.font) {\n          ctx.font = this.options.font;\n        }\n\n        var txtWidth = ctx.measureText('0').width;\n        var txtHeight = 12;\n\n        try {\n          var _font_size = ctx.font.trim().split(' ')[0];\n          txtHeight = _parse_px_to_int(_font_size);\n        } catch (e) {}\n\n        var ww = canvas.width,\n            hh = canvas.height;\n        var lt = map.containerPointToLatLng(L.point(0, 0));\n        var rt = map.containerPointToLatLng(L.point(ww, 0));\n        var rb = map.containerPointToLatLng(L.point(ww, hh));\n        var _lat_b = rb.lat,\n            _lat_t = lt.lat;\n        var _lon_l = lt.lng,\n            _lon_r = rt.lng;\n\n        var _point_per_lat = (_lat_t - _lat_b) / (hh * 0.2);\n\n        if (isNaN(_point_per_lat)) {\n          return;\n        }\n\n        if (_point_per_lat < 1) {\n          _point_per_lat = 1;\n        }\n\n        if (_lat_b < -90) {\n          _lat_b = -90;\n        } else {\n          _lat_b = parseInt(_lat_b - _point_per_lat, 10);\n        }\n\n        if (_lat_t > 90) {\n          _lat_t = 90;\n        } else {\n          _lat_t = parseInt(_lat_t + _point_per_lat, 10);\n        }\n\n        var _point_per_lon = (_lon_r - _lon_l) / (ww * 0.2);\n\n        if (_point_per_lon < 1) {\n          _point_per_lon = 1;\n        }\n\n        if (_lon_l > 0 && _lon_r < 0) {\n          _lon_r += 360;\n        }\n\n        _lon_r = parseInt(_lon_r + _point_per_lon, 10);\n        _lon_l = parseInt(_lon_l - _point_per_lon, 10);\n        var ll,\n            latstr,\n            lngstr,\n            _lon_delta = 0.5;\n        ;\n\n        if (latInterval > 0) {\n          for (var i = latInterval; i <= _lat_t; i += latInterval) {\n            if (i >= _lat_b) {\n              __draw_lat_line(this, i);\n            }\n          }\n\n          for (var i = 0; i >= _lat_b; i -= latInterval) {\n            if (i <= _lat_t) {\n              __draw_lat_line(this, i);\n            }\n          }\n        }\n\n        ;\n\n        if (lngInterval > 0) {\n          for (var i = lngInterval; i <= _lon_r; i += lngInterval) {\n            if (i >= _lon_l) {\n              __draw_lon_line(this, i);\n            }\n          }\n\n          for (var i = 0; i >= _lon_l; i -= lngInterval) {\n            if (i <= _lon_r) {\n              __draw_lon_line(this, i);\n            }\n          }\n        }\n      }\n    },\n    _latLngToCanvasPoint: function _latLngToCanvasPoint(latlng) {\n      var map = this._map;\n      var projectedPoint = map.project(L.latLng(latlng));\n\n      projectedPoint._subtract(map.getPixelOrigin());\n\n      return L.point(projectedPoint).add(map._getMapPanePos());\n    }\n  });\n\n  L.latlngGraticule = function (options) {\n    return new L.LatLngGraticule(options);\n  };\n})(this, document);\n\nL.Path.mergeOptions({\n  // @option dashSpeed: Number\n  // The speed of the dash array, in pixels per second\n  dashSpeed: 0\n});\nvar _originalBeforeAdd = L.Path.prototype.beforeAdd;\nL.Path.include({\n  beforeAdd: function beforeAdd(map) {\n    _originalBeforeAdd.bind(this)(map);\n\n    if (this.options.dashSpeed) {\n      this._lastDashFrame = performance.now();\n      this._dashFrame = L.Util.requestAnimFrame(this._onDashFrame.bind(this));\n    }\n  },\n  _onDashFrame: function _onDashFrame() {\n    if (!this._renderer) {\n      return;\n    }\n\n    var now = performance.now();\n    var dashOffsetDelta = (now - this._lastDashFrame) * this.options.dashSpeed / 1000;\n    this.options.dashOffset = Number(this.options.dashOffset || 0) + dashOffsetDelta;\n\n    this._renderer._updateStyle(this);\n\n    this._lastDashFrame = performance.now();\n    this._dashFrame = L.Util.requestAnimFrame(this._onDashFrame.bind(this));\n  }\n});\n\n//# sourceURL=webpack://tmap/./src/plugins/graticule/L.LatlngGraticule.js?");
 
-window.T = _TMap.default;
+/***/ }),
 
-_TMap.default.createMap('map');
+/***/ "./src/plugins/print/leaflet.browser.print.min.js":
+/*!********************************************************!*\
+  !*** ./src/plugins/print/leaflet.browser.print.min.js ***!
+  \********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
 
-L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png?{foo}', {
-  foo: 'bar'
-}).addTo(_TMap.default.map);
-var bounds = [[54.559322, 20.767822], [56.1210604, 33.021240]]; // create an orange rectangle
+eval("function _typeof(obj) { if (typeof Symbol === \"function\" && typeof Symbol.iterator === \"symbol\") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === \"function\" && obj.constructor === Symbol && obj !== Symbol.prototype ? \"symbol\" : typeof obj; }; } return _typeof(obj); }\n\n/*!\n *\n *  leaflet.browser.print - v1.0.2 (https://github.com/Igor-Vladyka/leaflet.browser.print)\n *  A leaflet plugin which allows users to print the map directly from the browser\n *\n *  MIT (http://www.opensource.org/licenses/mit-license.php)\n *  (c) 2019  Igor Vladyka <igor.vladyka@gmail.com> (https://github.com/Igor-Vladyka/)\n *\n */\n!function (t) {\n  var e = {};\n\n  function r(n) {\n    if (e[n]) return e[n].exports;\n    var i = e[n] = {\n      i: n,\n      l: !1,\n      exports: {}\n    };\n    return t[n].call(i.exports, i, i.exports, r), i.l = !0, i.exports;\n  }\n\n  r.m = t, r.c = e, r.d = function (t, e, n) {\n    r.o(t, e) || Object.defineProperty(t, e, {\n      enumerable: !0,\n      get: n\n    });\n  }, r.r = function (t) {\n    \"undefined\" != typeof Symbol && Symbol.toStringTag && Object.defineProperty(t, Symbol.toStringTag, {\n      value: \"Module\"\n    }), Object.defineProperty(t, \"__esModule\", {\n      value: !0\n    });\n  }, r.t = function (t, e) {\n    if (1 & e && (t = r(t)), 8 & e) return t;\n    if (4 & e && \"object\" == _typeof(t) && t && t.__esModule) return t;\n    var n = Object.create(null);\n    if (r.r(n), Object.defineProperty(n, \"default\", {\n      enumerable: !0,\n      value: t\n    }), 2 & e && \"string\" != typeof t) for (var i in t) {\n      r.d(n, i, function (e) {\n        return t[e];\n      }.bind(null, i));\n    }\n    return n;\n  }, r.n = function (t) {\n    var e = t && t.__esModule ? function () {\n      return t.default;\n    } : function () {\n      return t;\n    };\n    return r.d(e, \"a\", e), e;\n  }, r.o = function (t, e) {\n    return Object.prototype.hasOwnProperty.call(t, e);\n  }, r.p = \"\", r(r.s = 3);\n}([function (t, e) {\n  L.Control.BrowserPrint.Size = {\n    A: {\n      Width: 840,\n      Height: 1188\n    },\n    B: {\n      Width: 1e3,\n      Height: 1414\n    },\n    C: {\n      Width: 916,\n      Height: 1296\n    },\n    D: {\n      Width: 770,\n      Height: 1090\n    },\n    LETTER: {\n      Width: 216,\n      Height: 279\n    },\n    HALFLETTER: {\n      Width: 140,\n      Height: 216\n    },\n    LEGAL: {\n      Width: 216,\n      Height: 356\n    },\n    JUNIORLEGAL: {\n      Width: 127,\n      Height: 203\n    },\n    TABLOID: {\n      Width: 279,\n      Height: 432\n    },\n    LEDGER: {\n      Width: 432,\n      Height: 279\n    }\n  }, L.Control.BrowserPrint.Mode = function (t, e, r, n, i) {\n    if (!t) throw \"Print mode should be specified.\";\n    this.Mode = t, this.Title = e || t, this.PageSize = (r || \"A4\").toUpperCase(), this.PageSeries = -1 != [\"A\", \"B\", \"C\", \"D\"].indexOf(this.PageSize[0]) ? this.PageSize[0] : \"\", this.PageSeriesSize = this.PageSize.substring(this.PageSeries.length), this.Action = n || function (t, e) {\n      return function () {\n        t[\"_print\" + e.Mode](e);\n      };\n    }, this.InvalidateBounds = i;\n  }, L.Control.BrowserPrint.Mode.Landscape = \"Landscape\", L.Control.BrowserPrint.Mode.Portrait = \"Portrait\", L.Control.BrowserPrint.Mode.Auto = \"Auto\", L.Control.BrowserPrint.Mode.Custom = \"Custom\", L.Control.BrowserPrint.Mode.prototype.getPageMargin = function () {\n    var t = this.getPaperSize();\n    return Math.floor((t.Width + t.Height) / 40) + \"mm\";\n  }, L.Control.BrowserPrint.Mode.prototype.getPaperSize = function () {\n    if (this.PageSeries) {\n      var t = L.Control.BrowserPrint.Size[this.PageSeries],\n          e = t.Width,\n          r = t.Height,\n          n = !1;\n      return this.PageSeriesSize && (this.PageSeriesSize = +this.PageSeriesSize, (n = this.PageSeriesSize % 2 == 1) ? (e /= this.PageSeriesSize - 1 || 1, r /= this.PageSeriesSize + 1) : (e /= this.PageSeriesSize, r /= this.PageSeriesSize)), {\n        Width: n ? r : e,\n        Height: n ? e : r\n      };\n    }\n\n    var i = L.Control.BrowserPrint.Size[this.PageSeriesSize];\n    return {\n      Width: i.Width,\n      Height: i.Height\n    };\n  }, L.Control.BrowserPrint.Mode.prototype.getSize = function () {\n    var t = this.getPaperSize(),\n        e = parseInt(this.getPageMargin()),\n        r = function r(t) {\n      return e ? t - 2 * e : t;\n    };\n\n    return t.Width = Math.floor(r(t.Width)) + \"mm\", t.Height = Math.floor(r(t.Height)) + \"mm\", t;\n  }, L.control.browserPrint.mode = function (t, e, r, n, i) {\n    return new L.Control.BrowserPrint.Mode(t, e, r, n, i);\n  }, L.control.browserPrint.mode.portrait = function (t, e, r) {\n    return L.control.browserPrint.mode(L.Control.BrowserPrint.Mode.Portrait, t, e, r, !1);\n  }, L.control.browserPrint.mode.landscape = function (t, e, r) {\n    return L.control.browserPrint.mode(L.Control.BrowserPrint.Mode.Landscape, t, e, r, !1);\n  }, L.control.browserPrint.mode.auto = function (t, e, r) {\n    return L.control.browserPrint.mode(L.Control.BrowserPrint.Mode.Auto, t, e, r, !0);\n  }, L.control.browserPrint.mode.custom = function (t, e, r) {\n    return L.control.browserPrint.mode(L.Control.BrowserPrint.Mode.Custom, t, e, r, !0);\n  };\n}, function (t, e) {\n  L.Control.BrowserPrint.Utils = {\n    _ignoreArray: [],\n    _cloneFactoryArray: [],\n    _cloneRendererArray: [],\n    _knownRenderers: {},\n    cloneOptions: function cloneOptions(t) {\n      var e = {};\n\n      for (var r in t) {\n        var n = t[r];\n        n && n.clone ? e[r] = n.clone() : n && n.onAdd ? e[r] = this.cloneLayer(n) : e[r] = n;\n      }\n\n      return e;\n    },\n    cloneBasicOptionsWithoutLayers: function cloneBasicOptionsWithoutLayers(t) {\n      var e = {},\n          r = Object.getOwnPropertyNames(t);\n\n      if (r.length) {\n        for (var n = 0; n < r.length; n++) {\n          var i = r[n];\n          i && \"layers\" != i && (e[i] = t[i]);\n        }\n\n        return this.cloneOptions(e);\n      }\n\n      return e;\n    },\n    cloneInnerLayers: function cloneInnerLayers(t) {\n      var e = this,\n          r = [];\n      return t.eachLayer(function (t) {\n        var n = e.cloneLayer(t);\n        n && r.push(n);\n      }), r;\n    },\n    initialize: function initialize() {\n      this._knownRenderers = {}, this.registerRenderer(L.SVG, \"L.SVG\"), this.registerRenderer(L.Canvas, \"L.Canvas\"), this.registerLayer(L.TileLayer.WMS, \"L.TileLayer.WMS\", function (t, e) {\n        return L.tileLayer.wms(t._url, e.cloneOptions(t.options));\n      }), this.registerLayer(L.TileLayer, \"L.TileLayer\", function (t, e) {\n        return L.tileLayer(t._url, e.cloneOptions(t.options));\n      }), this.registerLayer(L.GridLayer, \"L.GridLayer\", function (t, e) {\n        return L.gridLayer(e.cloneOptions(t.options));\n      }), this.registerLayer(L.ImageOverlay, \"L.ImageOverlay\", function (t, e) {\n        return L.imageOverlay(t._url, t._bounds, e.cloneOptions(t.options));\n      }), this.registerLayer(L.Marker, \"L.Marker\", function (t, e) {\n        return L.marker(t.getLatLng(), e.cloneOptions(t.options));\n      }), this.registerLayer(L.Popup, \"L.Popup\", function (t, e) {\n        return L.popup(e.cloneOptions(t.options)).setLatLng(t.getLatLng()).setContent(t.getContent());\n      }), this.registerLayer(L.Circle, \"L.Circle\", function (t, e) {\n        return L.circle(t.getLatLng(), t.getRadius(), e.cloneOptions(t.options));\n      }), this.registerLayer(L.CircleMarker, \"L.CircleMarker\", function (t, e) {\n        return L.circleMarker(t.getLatLng(), e.cloneOptions(t.options));\n      }), this.registerLayer(L.Rectangle, \"L.Rectangle\", function (t, e) {\n        return L.rectangle(t.getBounds(), e.cloneOptions(t.options));\n      }), this.registerLayer(L.Polygon, \"L.Polygon\", function (t, e) {\n        return L.polygon(t.getLatLngs(), e.cloneOptions(t.options));\n      }), this.registerLayer(L.MultiPolyline, \"L.MultiPolyline\", function (t, e) {\n        return L.polyline(t.getLatLngs(), e.cloneOptions(t.options));\n      }), this.registerLayer(L.MultiPolygon, \"L.MultiPolygon\", function (t, e) {\n        return L.multiPolygon(t.getLatLngs(), e.cloneOptions(t.options));\n      }), this.registerLayer(L.Polyline, \"L.Polyline\", function (t, e) {\n        return L.polyline(t.getLatLngs(), e.cloneOptions(t.options));\n      }), this.registerLayer(L.GeoJSON, \"L.GeoJSON\", function (t, e) {\n        return L.geoJson(t.toGeoJSON(), e.cloneOptions(t.options));\n      }), this.registerIgnoreLayer(L.FeatureGroup, \"L.FeatureGroup\"), this.registerIgnoreLayer(L.LayerGroup, \"L.LayerGroup\"), this.registerLayer(L.Tooltip, \"L.Tooltip\", function () {\n        return null;\n      });\n    },\n    _register: function _register(t, e, r, n) {\n      e && !t.filter(function (t) {\n        return t.identifier === r;\n      }).length && t.push({\n        type: e,\n        identifier: r,\n        builder: n || function (t) {\n          return new e(t.options);\n        }\n      });\n    },\n    registerLayer: function registerLayer(t, e, r) {\n      this._register(this._cloneFactoryArray, t, e, r);\n    },\n    registerRenderer: function registerRenderer(t, e, r) {\n      this._register(this._cloneRendererArray, t, e, r);\n    },\n    registerIgnoreLayer: function registerIgnoreLayer(t, e) {\n      this._register(this._ignoreArray, t, e);\n    },\n    cloneLayer: function cloneLayer(t) {\n      if (!t) return null;\n\n      var e,\n          r = this.__getRenderer(t);\n\n      return r || ((e = t._group ? this.__getFactoryObject(t._group, !0) : this.__getFactoryObject(t)) && (e = e.builder(t, this)), e);\n    },\n    getType: function getType(t) {\n      if (!t) return null;\n\n      var e = this.__getFactoryObject(t);\n\n      return e && (e = e.identifier), e;\n    },\n    __getRenderer: function __getRenderer(t) {\n      var e = this._knownRenderers[t._leaflet_id];\n\n      if (!e) {\n        for (var r = 0; r < this._cloneRendererArray.length; r++) {\n          var n = this._cloneRendererArray[r];\n\n          if (t instanceof n.type) {\n            this._knownRenderers[t._leaflet_id] = n.builder(t.options);\n            break;\n          }\n        }\n\n        e = this._knownRenderers[t._leaflet_id];\n      }\n\n      return e;\n    },\n    __getFactoryObject: function __getFactoryObject(t, e) {\n      if (!e) for (var r = 0; r < this._ignoreArray.length; r++) {\n        var n = this._ignoreArray[r];\n        if (n.type && t instanceof n.type) return null;\n      }\n\n      for (r = 0; r < this._cloneFactoryArray.length; r++) {\n        if ((i = this._cloneFactoryArray[r]).type && t instanceof i.type) return i;\n      }\n\n      for (r = 0; r < this._cloneRendererArray.length; r++) {\n        var i;\n        if ((i = this._cloneRendererArray[r]).type && t instanceof i.type) return null;\n      }\n\n      return this.__unknownLayer__(), null;\n    },\n    __unknownLayer__: function __unknownLayer__() {\n      console.warn(\"Unknown layer, cannot clone this layer. Leaflet version: \" + L.version), console.info(\"For additional information please refer to documentation on: https://github.com/Igor-Vladyka/leaflet.browser.print.\"), console.info(\"-------------------------------------------------------------------------------------------------------------------\");\n    }\n  };\n}, function (t, e) {\n  L.Control.BrowserPrint = L.Control.extend({\n    options: {\n      title: \"Print map\",\n      documentTitle: \"\",\n      position: \"topleft\",\n      printLayer: null,\n      printModes: [\"Portrait\", \"Landscape\", \"Auto\", \"Custom\"],\n      printTitles: {\n        \"Portrait\": \"竖版\",\n        \"Landscape\": \"横版\",\n        \"Auto\": \"自动\",\n        \"Custom\": \"自定义\"\n      },\n      closePopupsOnPrint: !0,\n      contentSelector: \"[leaflet-browser-print-content]\",\n      pagesSelector: \"[leaflet-browser-print-pages]\",\n      manualMode: !1,\n      customPrintStyle: {\n        color: \"gray\",\n        dashArray: \"5, 10\",\n        pane: \"customPrintPane\"\n      }\n    },\n    onAdd: function onAdd(t) {\n      this.options.customPrintStyle.pane && !t.getPane(this.options.customPrintStyle.pane) && (t.createPane(this.options.customPrintStyle.pane).style.zIndex = 9999);\n      var e = L.DomUtil.create(\"div\", \"leaflet-control-browser-print leaflet-bar leaflet-control\");\n      return L.DomEvent.disableClickPropagation(e), this._appendControlStyles(e), this.options.printModes.length > 1 ? (L.DomEvent.addListener(e, \"mouseover\", this._displayPageSizeButtons, this), L.DomEvent.addListener(e, \"mouseout\", this._hidePageSizeButtons, this)) : e.style.cursor = \"pointer\", this.options.position.indexOf(\"left\") > 0 ? (this._createIcon(e), this._createMenu(e)) : (this._createMenu(e), this._createIcon(e)), t.printControl = this, e;\n    },\n    _createIcon: function _createIcon(t) {\n      return this.__link__ = L.DomUtil.create(\"a\", \"\", t), this.__link__.className = \"leaflet-browser-print\", this.options.title && (this.__link__.title = this.options.title), this.__link__;\n    },\n    _createMenu: function _createMenu(t) {\n      for (var e = [], r = 0; r < this.options.printModes.length; r++) {\n        var n = this.options.printModes[r];\n\n        if (n.length) {\n          var i = n[0].toUpperCase() + n.substring(1).toLowerCase();\n          n = L.control.browserPrint.mode[n.toLowerCase()](this._getDefaultTitle(i));\n        } else if (!(n instanceof L.Control.BrowserPrint.Mode)) throw \"Invalid Print Mode. Can't construct logic to print current map.\";\n\n        1 == this.options.printModes.length ? n.Element = t : (n.Element = L.DomUtil.create(\"li\", \"browser-print-mode\", L.DomUtil.create(\"ul\", \"browser-print-holder\", t)), n.Element.innerHTML = this.options.printTitles[n.Title]), L.DomEvent.addListener(n.Element, \"click\", n.Action(this, n), this), e.push(n);\n      }\n\n      this.options.printModes = e;\n    },\n    _getDefaultTitle: function _getDefaultTitle(t) {\n      return this.options.printModesNames && this.options.printModesNames[t] || t;\n    },\n    _displayPageSizeButtons: function _displayPageSizeButtons() {\n      this.options.position.indexOf(\"left\") > 0 ? (this.__link__.style.borderTopRightRadius = \"0px\", this.__link__.style.borderBottomRightRadius = \"0px\") : (this.__link__.style.borderTopLeftRadius = \"0px\", this.__link__.style.borderBottomLeftRadius = \"0px\"), this.options.printModes.forEach(function (t) {\n        t.Element.style.display = \"inline-block\";\n      });\n    },\n    _hidePageSizeButtons: function _hidePageSizeButtons() {\n      this.options.position.indexOf(\"left\") > 0 ? (this.__link__.style.borderTopRightRadius = \"\", this.__link__.style.borderBottomRightRadius = \"\") : (this.__link__.style.borderTopLeftRadius = \"\", this.__link__.style.borderBottomLeftRadius = \"\"), this.options.printModes.forEach(function (t) {\n        t.Element.style.display = \"\";\n      });\n    },\n    _getMode: function _getMode(t, e) {\n      return new L.control.browserPrint.mode(t, e.Title, e.PageSize, e.Action, e.InvalidateBounds);\n    },\n    _printLandscape: function _printLandscape(t) {\n      this._addPrintClassToContainer(this._map, \"leaflet-browser-print--landscape\"), this._print(t);\n    },\n    _printPortrait: function _printPortrait(t) {\n      this._addPrintClassToContainer(this._map, \"leaflet-browser-print--portrait\"), this._print(t);\n    },\n    _printAuto: function _printAuto(t) {\n      this._addPrintClassToContainer(this._map, \"leaflet-browser-print--auto\");\n\n      var e = this._getBoundsForAllVisualLayers(),\n          r = this._getPageSizeFromBounds(e);\n\n      this._print(this._getMode(r, t), e);\n    },\n    _printCustom: function _printCustom(t) {\n      this._addPrintClassToContainer(this._map, \"leaflet-browser-print--custom\"), this.options.custom = {\n        mode: t\n      }, this._map.on(\"mousedown\", this._startAutoPoligon, this);\n    },\n    _addPrintClassToContainer: function _addPrintClassToContainer(t, e) {\n      var r = t.getContainer();\n      -1 === r.className.indexOf(e) && (r.className += \" \" + e);\n    },\n    _removePrintClassFromContainer: function _removePrintClassFromContainer(t, e) {\n      var r = t.getContainer();\n      r.className && r.className.indexOf(e) > -1 && (r.className = r.className.replace(\" \" + e, \"\"));\n    },\n    _startAutoPoligon: function _startAutoPoligon(t) {\n      t.originalEvent.preventDefault(), t.originalEvent.stopPropagation(), this._map.dragging.disable(), this.options.custom.start = t.latlng, this._map.off(\"mousedown\", this._startAutoPoligon, this), this._map.on(\"mousemove\", this._moveAutoPoligon, this), this._map.on(\"mouseup\", this._endAutoPoligon, this);\n    },\n    _moveAutoPoligon: function _moveAutoPoligon(t) {\n      this.options.custom && (t.originalEvent.preventDefault(), t.originalEvent.stopPropagation(), this.options.custom.rectangle ? this.options.custom.rectangle.setBounds(L.latLngBounds(this.options.custom.start, t.latlng)) : (this.options.custom.rectangle = L.rectangle([this.options.custom.start, t.latlng], this.options.customPrintStyle), this.options.custom.rectangle.addTo(this._map)));\n    },\n    _endAutoPoligon: function _endAutoPoligon(t) {\n      if (t.originalEvent.preventDefault(), t.originalEvent.stopPropagation(), this._map.off(\"mousemove\", this._moveAutoPoligon, this), this._map.off(\"mouseup\", this._endAutoPoligon, this), this._map.dragging.enable(), this.options.custom && this.options.custom.rectangle) {\n        var e = this.options.custom.rectangle.getBounds();\n\n        this._map.removeLayer(this.options.custom.rectangle);\n\n        var r = this._getPageSizeFromBounds(e);\n\n        this._print(this._getMode(r, this.options.custom.mode), e), delete this.options.custom;\n      } else this._clearPrint();\n    },\n    _getPageSizeFromBounds: function _getPageSizeFromBounds(t) {\n      return Math.abs(t.getNorth() - t.getSouth()) > Math.abs(t.getEast() - t.getWest()) ? \"Portrait\" : \"Landscape\";\n    },\n    _setupPrintPagesWidth: function _setupPrintPagesWidth(t, e, r) {\n      t.style.width = \"Landscape\" === r ? e.Height : e.Width;\n    },\n    _setupPrintMapHeight: function _setupPrintMapHeight(t, e, r) {\n      t.style.height = \"Landscape\" === r ? e.Width : e.Height;\n    },\n    cancel: function cancel(t) {\n      this.cancelNextPrinting = t;\n    },\n    print: function print(t, e) {\n      this._print(this._getMode(t.Mode, t), e);\n    },\n    _print: function _print(t, e) {\n      this._map.fire(L.Control.BrowserPrint.Event.PrintInit, {\n        mode: t\n      }), L.Control.BrowserPrint.Utils.initialize();\n\n      var r = this,\n          n = this._map.getContainer(),\n          i = t.Mode,\n          o = {\n        bounds: e || this._map.getBounds(),\n        width: n.style.width,\n        height: n.style.height,\n        documentTitle: document.title,\n        printLayer: L.Control.BrowserPrint.Utils.cloneLayer(this.options.printLayer),\n        panes: []\n      },\n          s = this._map.getPanes();\n\n      for (var a in s) {\n        o.panes.push({\n          name: a,\n          container: void 0\n        });\n      }\n\n      if (o.printObjects = this._getPrintObjects(o.printLayer), this._map.fire(L.Control.BrowserPrint.Event.PrePrint, {\n        printLayer: o.printLayer,\n        printObjects: o.printObjects,\n        pageOrientation: i,\n        printMode: t.Mode,\n        pageBounds: o.bounds\n      }), this.cancelNextPrinting) delete this.cancelNextPrinting;else {\n        var l = this._addPrintMapOverlay(t.PageSize, t.getPageMargin(), t.getSize(), i, o);\n\n        this.options.documentTitle && (document.title = this.options.documentTitle), this._map.fire(L.Control.BrowserPrint.Event.PrintStart, {\n          printLayer: o.printLayer,\n          printMap: l.map,\n          printObjects: l.objects\n        }), t.InvalidateBounds ? (l.map.fitBounds(o.bounds), l.map.invalidateSize({\n          reset: !0,\n          animate: !1,\n          pan: !1\n        })) : l.map.setView(this._map.getCenter(), this._map.getZoom());\n        var p = setInterval(function () {\n          r._isTilesLoading(l.map) || (clearInterval(p), r.options.manualMode ? r._setupManualPrintButton(l.map, o, l.objects) : r._completePrinting(l.map, o, l.objects));\n        }, 50);\n      }\n    },\n    _completePrinting: function _completePrinting(t, e, r) {\n      var n = this;\n      setTimeout(function () {\n        n._map.fire(L.Control.BrowserPrint.Event.Print, {\n          printLayer: e.printLayer,\n          printMap: t,\n          printObjects: r\n        });\n\n        var i = window.print();\n        i ? Promise.all([i]).then(function () {\n          n._printEnd(e), n._map.fire(L.Control.BrowserPrint.Event.PrintEnd, {\n            printLayer: e.printLayer,\n            printMap: t,\n            printObjects: r\n          });\n        }) : (n._printEnd(e), n._map.fire(L.Control.BrowserPrint.Event.PrintEnd, {\n          printLayer: e.printLayer,\n          printMap: t,\n          printObjects: r\n        }));\n      }, 1e3);\n    },\n    _getBoundsForAllVisualLayers: function _getBoundsForAllVisualLayers() {\n      var t = null;\n\n      for (var e in this._map._layers) {\n        var r = this._map._layers[e];\n        r._url || r._mutant || (t ? r.getBounds ? t.extend(r.getBounds()) : r.getLatLng && t.extend(r.getLatLng()) : r.getBounds ? t = r.getBounds() : r.getLatLng && (t = L.latLngBounds(r.getLatLng(), r.getLatLng())));\n      }\n\n      return t || (t = this._map.getBounds()), t;\n    },\n    _clearPrint: function _clearPrint() {\n      this._removePrintClassFromContainer(this._map, \"leaflet-browser-print--landscape\"), this._removePrintClassFromContainer(this._map, \"leaflet-browser-print--portrait\"), this._removePrintClassFromContainer(this._map, \"leaflet-browser-print--auto\"), this._removePrintClassFromContainer(this._map, \"leaflet-browser-print--custom\");\n    },\n    _printEnd: function _printEnd(t) {\n      this._clearPrint(), document.body.removeChild(this.__overlay__), this.__overlay__ = null, document.body.className = document.body.className.replace(\" leaflet--printing\", \"\"), this.options.documentTitle && (document.title = t.documentTitle), this._map.invalidateSize({\n        reset: !0,\n        animate: !1,\n        pan: !1\n      });\n    },\n    _getPrintObjects: function _getPrintObjects(t) {\n      var e = {};\n\n      for (var r in this._map._layers) {\n        var n = this._map._layers[r];\n\n        if (!t || !n._url || n instanceof L.TileLayer.WMS) {\n          var i = L.Control.BrowserPrint.Utils.getType(n);\n          i && (e[i] || (e[i] = []), e[i].push(n));\n        }\n      }\n\n      return e;\n    },\n    _addPrintCss: function _addPrintCss(t, e, r) {\n      var n = document.createElement(\"style\");\n\n      switch (n.className = \"leaflet-browser-print-css\", n.setAttribute(\"type\", \"text/css\"), n.innerHTML = \" @media print {.header{font-size:50px;font-weight:bold} .leaflet-popup-content-wrapper, .leaflet-popup-tip { box-shadow: none; }\", n.innerHTML += \" .leaflet-browser-print--manualMode-button { display: none; }\", n.innerHTML += \" * { -webkit-print-color-adjust: exact!important; printer-colors: exact!important; color-adjust: exact!important; }\", e && (n.innerHTML += \" @page { margin: \" + e + \"; }\"), n.innerHTML += \" @page :first { page-break-after: always; }\", r) {\n        case \"Landscape\":\n          n.innerText += \" @page { size : \" + t + \" landscape; }\";\n          break;\n\n        default:\n        case \"Portrait\":\n          n.innerText += \" @page { size : \" + t + \" portrait; }\";\n      }\n\n      return n;\n    },\n    _appendControlStyles: function _appendControlStyles(t) {\n      var e = document.createElement(\"style\");\n      e.setAttribute(\"type\", \"text/css\"), e.innerHTML += \" .leaflet-control-browser-print { display: flex;margin-right:20px !important;margin-top:150px!important } .leaflet-control-browser-print a {  width:30px !important;height:30px !important; background: #fff url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH3gcCCi8Vjp+aNAAAAGhJREFUOMvFksENgDAMA68RC7BBN+Cf/ZU33QAmYAT6BolAGxB+RrrIsg1BpfNBVXcPMLMDI/ytpKozMHWwK7BJJ7yYWQbGdBea9wTIkRDzKy0MT7r2NiJACRgotCzxykFI34QY2Ea7KmtxGJ+uX4wfAAAAAElFTkSuQmCC') no-repeat 5px; background-position:center;background-size: 16px 16px; display: block; border-radius: 2px; }\", e.innerHTML += \"\", e.innerHTML += \" .browser-print-holder { margin: 0px; padding: 0px; list-style: none; white-space: nowrap; } .browser-print-holder-left li:last-child { border-top-right-radius: 2px; border-bottom-right-radius: 2px; } .browser-print-holder-right li:first-child { border-top-left-radius: 2px; border-bottom-left-radius: 2px; }\", e.innerHTML += \" .browser-print-mode { display: none; background-color: #ffffff; color: #444; font: 11px/19px 'Helvetica Neue', Arial, Helvetica, sans-serif; text-decoration: none; padding: 4px 10px; text-align: center; } .browser-print-mode { padding: 6px 10px; } .browser-print-mode:hover { background-color: #dddddd; cursor: pointer; }\", e.innerHTML += \" .leaflet-browser-print--custom, .leaflet-browser-print--custom path { cursor: crosshair!important; }\", e.innerHTML += \" .leaflet-print-overlay { width: 100%; height:auto; min-height: 100%; position: absolute; top: 0; background-color: white!important; left: 0; z-index: 1001; display: block!important; } \", e.innerHTML += \" .leaflet--printing { height:auto; min-height: 100%; margin: 0px!important; padding: 0px!important; } body.leaflet--printing > * { display: none; box-sizing: border-box; }\", e.innerHTML += \" .grid-print-container { grid-template: 1fr / 1fr; box-sizing: border-box; } .grid-map-print { grid-row: 1; grid-column: 1; } body.leaflet--printing .grid-print-container [leaflet-browser-print-content]:not(style) { display: unset!important; }\", e.innerHTML += \" .pages-print-container { box-sizing: border-box; }\", t.appendChild(e);\n    },\n    _setupManualPrintButton: function _setupManualPrintButton(t, e, r) {\n      var n = document.createElement(\"button\");\n      n.className = \"leaflet-browser-print--manualMode-button\", n.innerHTML = \"Print\", n.style.position = \"absolute\", n.style.top = \"20px\", n.style.right = \"20px\", this.__overlay__.appendChild(n);\n      var i = this;\n      L.DomEvent.addListener(n, \"click\", function () {\n        i._completePrinting(t, e, r);\n      });\n    },\n    _addPrintMapOverlay: function _addPrintMapOverlay(t, e, r, n, i) {\n      this.__overlay__ = document.createElement(\"div\"), this.__overlay__.className = this._map.getContainer().className + \" leaflet-print-overlay\", document.body.appendChild(this.__overlay__), this.__overlay__.appendChild(this._addPrintCss(t, e, n));\n      var o = document.createElement(\"div\");\n\n      if (o.className = \"grid-print-container\", o.style.width = \"100%\", o.style.display = \"grid\", this._setupPrintMapHeight(o, r, n), this.options.contentSelector) {\n        var s = document.querySelectorAll(this.options.contentSelector);\n        if (s && s.length) for (var a = 0; a < s.length; a++) {\n          var l = s[a].cloneNode(!0);\n          o.appendChild(l);\n        }\n      }\n\n      if (this.options.pagesSelector && document.querySelectorAll(this.options.pagesSelector).length) {\n        var p = document.createElement(\"div\");\n        p.className = \"pages-print-container\", p.style.margin = \"0!important\", this._setupPrintPagesWidth(p, r, n), this.__overlay__.appendChild(p), p.appendChild(o);\n        var c = document.querySelectorAll(this.options.pagesSelector);\n        if (c && c.length) for (a = 0; a < c.length; a++) {\n          var u = c[a].cloneNode(!0);\n          p.appendChild(u);\n        }\n      } else this._setupPrintPagesWidth(o, r, n), this.__overlay__.appendChild(o);\n\n      var d = document.createElement(\"div\");\n      d.id = this._map.getContainer().id + \"-print\", d.className = \"grid-map-print\", d.style.width = \"100%\", d.style.height = \"100%\", o.appendChild(d), document.body.className += \" leaflet--printing\";\n      var h = L.Control.BrowserPrint.Utils.cloneBasicOptionsWithoutLayers(this._map.options);\n      return h.maxZoom = this._map.getMaxZoom(), this._setupPrintMap(d.id, h, i.printLayer, i.printObjects, i.panes);\n    },\n    _setupPrintMap: function _setupPrintMap(t, e, r, n, i) {\n      e.zoomControl = !1, e.dragging = !1, e.zoomAnimation = !1, e.fadeAnimation = !1, e.markerZoomAnimation = !1, e.keyboard = !1, e.scrollWheelZoom = !1, e.tap = !1, e.touchZoom = !1;\n      var o = L.map(t, e);\n\n      for (var s in r && r.addTo(o), i.forEach(function (t) {\n        o.createPane(t.name, t.container);\n      }), n) {\n        var a = this.options.closePopupsOnPrint;\n        n[s] = n[s].map(function (t) {\n          var e = L.Control.BrowserPrint.Utils.cloneLayer(t);\n\n          if (e) {\n            if (t instanceof L.Popup ? (t.isOpen || (t.isOpen = function () {\n              return this._isOpen;\n            }), t.isOpen() && !a && e.openOn(o)) : e.addTo(o), t instanceof L.Layer) {\n              var r = t.getTooltip();\n              r && (e.bindTooltip(r.getContent(), r.options), t.isTooltipOpen() && e.openTooltip(r.getLatLng()));\n            }\n\n            return e;\n          }\n        });\n      }\n\n      return {\n        map: o,\n        objects: n\n      };\n    },\n    _isTilesLoading: function _isTilesLoading(t) {\n      return parseFloat(L.version) > 1 ? this._getLoadingLayers(t) : t._tilesToLoad || t._tileLayersToLoad;\n    },\n    _getLoadingLayers: function _getLoadingLayers(t) {\n      for (var e in t._layers) {\n        var r = t._layers[e];\n        if ((r._url || r._mutant) && r._loading) return !0;\n      }\n\n      return !1;\n    }\n  }), L.Control.BrowserPrint.Event = {\n    PrintInit: \"browser-print-init\",\n    PrePrint: \"browser-pre-print\",\n    PrintStart: \"browser-print-start\",\n    Print: \"browser-print\",\n    PrintEnd: \"browser-print-end\"\n  }, L.control.browserPrint = function (t) {\n    if (t && t.printModes || ((t = t || {}).printModes = [L.control.browserPrint.mode.portrait(), L.control.browserPrint.mode.landscape(), L.control.browserPrint.mode.auto(), L.control.browserPrint.mode.custom()]), t && t.printModes && (!t.printModes.filter || !t.printModes.length)) throw \"Please specify valid print modes for Print action. Example: printModes: [L.control.browserPrint.mode.portrait(), L.control.browserPrint.mode.auto('Automatico'), 'Custom']\";\n    return t.printModesNames && console.warn(\"'printModesNames' option is obsolete. Please use 'L.control.browserPrint.mode.*(/*Title*/)' shortcut instead. Please check latest release and documentation.\"), new L.Control.BrowserPrint(t);\n  };\n}, function (t, e, r) {\n  r(2), r(1), t.exports = r(0);\n}]);\n\n//# sourceURL=webpack://tmap/./src/plugins/print/leaflet.browser.print.min.js?");
 
-var s = _TMap.default.rectangle(bounds, {
-  color: '#ff7800',
-  weight: 1
-}).addTo(_TMap.default.map);
+/***/ }),
 
-window.s = s; // zoom the map to the rectangle bounds
+/***/ "./src/plugins/scalebar/L.Control.BetterScale.css":
+/*!********************************************************!*\
+  !*** ./src/plugins/scalebar/L.Control.BetterScale.css ***!
+  \********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
 
-_TMap.default.map.fitBounds(bounds);
+eval("var api = __webpack_require__(/*! ../../../node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js */ \"./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js\");\n            var content = __webpack_require__(/*! !../../../node_modules/css-loader/dist/cjs.js!./L.Control.BetterScale.css */ \"./node_modules/css-loader/dist/cjs.js!./src/plugins/scalebar/L.Control.BetterScale.css\");\n\n            content = content.__esModule ? content.default : content;\n\n            if (typeof content === 'string') {\n              content = [[module.i, content, '']];\n            }\n\nvar options = {};\n\noptions.insert = \"head\";\noptions.singleton = false;\n\nvar update = api(module.i, content, options);\n\nvar exported = content.locals ? content.locals : {};\n\n\n\nmodule.exports = exported;\n\n//# sourceURL=webpack://tmap/./src/plugins/scalebar/L.Control.BetterScale.css?");
 
-_TMap.default.map.addControl(_TMap.default.controls.zoom());
+/***/ }),
 
-console.log(s);
-console.log(_TMap.default);
+/***/ "./src/plugins/scalebar/L.Control.BetterScale.js":
+/*!*******************************************************!*\
+  !*** ./src/plugins/scalebar/L.Control.BetterScale.js ***!
+  \*******************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+eval("L.Control.BetterScale = L.Control.extend({\n  options: {\n    position: \"bottomleft\",\n    maxWidth: 150,\n    metric: !1,\n    imperial: !0,\n    updateWhenIdle: !1\n  },\n  onAdd: function onAdd(t) {\n    this._map = t;\n    var e = \"leaflet-control-better-scale\",\n        i = L.DomUtil.create(\"div\", e),\n        n = this.options,\n        s = L.DomUtil.create(\"div\", e + \"-ruler\", i);\n    L.DomUtil.create(\"div\", e + \"-ruler-block \" + e + \"-upper-first-piece\", s), L.DomUtil.create(\"div\", e + \"-ruler-block \" + e + \"-upper-second-piece\", s), L.DomUtil.create(\"div\", e + \"-ruler-block \" + e + \"-lower-first-piece\", s), L.DomUtil.create(\"div\", e + \"-ruler-block \" + e + \"-lower-second-piece\", s);\n    return this._addScales(n, e, i), this.ScaleContainer = i, t.on(n.updateWhenIdle ? \"moveend\" : \"move\", this._update, this), t.whenReady(this._update, this), i;\n  },\n  onRemove: function onRemove(t) {\n    t.off(this.options.updateWhenIdle ? \"moveend\" : \"move\", this._update, this);\n  },\n  _addScales: function _addScales(t, e, i) {\n    this._iScale = L.DomUtil.create(\"div\", e + \"-label-div\", i), this._iScaleLabel = L.DomUtil.create(\"div\", e + \"-label\", this._iScale), this._iScaleFirstNumber = L.DomUtil.create(\"div\", e + \"-label \" + e + \"-first-number\", this._iScale), this._iScaleSecondNumber = L.DomUtil.create(\"div\", e + \"-label \" + e + \"-second-number\", this._iScale);\n  },\n  _update: function _update() {\n    var t = this._map.getBounds(),\n        e = t.getCenter().lat,\n        i = 6378137 * Math.PI * Math.cos(e * Math.PI / 180),\n        n = i * (t.getNorthEast().lng - t.getSouthWest().lng) / 180,\n        o = this._map.getSize(),\n        s = this.options,\n        a = 0;\n\n    o.x > 0 && (a = n * (s.maxWidth / o.x)), this._updateScales(s, a);\n  },\n  _updateScales: function _updateScales(t, e) {\n    t.metric && e && this._updateMetric(e), t.imperial && e && this._updateImperial(e);\n  },\n  _updateMetric_old: function _updateMetric_old(t) {\n    var e = this._getRoundNum(t);\n\n    this._iScale.style.width = this._getScaleWidth(e / t) + \"px\", this._iScaleLabel.innerHTML = 1e3 > e ? e + \" m\" : e / 1e3 + \" km\";\n  },\n  _updateMetric: function _updateMetric(t) {\n    var e,\n        i,\n        n,\n        o,\n        s,\n        a = t,\n        r = this._iScaleFirstNumber,\n        h = this._iScaleSecondNumber,\n        l = this._iScale,\n        u = this._iScaleLabel;\n    u.innerHTML = \"0\", a > 500 ? (e = a / 1000, i = this._getRoundNum(e), o = this._getRoundNum(e / 2), l.style.width = this._getScaleWidth(i / e) + \"px\", r.innerHTML = o, h.innerHTML = i + \"km\") : (n = this._getRoundNum(a), s = this._getRoundNum(a / 2), l.style.width = this._getScaleWidth(n / a) + \"px\", r.innerHTML = s, h.innerHTML = n + \"m\");\n  },\n  _updateImperial: function _updateImperial(t) {\n    var e,\n        i,\n        n,\n        o,\n        s,\n        a = 3.2808399 * t,\n        r = this._iScaleFirstNumber,\n        h = this._iScaleSecondNumber,\n        l = this._iScale,\n        u = this._iScaleLabel;\n    u.innerHTML = \"0\", a > 2640 ? (e = a / 5280, i = this._getRoundNum(e), o = this._getRoundNum(e / 2), l.style.width = this._getScaleWidth(i / e) + \"px\", r.innerHTML = o, h.innerHTML = i + \"mi\") : (n = this._getRoundNum(a), s = this._getRoundNum(a / 2), l.style.width = this._getScaleWidth(n / a) + \"px\", r.innerHTML = s, h.innerHTML = n + \"ft\");\n  },\n  _getScaleWidth: function _getScaleWidth(t) {\n    return Math.round(this.options.maxWidth * t) - 10;\n  },\n  _getRoundNum: function _getRoundNum(t) {\n    if (t >= 2) {\n      var e = Math.pow(10, (Math.floor(t) + \"\").length - 1),\n          i = t / e;\n      return i = i >= 10 ? 10 : i >= 5 ? 5 : i >= 3 ? 3 : i >= 2 ? 2 : 1, e * i;\n    }\n\n    return (Math.round(100 * t) / 100).toFixed(1);\n  }\n});\n\nL.control.betterscale = function (options) {\n  return new L.Control.BetterScale(options);\n};\n\n//# sourceURL=webpack://tmap/./src/plugins/scalebar/L.Control.BetterScale.js?");
 
 /***/ })
 
 /******/ });
 });
-//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly90bWFwL3dlYnBhY2svdW5pdmVyc2FsTW9kdWxlRGVmaW5pdGlvbiIsIndlYnBhY2s6Ly90bWFwL3dlYnBhY2svYm9vdHN0cmFwIiwid2VicGFjazovL3RtYXAvLi9zcmMvY29tcG9uZW50L01hcE9wdGlvbi5qcyIsIndlYnBhY2s6Ly90bWFwLy4vc3JjL2NvbXBvbmVudC9UQ2lyY2xlLmpzIiwid2VicGFjazovL3RtYXAvLi9zcmMvY29tcG9uZW50L1RDaXJjbGVNYXJrZXIuanMiLCJ3ZWJwYWNrOi8vdG1hcC8uL3NyYy9jb21wb25lbnQvVFBhdGguanMiLCJ3ZWJwYWNrOi8vdG1hcC8uL3NyYy9jb21wb25lbnQvVFBvbHlnb24uanMiLCJ3ZWJwYWNrOi8vdG1hcC8uL3NyYy9jb21wb25lbnQvVFBvbHlsaW5lLmpzIiwid2VicGFjazovL3RtYXAvLi9zcmMvY29tcG9uZW50L1RSZWN0YW5nbGUuanMiLCJ3ZWJwYWNrOi8vdG1hcC8uL3NyYy9jb21wb25lbnQvVmVjdG9yT3B0UHJveHkuanMiLCJ3ZWJwYWNrOi8vdG1hcC8uL3NyYy9jb250cm9scy9ab29tLmpzIiwid2VicGFjazovL3RtYXAvLi9zcmMvY29yZS9Db250cm9sTWFuYWdlci5qcyIsIndlYnBhY2s6Ly90bWFwLy4vc3JjL2NvcmUvVE1hcC5qcyIsIndlYnBhY2s6Ly90bWFwLy4vc3JjL2luZGV4LmpzIl0sIm5hbWVzIjpbIm9wdGlvbnMiLCJjcnMiLCJMIiwiQ1JTIiwiRVBTRzM4NTciLCJjZW50ZXIiLCJ6b29tIiwiYm94Wm9vbSIsImRvdWJsZUNsaWNrWm9vbSIsIm1pblpvb20iLCJtYXhab29tIiwibGF5ZXJzIiwibWF4Qm91bmRzIiwidW5kZWZpbmVkIiwicmVuZGVyZXIiLCJzdmciLCJhdHRyaWJ1dGlvbkNvbnRyb2wiLCJ6b29tQ29udHJvbCIsInpvb21BbmltYXRpb24iLCJ6b29tQW5pbWF0aW9uVGhyZXNob2xkIiwiZmFkZUFuaW1hdGlvbiIsIm1hcmtlclpvb21BbmltYXRpb24iLCJ0cmFuc2Zvcm0zRExpbWl0Iiwiem9vbVNuYXAiLCJ6b29tRGVsdGEiLCJ0cmFja1Jlc2l6ZSIsIm1heEJvdW5kc1Zpc2Nvc2l0eSIsImNsb3NlUG9wdXBPbkNsaWNrIiwiTWFwT3B0aW9uIiwiUHJveHkiLCJnZXQiLCJ0YXJnZXQiLCJrZXkiLCJyZWNlaXZlciIsIlJlZmxlY3QiLCJzZXQiLCJwIiwidmFsdWUiLCJjaXJjbGVPcHRpb24iLCJyYWRpdXMiLCJ0IiwiT2JqZWN0IiwiYXNzaWduIiwiZmlsbCIsImNpcmNsZVByb3h5IiwibGF5ZXIiLCJjaXJjbGUiLCJnZW8iLCJvcHQiLCJUZSIsIiRvcHRpb25zIiwibWFwIiwiYWRkTGF5ZXIiLCJjTWFya2VyT3B0aW9uIiwiY2lyY2xlTWFya2VyUHJveHkiLCJjaXJjbGVNYXJrZXIiLCJwYXRoT3B0aW9uIiwic3Ryb2tlIiwiY29sb3IiLCJ3ZWlnaHQiLCJvcGFjaXR5IiwibGluZUNhcCIsImxpbmVKb2luIiwiZGFzaEFycmF5IiwiZGFzaE9mZnNldCIsImZpbGxDb2xvciIsImZpbGxPcGFjaXR5IiwiZmlsbFJ1bGUiLCJidWJibGluZ01vdXNlRXZlbnRzIiwiY2xhc3NOYW1lIiwiaW50ZXJhY3RpdmUiLCJwYW5lIiwiYXR0cmlidXRpb24iLCJwb2x5Z29uT3B0aW9uIiwic21vb3RoRmFjdG9yIiwibm9DbGlwIiwicG9seWdvblByb3h5IiwicG9seWdvbiIsInBvbHlsaW5lT3B0aW9uIiwicG9seWxpbmVQcm94eSIsInBvbHlsaW5lIiwicmVjdGFuZ2xlT3B0aW9uIiwicmVjdGFuZ2xlUHJveHkiLCJyZWN0YW5nbGUiLCJvcHRpb25GaWxsIiwic291cmNlIiwidGVtcGxhdGUiLCJ0ZW1wIiwiSlNPTiIsInBhcnNlIiwic3RyaW5naWZ5IiwiaGFzT3duUHJvcGVydHkiLCJyZXNldFN0eWxlSGFuZGxlciIsImhhbmRsZXIiLCJhcHBseSIsIl90aGlzIiwiYXJncyIsInJlc3VsdCIsImFyZ3VtZW50cyIsInJlZHJhdyIsImhhbmRsZXJMYXllciIsIm9wdGlvbiIsInNldFN0eWxlIiwiem9vbU9wdCIsInNob3ciLCJhY3RpdmF0ZSIsInBvc2l0aW9uIiwiem9vbUluVGV4dCIsInpvb21JblRpdGxlIiwiem9vbU91dFRleHQiLCJ6b29tT3V0VGl0bGUiLCJUeiIsImNvbnRyb2wiLCJfX3Byb3RvX18iLCJfY29udGFpbmVyIiwic3R5bGUiLCJkaXNwbGF5IiwiaGlkZSIsImNvbnRyb2xzIiwiZHJhd2VyIiwic2NhbGVCYXIiLCJncmF0aWN1bGUiLCJwcmludGVyIiwiY3RzIiwiaW5pdCIsImFkZENvbnRyb2wiLCJhcmdBcnJheSIsImxlbmd0aCIsImN0IiwiX2xlYWZsZXRfaWQiLCJyZW1vdmVDb250cm9sIiwidHlwZSIsImsiLCJ0bXBDdCIsImhpZGVBbGwiLCJzaG93QWxsIiwiVCIsIm1hcmtlciIsImNyZWF0ZU1hcCIsImRvbSIsIndpbmRvdyIsInRpbGVMYXllciIsImZvbyIsImFkZFRvIiwiYm91bmRzIiwicyIsImZpdEJvdW5kcyIsImNvbnNvbGUiLCJsb2ciXSwibWFwcGluZ3MiOiJBQUFBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBLENBQUM7QUFDRCxPO0FDVkE7QUFDQTs7QUFFQTtBQUNBOztBQUVBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBOztBQUVBO0FBQ0E7O0FBRUE7QUFDQTs7QUFFQTtBQUNBO0FBQ0E7OztBQUdBO0FBQ0E7O0FBRUE7QUFDQTs7QUFFQTtBQUNBO0FBQ0E7QUFDQSxrREFBMEMsZ0NBQWdDO0FBQzFFO0FBQ0E7O0FBRUE7QUFDQTtBQUNBO0FBQ0EsZ0VBQXdELGtCQUFrQjtBQUMxRTtBQUNBLHlEQUFpRCxjQUFjO0FBQy9EOztBQUVBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQSxpREFBeUMsaUNBQWlDO0FBQzFFLHdIQUFnSCxtQkFBbUIsRUFBRTtBQUNySTtBQUNBOztBQUVB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Ozs7Ozs7Ozs7Ozs7O0FDNUJmOzs7O0FBRUFJLE1BQU0sQ0FBQ0osQ0FBUDs7QUFDQSxjQUFFRSxTQUFGLENBQVksS0FBWjs7QUFDQXhJLENBQUMsQ0FBQzJJLFNBQUYsQ0FBWSwwREFBWixFQUF3RTtBQUFDQyxLQUFHLEVBQUU7QUFBTixDQUF4RSxFQUFzRkMsS0FBdEYsQ0FBNEYsY0FBRTVGLEdBQTlGO0FBQ0EsSUFBSTZGLE1BQU0sR0FBRyxDQUFDLENBQUMsU0FBRCxFQUFZLFNBQVosQ0FBRCxFQUF5QixDQUFDLFVBQUQsRUFBYSxTQUFiLENBQXpCLENBQWIsQyxDQUNBOztBQUNBLElBQUlDLENBQUMsR0FBRyxjQUFFOUQsU0FBRixDQUFZNkQsTUFBWixFQUFvQjtBQUFDdEYsT0FBSyxFQUFFLFNBQVI7QUFBbUJDLFFBQU0sRUFBRTtBQUEzQixDQUFwQixFQUFtRG9GLEtBQW5ELENBQXlELGNBQUU1RixHQUEzRCxDQUFSOztBQUNBeUYsTUFBTSxDQUFDSyxDQUFQLEdBQVdBLENBQVgsQyxDQUNBOztBQUNBLGNBQUU5RixHQUFGLENBQU0rRixTQUFOLENBQWdCRixNQUFoQjs7QUFDQSxjQUFFN0YsR0FBRixDQUFNMEUsVUFBTixDQUFpQixjQUFFUCxRQUFGLENBQVdoSCxJQUFYLEVBQWpCOztBQUNBNkksT0FBTyxDQUFDQyxHQUFSLENBQVlILENBQVo7QUFDQUUsT0FBTyxDQUFDQyxHQUFSLGdCIiwiZmlsZSI6InRtYXAuanMiLCJzb3VyY2VzQ29udGVudCI6WyIoZnVuY3Rpb24gd2VicGFja1VuaXZlcnNhbE1vZHVsZURlZmluaXRpb24ocm9vdCwgZmFjdG9yeSkge1xuXHRpZih0eXBlb2YgZXhwb3J0cyA9PT0gJ29iamVjdCcgJiYgdHlwZW9mIG1vZHVsZSA9PT0gJ29iamVjdCcpXG5cdFx0bW9kdWxlLmV4cG9ydHMgPSBmYWN0b3J5KCk7XG5cdGVsc2UgaWYodHlwZW9mIGRlZmluZSA9PT0gJ2Z1bmN0aW9uJyAmJiBkZWZpbmUuYW1kKVxuXHRcdGRlZmluZShcInRtYXBcIiwgW10sIGZhY3RvcnkpO1xuXHRlbHNlIGlmKHR5cGVvZiBleHBvcnRzID09PSAnb2JqZWN0Jylcblx0XHRleHBvcnRzW1widG1hcFwiXSA9IGZhY3RvcnkoKTtcblx0ZWxzZVxuXHRcdHJvb3RbXCJ0bWFwXCJdID0gZmFjdG9yeSgpO1xufSkodHlwZW9mIHNlbGYgIT09ICd1bmRlZmluZWQnID8gc2VsZiA6IHRoaXMsIGZ1bmN0aW9uKCkge1xucmV0dXJuICIsIiBcdC8vIFRoZSBtb2R1bGUgY2FjaGVcbiBcdHZhciBpbnN0YWxsZWRNb2R1bGVzID0ge307XG5cbiBcdC8vIFRoZSByZXF1aXJlIGZ1bmN0aW9uXG4gXHRmdW5jdGlvbiBfX3dlYnBhY2tfcmVxdWlyZV9fKG1vZHVsZUlkKSB7XG5cbiBcdFx0Ly8gQ2hlY2sgaWYgbW9kdWxlIGlzIGluIGNhY2hlXG4gXHRcdGlmKGluc3RhbGxlZE1vZHVsZXNbbW9kdWxlSWRdKSB7XG4gXHRcdFx0cmV0dXJuIGluc3RhbGxlZE1vZHVsZXNbbW9kdWxlSWRdLmV4cG9ydHM7XG4gXHRcdH1cbiBcdFx0Ly8gQ3JlYXRlIGEgbmV3IG1vZHVsZSAoYW5kIHB1dCBpdCBpbnRvIHRoZSBjYWNoZSlcbiBcdFx0dmFyIG1vZHVsZSA9IGluc3RhbGxlZE1vZHVsZXNbbW9kdWxlSWRdID0ge1xuIFx0XHRcdGk6IG1vZHVsZUlkLFxuIFx0XHRcdGw6IGZhbHNlLFxuIFx0XHRcdGV4cG9ydHM6IHt9XG4gXHRcdH07XG5cbiBcdFx0Ly8gRXhlY3V0ZSB0aGUgbW9kdWxlIGZ1bmN0aW9uXG4gXHRcdG1vZHVsZXNbbW9kdWxlSWRdLmNhbGwobW9kdWxlLmV4cG9ydHMsIG1vZHVsZSwgbW9kdWxlLmV4cG9ydHMsIF9fd2VicGFja19yZXF1aXJlX18pO1xuXG4gXHRcdC8vIEZsYWcgdGhlIG1vZHVsZSBhcyBsb2FkZWRcbiBcdFx0bW9kdWxlLmwgPSB0cnVlO1xuXG4gXHRcdC8vIFJldHVybiB0aGUgZXhwb3J0cyBvZiB0aGUgbW9kdWxlXG4gXHRcdHJldHVybiBtb2R1bGUuZXhwb3J0cztcbiBcdH1cblxuXG4gXHQvLyBleHBvc2UgdGhlIG1vZHVsZXMgb2JqZWN0IChfX3dlYnBhY2tfbW9kdWxlc19fKVxuIFx0X193ZWJwYWNrX3JlcXVpcmVfXy5tID0gbW9kdWxlcztcblxuIFx0Ly8gZXhwb3NlIHRoZSBtb2R1bGUgY2FjaGVcbiBcdF9fd2VicGFja19yZXF1aXJlX18uYyA9IGluc3RhbGxlZE1vZHVsZXM7XG5cbiBcdC8vIGRlZmluZSBnZXR0ZXIgZnVuY3Rpb24gZm9yIGhhcm1vbnkgZXhwb3J0c1xuIFx0X193ZWJwYWNrX3JlcXVpcmVfXy5kID0gZnVuY3Rpb24oZXhwb3J0cywgbmFtZSwgZ2V0dGVyKSB7XG4gXHRcdGlmKCFfX3dlYnBhY2tfcmVxdWlyZV9fLm8oZXhwb3J0cywgbmFtZSkpIHtcbiBcdFx0XHRPYmplY3QuZGVmaW5lUHJvcGVydHkoZXhwb3J0cywgbmFtZSwgeyBlbnVtZXJhYmxlOiB0cnVlLCBnZXQ6IGdldHRlciB9KTtcbiBcdFx0fVxuIFx0fTtcblxuIFx0Ly8gZGVmaW5lIF9fZXNNb2R1bGUgb24gZXhwb3J0c1xuIFx0X193ZWJwYWNrX3JlcXVpcmVfXy5yID0gZnVuY3Rpb24oZXhwb3J0cykge1xuIFx0XHRpZih0eXBlb2YgU3ltYm9sICE9PSAndW5kZWZpbmVkJyAmJiBTeW1ib2wudG9TdHJpbmdUYWcpIHtcbiBcdFx0XHRPYmplY3QuZGVmaW5lUHJvcGVydHkoZXhwb3J0cywgU3ltYm9sLnRvU3RyaW5nVGFnLCB7IHZhbHVlOiAnTW9kdWxlJyB9KTtcbiBcdFx0fVxuIFx0XHRPYmplY3QuZGVmaW5lUHJvcGVydHkoZXhwb3J0cywgJ19fZXNNb2R1bGUnLCB7IHZhbHVlOiB0cnVlIH0pO1xuIFx0fTtcblxuIFx0Ly8gY3JlYXRlIGEgZmFrZSBuYW1lc3BhY2Ugb2JqZWN0XG4gXHQvLyBtb2RlICYgMTogdmFsdWUgaXMgYSBtb2R1bGUgaWQsIHJlcXVpcmUgaXRcbiBcdC8vIG1vZGUgJiAyOiBtZXJnZSBhbGwgcHJvcGVydGllcyBvZiB2YWx1ZSBpbnRvIHRoZSBuc1xuIFx0Ly8gbW9kZSAmIDQ6IHJldHVybiB2YWx1ZSB3aGVuIGFscmVhZHkgbnMgb2JqZWN0XG4gXHQvLyBtb2RlICYgOHwxOiBiZWhhdmUgbGlrZSByZXF1aXJlXG4gXHRfX3dlYnBhY2tfcmVxdWlyZV9fLnQgPSBmdW5jdGlvbih2YWx1ZSwgbW9kZSkge1xuIFx0XHRpZihtb2RlICYgMSkgdmFsdWUgPSBfX3dlYnBhY2tfcmVxdWlyZV9fKHZhbHVlKTtcbiBcdFx0aWYobW9kZSAmIDgpIHJldHVybiB2YWx1ZTtcbiBcdFx0aWYoKG1vZGUgJiA0KSAmJiB0eXBlb2YgdmFsdWUgPT09ICdvYmplY3QnICYmIHZhbHVlICYmIHZhbHVlLl9fZXNNb2R1bGUpIHJldHVybiB2YWx1ZTtcbiBcdFx0dmFyIG5zID0gT2JqZWN0LmNyZWF0ZShudWxsKTtcbiBcdFx0X193ZWJwYWNrX3JlcXVpcmVfXy5yKG5zKTtcbiBcdFx0T2JqZWN0LmRlZmluZVByb3BlcnR5KG5zLCAnZGVmYXVsdCcsIHsgZW51bWVyYWJsZTogdHJ1ZSwgdmFsdWU6IHZhbHVlIH0pO1xuIFx0XHRpZihtb2RlICYgMiAmJiB0eXBlb2YgdmFsdWUgIT0gJ3N0cmluZycpIGZvcih2YXIga2V5IGluIHZhbHVlKSBfX3dlYnBhY2tfcmVxdWlyZV9fLmQobnMsIGtleSwgZnVuY3Rpb24oa2V5KSB7IHJldHVybiB2YWx1ZVtrZXldOyB9LmJpbmQobnVsbCwga2V5KSk7XG4gXHRcdHJldHVybiBucztcbiBcdH07XG5cbiBcdC8vIGdldERlZmF1bHRFeHBvcnQgZnVuY3Rpb24gZm9yIGNvbXBhdGliaWxpdHkgd2l0aCBub24taGFybW9ueSBtb2R1bGVzXG4gXHRfX3dlYnBhY2tfcmVxdWlyZV9fLm4gPSBmdW5jdGlvbihtb2R1bGUpIHtcbiBcdFx0dmFyIGdldHRlciA9IG1vZHVsZSAmJiBtb2R1bGUuX19lc01vZHVsZSA/XG4gXHRcdFx0ZnVuY3Rpb24gZ2V0RGVmYXVsdCgpIHsgcmV0dXJuIG1vZHVsZVsnZGVmYXVsdCddOyB9IDpcbiBcdFx0XHRmdW5jdGlvbiBnZXRNb2R1bGVFeHBvcnRzKCkgeyByZXR1cm4gbW9kdWxlOyB9O1xuIFx0XHRfX3dlYnBhY2tfcmVxdWlyZV9fLmQoZ2V0dGVyLCAnYScsIGdldHRlcik7XG4gXHRcdHJldHVybiBnZXR0ZXI7XG4gXHR9O1xuXG4gXHQvLyBPYmplY3QucHJvdG90eXBlLmhhc093blByb3BlcnR5LmNhbGxcbiBcdF9fd2VicGFja19yZXF1aXJlX18ubyA9IGZ1bmN0aW9uKG9iamVjdCwgcHJvcGVydHkpIHsgcmV0dXJuIE9iamVjdC5wcm90b3R5cGUuaGFzT3duUHJvcGVydHkuY2FsbChvYmplY3QsIHByb3BlcnR5KTsgfTtcblxuIFx0Ly8gX193ZWJwYWNrX3B1YmxpY19wYXRoX19cbiBcdF9fd2VicGFja19yZXF1aXJlX18ucCA9IFwiXCI7XG5cblxuIFx0Ly8gTG9hZCBlbnRyeSBtb2R1bGUgYW5kIHJldHVybiBleHBvcnRzXG4gXHRyZXR1cm4gX193ZWJwYWNrX3JlcXVpcmVfXyhfX3dlYnBhY2tfcmVxdWlyZV9fLnMgPSBcIi4vc3JjL2luZGV4LmpzXCIpO1xuIiwibGV0IG9wdGlvbnMgPSB7XG4gIGNyczogTC5DUlMuRVBTRzM4NTcsXG4gIGNlbnRlcjogWzAsIDBdLFxuICB6b29tOiAwLFxuICBib3hab29tOiB0cnVlLFxuICBkb3VibGVDbGlja1pvb206IHRydWUsXG4gIG1pblpvb206IDAsXG4gIG1heFpvb206IDE4LFxuICBsYXllcnM6IFtdLFxuICBtYXhCb3VuZHM6IHVuZGVmaW5lZCxcbiAgcmVuZGVyZXI6IEwuc3ZnKCksXG4gIGF0dHJpYnV0aW9uQ29udHJvbDogZmFsc2UsXG4gIHpvb21Db250cm9sOiBmYWxzZSxcbiAgem9vbUFuaW1hdGlvbjogdHJ1ZSxcbiAgem9vbUFuaW1hdGlvblRocmVzaG9sZDogNCxcbiAgZmFkZUFuaW1hdGlvbjogdHJ1ZSxcbiAgbWFya2VyWm9vbUFuaW1hdGlvbjogdHJ1ZSxcbiAgdHJhbnNmb3JtM0RMaW1pdDogODM4ODYwOCwgLy8gUHJlY2lzaW9uIGxpbWl0IG9mIGEgMzItYml0IGZsb2F0XG4gIHpvb21TbmFwOiAxLFxuICB6b29tRGVsdGE6IDEsXG4gIHRyYWNrUmVzaXplOiB0cnVlLFxuICBtYXhCb3VuZHNWaXNjb3NpdHk6IDAsXG4gIGNsb3NlUG9wdXBPbkNsaWNrOiB0cnVlXG59O1xuXG5sZXQgTWFwT3B0aW9uID0gbmV3IFByb3h5KG9wdGlvbnMsIHtcbiAgZ2V0OiBmdW5jdGlvbiAodGFyZ2V0LCBrZXksIHJlY2VpdmVyKSB7XG4gICAgcmV0dXJuIFJlZmxlY3QuZ2V0KHRhcmdldCwga2V5LCByZWNlaXZlcik7XG4gIH0sXG4gIHNldDogZnVuY3Rpb24gKHRhcmdldCwgcCwgdmFsdWUsIHJlY2VpdmVyKSB7XG4gICAgUmVmbGVjdC5zZXQodGFyZ2V0LCBwLCB2YWx1ZSwgcmVjZWl2ZXIpO1xuICAgIHJldHVybiB0cnVlO1xuICB9XG59KTtcbmV4cG9ydCBkZWZhdWx0IE1hcE9wdGlvbjtcbiIsImltcG9ydCBwYXRoT3B0aW9uIGZyb20gJy4vVFBhdGgnO1xuaW1wb3J0IHtvcHRpb25GaWxsLCByZXNldFN0eWxlSGFuZGxlcn0gZnJvbSAnLi9WZWN0b3JPcHRQcm94eSc7XG5pbXBvcnQgVCBmcm9tICcuLi9jb3JlL1RNYXAnO1xuXG5sZXQgY2lyY2xlT3B0aW9uID0ge1xuICByYWRpdXM6IDAuMCxcbiAgdDogJ2NpcmNsZSdcbn07XG5jaXJjbGVPcHRpb24gPSBPYmplY3QuYXNzaWduKHBhdGhPcHRpb24sIGNpcmNsZU9wdGlvbik7XG5jaXJjbGVPcHRpb24uZmlsbCA9IHRydWU7XG5cbmV4cG9ydCBmdW5jdGlvbiBjaXJjbGVQcm94eShsYXllcikge1xuICByZXR1cm4gcmVzZXRTdHlsZUhhbmRsZXIobGF5ZXIpO1xufVxuXG5leHBvcnQgZnVuY3Rpb24gY2lyY2xlKGdlbywgb3B0aW9ucykge1xuICBsZXQgb3B0ID0gb3B0aW9uRmlsbChvcHRpb25zLCBjaXJjbGVPcHRpb24pO1xuICBsZXQgVGUgPSBMLmNpcmNsZShnZW8sIG9wdGlvbnMpO1xuICBUZS4kb3B0aW9ucyA9IG9wdDtcbiAgVGUgPSBjaXJjbGVQcm94eShUZSk7XG4gIFQubWFwLmFkZExheWVyKFRlKTtcbiAgcmV0dXJuIFRlO1xufVxuIiwiaW1wb3J0IHBhdGhPcHRpb24gZnJvbSAnLi9UUGF0aCc7XG5pbXBvcnQge29wdGlvbkZpbGwsIHJlc2V0U3R5bGVIYW5kbGVyfSBmcm9tICcuL1ZlY3Rvck9wdFByb3h5JztcbmltcG9ydCBUIGZyb20gJy4uL2NvcmUvVE1hcCc7XG5cbmxldCBjTWFya2VyT3B0aW9uID0ge1xuICByYWRpdXM6IDEwLFxuICB0OiAnY2lyY2xlTWFya2VyJ1xufTtcbmNNYXJrZXJPcHRpb24gPSBPYmplY3QuYXNzaWduKHBhdGhPcHRpb24sIGNNYXJrZXJPcHRpb24pO1xuY01hcmtlck9wdGlvbi5maWxsID0gdHJ1ZTtcblxuZXhwb3J0IGZ1bmN0aW9uIGNpcmNsZU1hcmtlclByb3h5KGxheWVyKSB7XG4gIHJldHVybiByZXNldFN0eWxlSGFuZGxlcihsYXllcik7XG59XG5cbmV4cG9ydCBmdW5jdGlvbiBjaXJjbGVNYXJrZXIoZ2VvLCBvcHRpb25zKSB7XG4gIGxldCBvcHQgPSBvcHRpb25GaWxsKG9wdGlvbnMsIGNNYXJrZXJPcHRpb24pO1xuICBsZXQgVGUgPSBMLmNpcmNsZU1hcmtlcihnZW8sIG9wdGlvbnMpO1xuICBUZS4kb3B0aW9ucyA9IG9wdDtcbiAgVGUgPSBjaXJjbGVNYXJrZXJQcm94eShUZSk7XG4gIFQubWFwLmFkZExheWVyKFRlKTtcbiAgcmV0dXJuIFRlO1xufVxuIiwibGV0IHBhdGhPcHRpb24gPSB7XG4gIHN0cm9rZTogdHJ1ZSxcbiAgY29sb3I6ICcjMzM4OGZmJyxcbiAgd2VpZ2h0OiAzLFxuICBvcGFjaXR5OiAxLjAsXG4gIGxpbmVDYXA6ICdyb3VuZCcsXG4gIGxpbmVKb2luOiAncm91bmQnLFxuICBkYXNoQXJyYXk6IG51bGwsXG4gIGRhc2hPZmZzZXQ6IG51bGwsXG4gIGZpbGw6IGZhbHNlLFxuICBmaWxsQ29sb3I6IG51bGwsXG4gIGZpbGxPcGFjaXR5OiAwLjIsXG4gIGZpbGxSdWxlOiAnZXZlbm9kZCcsXG4gIGJ1YmJsaW5nTW91c2VFdmVudHM6IHRydWUsXG4gIHJlbmRlcmVyOiB1bmRlZmluZWQsXG4gIGNsYXNzTmFtZTogJycsXG4gIGludGVyYWN0aXZlOiB0cnVlLFxuICBwYW5lOiAnb3ZlcmxheVBhbmUnLFxuICBhdHRyaWJ1dGlvbjogbnVsbFxufTtcbmV4cG9ydCBkZWZhdWx0IHBhdGhPcHRpb247XG4iLCJpbXBvcnQgcGF0aE9wdGlvbiBmcm9tICcuL1RQYXRoJztcbmltcG9ydCB7b3B0aW9uRmlsbCwgcmVzZXRTdHlsZUhhbmRsZXJ9IGZyb20gJy4vVmVjdG9yT3B0UHJveHknO1xuaW1wb3J0IFQgZnJvbSAnLi4vY29yZS9UTWFwJztcblxubGV0IHBvbHlnb25PcHRpb24gPSB7XG4gIHNtb290aEZhY3RvcjogMS4wLFxuICBub0NsaXA6IGZhbHNlLFxuICB0OiAncG9seWdvbidcbn07XG5wb2x5Z29uT3B0aW9uID0gT2JqZWN0LmFzc2lnbihwYXRoT3B0aW9uLCBwb2x5Z29uT3B0aW9uKTtcbnBvbHlnb25PcHRpb24uZmlsbCA9IHRydWU7XG5cbmV4cG9ydCBmdW5jdGlvbiBwb2x5Z29uUHJveHkobGF5ZXIpIHtcbiAgcmV0dXJuIHJlc2V0U3R5bGVIYW5kbGVyKGxheWVyKTtcbn1cblxuZXhwb3J0IGZ1bmN0aW9uIHBvbHlnb24oZ2VvLCBvcHRpb25zKSB7XG4gIGxldCBvcHQgPSBvcHRpb25GaWxsKG9wdGlvbnMsIHBvbHlnb25PcHRpb24pO1xuICBsZXQgVGUgPSBMLnBvbHlnb24oZ2VvLCBvcHRpb25zKTtcbiAgVGUuJG9wdGlvbnMgPSBvcHQ7XG4gIFRlID0gcG9seWdvblByb3h5KFRlKTtcbiAgVC5tYXAuYWRkTGF5ZXIoVGUpO1xuICByZXR1cm4gVGU7XG59XG4iLCJpbXBvcnQgcGF0aE9wdGlvbiBmcm9tICcuL1RQYXRoJztcbmltcG9ydCB7b3B0aW9uRmlsbCwgcmVzZXRTdHlsZUhhbmRsZXJ9IGZyb20gJy4vVmVjdG9yT3B0UHJveHknO1xuaW1wb3J0IFQgZnJvbSAnLi4vY29yZS9UTWFwJztcblxubGV0IHBvbHlsaW5lT3B0aW9uID0ge1xuICBzbW9vdGhGYWN0b3I6IDEuMCxcbiAgbm9DbGlwOiBmYWxzZSxcbiAgdDogJ3BvbHlsaW5lJ1xufTtcbnBvbHlsaW5lT3B0aW9uID0gT2JqZWN0LmFzc2lnbihwYXRoT3B0aW9uLCBwb2x5bGluZU9wdGlvbik7XG5cbmV4cG9ydCBmdW5jdGlvbiBwb2x5bGluZVByb3h5KGxheWVyKSB7XG4gIHJldHVybiByZXNldFN0eWxlSGFuZGxlcihsYXllcik7XG59XG5cbmV4cG9ydCBmdW5jdGlvbiBwb2x5bGluZShnZW8sIG9wdGlvbnMpIHtcbiAgbGV0IG9wdCA9IG9wdGlvbkZpbGwob3B0aW9ucywgcG9seWxpbmVPcHRpb24pO1xuICBsZXQgVGUgPSBMLnBvbHlsaW5lKGdlbywgb3B0aW9ucyk7XG4gIFRlLiRvcHRpb25zID0gb3B0O1xuICBUZSA9IHBvbHlsaW5lUHJveHkoVGUpO1xuICBULm1hcC5hZGRMYXllcihUZSk7XG4gIHJldHVybiBUZTtcbn1cbiIsImltcG9ydCBwYXRoT3B0aW9uIGZyb20gJy4vVFBhdGgnO1xuaW1wb3J0IHtvcHRpb25GaWxsLCByZXNldFN0eWxlSGFuZGxlcn0gZnJvbSAnLi9WZWN0b3JPcHRQcm94eSc7XG5pbXBvcnQgVCBmcm9tICcuLi9jb3JlL1RNYXAnO1xuXG5sZXQgcmVjdGFuZ2xlT3B0aW9uID0ge1xuICBzbW9vdGhGYWN0b3I6IDEuMCxcbiAgbm9DbGlwOiBmYWxzZSxcbiAgdDogJ3JlY3RhbmdsZSdcbn07XG5yZWN0YW5nbGVPcHRpb24gPSBPYmplY3QuYXNzaWduKHBhdGhPcHRpb24sIHJlY3RhbmdsZU9wdGlvbik7XG5yZWN0YW5nbGVPcHRpb24uZmlsbCA9IHRydWU7XG5cbmV4cG9ydCBmdW5jdGlvbiByZWN0YW5nbGVQcm94eShsYXllcikge1xuICByZXR1cm4gcmVzZXRTdHlsZUhhbmRsZXIobGF5ZXIpO1xufVxuXG5leHBvcnQgZnVuY3Rpb24gcmVjdGFuZ2xlKGdlbywgb3B0aW9ucykge1xuICBsZXQgb3B0ID0gb3B0aW9uRmlsbChvcHRpb25zLCByZWN0YW5nbGVPcHRpb24pO1xuICBsZXQgVGUgPSBMLnJlY3RhbmdsZShnZW8sIG9wdGlvbnMpO1xuICBUZS4kb3B0aW9ucyA9IG9wdDtcbiAgVGUgPSByZWN0YW5nbGVQcm94eShUZSk7XG4gIFQubWFwLmFkZExheWVyKFRlKTtcbiAgcmV0dXJuIFRlO1xufVxuXG5cbiIsImV4cG9ydCBmdW5jdGlvbiBvcHRpb25GaWxsKHNvdXJjZSwgdGVtcGxhdGUpIHtcbiAgaWYgKCFzb3VyY2UgfHwgc291cmNlID09PSB7fSkge1xuICAgIHJldHVybiBuZXcgUHJveHkodGVtcGxhdGUsIHt9KTtcbiAgfVxuICBsZXQgdGVtcCA9IEpTT04ucGFyc2UoSlNPTi5zdHJpbmdpZnkodGVtcGxhdGUpKTtcbiAgZm9yIChsZXQga2V5IGluIHRlbXApIHtcbiAgICBpZiAoc291cmNlLmhhc093blByb3BlcnR5KGtleSkpIHtcbiAgICAgIHRlbXBba2V5XSA9IHNvdXJjZVtrZXldO1xuICAgIH1cbiAgfVxuICBmb3IgKGxldCBrZXkgaW4gc291cmNlKSB7XG4gICAgaWYgKCF0ZW1wLmhhc093blByb3BlcnR5KGtleSkpIHtcbiAgICAgIHRlbXBba2V5XSA9IHNvdXJjZVtrZXldO1xuICAgIH1cbiAgfVxuICByZXR1cm4gbmV3IFByb3h5KHRlbXAsIHt9KTtcbn1cblxuZXhwb3J0IGZ1bmN0aW9uIHJlc2V0U3R5bGVIYW5kbGVyKGxheWVyKSB7XG4gIGxldCBoYW5kbGVyID0ge1xuICAgIC8vc2V0U3R5bGUg5ZCOIOWQjOatpW9wdGlvbnMg5YaF5a656IezJG9wdGlvbnNcbiAgICBhcHBseTogZnVuY3Rpb24gKHRhcmdldCwgX3RoaXMsIGFyZ3MpIHtcbiAgICAgIGxldCByZXN1bHQgPSBSZWZsZWN0LmFwcGx5KC4uLmFyZ3VtZW50cyk7XG4gICAgICBsYXllci4kb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24obGF5ZXIuJG9wdGlvbnMsIC4uLmFyZ3MpO1xuICAgICAgbGF5ZXIucmVkcmF3KCk7XG4gICAgICByZXR1cm4gcmVzdWx0O1xuICAgIH1cbiAgfTtcbiAgLy/nm7TmjqXkv67mlLlvcHRpb25zIOabtOaWsOWxnuaApyDorr7nva7moLflvI/vvIzph43nu5hcbiAgbGV0IGhhbmRsZXJMYXllciA9IHtcbiAgICBzZXQ6IGZ1bmN0aW9uICh0YXJnZXQsIHAsIHZhbHVlLCByZWNlaXZlcikge1xuICAgICAgUmVmbGVjdC5zZXQodGFyZ2V0LCBwLCB2YWx1ZSwgcmVjZWl2ZXIpO1xuICAgICAgaWYgKHAgPT09ICdvcHRpb25zJykge1xuICAgICAgICB0YXJnZXQub3B0aW9uID0gb3B0aW9uRmlsbCh0YXJnZXRbcF0sIHRhcmdldC4kb3B0aW9ucyk7XG4gICAgICAgIHRhcmdldC5zZXRTdHlsZSh0YXJnZXQub3B0aW9uKTtcbiAgICAgICAgdGFyZ2V0LnJlZHJhdygpO1xuICAgICAgfVxuICAgICAgcmV0dXJuIHRydWU7XG4gICAgfVxuICB9O1xuICBsYXllci5zZXRTdHlsZSA9IG5ldyBQcm94eShsYXllci5zZXRTdHlsZSwgaGFuZGxlcik7XG4gIGxheWVyID0gbmV3IFByb3h5KGxheWVyLCBoYW5kbGVyTGF5ZXIpO1xuICByZXR1cm4gbGF5ZXI7XG59XG4iLCJsZXQgem9vbU9wdCA9IHtcbiAgc2hvdzogdHJ1ZSxcbiAgYWN0aXZhdGU6IHRydWUsXG4gIG9wdDoge1xuICAgIHBvc2l0aW9uOiAndG9wbGVmdCcsXG4gICAgem9vbUluVGV4dDogJysnLFxuICAgIHpvb21JblRpdGxlOiAnWm9vbSBpbicsXG4gICAgem9vbU91dFRleHQ6ICcmI3gyMjEyXHQnLFxuICAgIHpvb21PdXRUaXRsZTogJ1pvb20gb3V0J1xuICB9XG59O1xubGV0IHpvb21Db250cm9sID0gZnVuY3Rpb24gKCkge1xuICBsZXQgb3B0aW9ucyA9IG5ldyBQcm94eShPYmplY3QuYXNzaWduKHt9LCB6b29tT3B0KSwge30pO1xuICBsZXQgVHogPSBMLmNvbnRyb2wuem9vbShvcHRpb25zLm9wdCk7XG4gIFR6LiRvcHRpb25zID0gb3B0aW9ucztcbiAgVHouX19wcm90b19fLnNob3cgPSBmdW5jdGlvbiAoKSB7XG4gICAgdGhpcy4kb3B0aW9ucy5zaG93ID0gdHJ1ZTtcbiAgICB0aGlzLiRvcHRpb25zLmFjdGl2YXRlID0gdHJ1ZTtcbiAgICB0aGlzLl9jb250YWluZXIuc3R5bGUuZGlzcGxheSA9ICdibG9jayc7XG4gIH07XG4gIFR6Ll9fcHJvdG9fXy5oaWRlID0gZnVuY3Rpb24gKCkge1xuICAgIHRoaXMuJG9wdGlvbnMuc2hvdyA9IGZhbHNlO1xuICAgIHRoaXMuJG9wdGlvbnMuYWN0aXZhdGUgPSBmYWxzZTtcbiAgICB0aGlzLl9jb250YWluZXIuc3R5bGUuZGlzcGxheSA9ICdub25lJztcbiAgfTtcbiAgcmV0dXJuIFR6O1xufTtcblxuZXhwb3J0IHt6b29tQ29udHJvbH07XG5cbiIsImltcG9ydCBUIGZyb20gJy4vVE1hcCc7XG5pbXBvcnQge3pvb21Db250cm9sfSBmcm9tICcuLi9jb250cm9scy9ab29tJztcblxubGV0IGNvbnRyb2xzID0ge1xuICB6b29tOiB6b29tQ29udHJvbCxcbiAgZHJhd2VyOiAnJyxcbiAgc2NhbGVCYXI6ICcnLFxuICBncmF0aWN1bGU6ICcnLFxuICBwcmludGVyOiAnJyxcbiAgY3RzOiB7fSxcbiAgaW5pdDogZnVuY3Rpb24gKCkge1xuICAgIFQubWFwLmFkZENvbnRyb2wgPSBuZXcgUHJveHkoVC5tYXAuYWRkQ29udHJvbCwge1xuICAgICAgYXBwbHkodGFyZ2V0LCBfdGhpcywgYXJnQXJyYXkpIHtcbiAgICAgICAgbGV0IHJlc3VsdCA9IFJlZmxlY3QuYXBwbHkoLi4uYXJndW1lbnRzKTtcbiAgICAgICAgaWYgKGFyZ0FycmF5Lmxlbmd0aCA+IDAgJiYgYXJnQXJyYXlbMF0uaGFzT3duUHJvcGVydHkoJ19sZWFmbGV0X2lkJykpIHtcbiAgICAgICAgICBsZXQgY3QgPSBhcmdBcnJheVswXTtcbiAgICAgICAgICBULmNvbnRyb2xzLmN0c1tjdC5fbGVhZmxldF9pZF0gPSBjdDtcbiAgICAgICAgfVxuICAgICAgICByZXR1cm4gcmVzdWx0O1xuICAgICAgfVxuICAgIH0pO1xuICAgIFQubWFwLnJlbW92ZUNvbnRyb2wgPSBuZXcgUHJveHkoVC5tYXAucmVtb3ZlQ29udHJvbCwge1xuICAgICAgYXBwbHkodGFyZ2V0LCBfdGhpcywgYXJnQXJyYXkpIHtcbiAgICAgICAgbGV0IHJlc3VsdCA9IFJlZmxlY3QuYXBwbHkoLi4uYXJndW1lbnRzKTtcbiAgICAgICAgaWYgKGFyZ0FycmF5Lmxlbmd0aCA+IDAgJiYgYXJnQXJyYXlbMF0uaGFzT3duUHJvcGVydHkoJ19sZWFmbGV0X2lkJykpIHtcbiAgICAgICAgICBsZXQgY3QgPSBhcmdBcnJheVswXTtcbiAgICAgICAgICBpZiAoVC5jb250cm9scy5jdHNbY3QuX2xlYWZsZXRfaWRdKSB7XG4gICAgICAgICAgICBkZWxldGUgVC5jb250cm9scy5jdHNbY3QuX2xlYWZsZXRfaWRdO1xuICAgICAgICAgIH1cbiAgICAgICAgfVxuICAgICAgICByZXR1cm4gcmVzdWx0O1xuICAgICAgfVxuICAgIH0pO1xuICB9LFxuICBhZGRDb250cm9sOiBmdW5jdGlvbiAoY29udHJvbCwgdHlwZSkge1xuICAgIGxldCBjdCA9IFQubWFwLmFkZENvbnRyb2woY29udHJvbCk7XG4gICAgdGhpcy5jdHNbdHlwZV0gPSBjdDtcbiAgICByZXR1cm4gY3Q7XG4gIH0sXG4gIHJlbW92ZUNvbnRyb2w6IGZ1bmN0aW9uIChjdCkge1xuICAgIGlmICh0eXBlb2YgY3QgPT09ICdvYmplY3QnKSB7XG4gICAgICBULm1hcC5yZW1vdmVDb250cm9sKGN0KTtcbiAgICAgIGZvciAobGV0IGsgaW4gdGhpcy5jdHMpIHtcbiAgICAgICAgbGV0IHRtcEN0ID0gdGhpcy5jdHNba107XG4gICAgICAgIGlmICh0bXBDdC5fbGVhZmxldF9pZCA9PT0gY3QuX2xlYWZsZXRfaWQpIHtcbiAgICAgICAgICBkZWxldGUgdGhpcy5jdHNba107XG4gICAgICAgICAgYnJlYWs7XG4gICAgICAgIH1cbiAgICAgIH1cbiAgICB9IGVsc2Uge1xuICAgICAgbGV0IHRtcEN0ID0gdGhpcy5jdHNbY3RdO1xuICAgICAgaWYgKHRtcEN0ICE9PSB1bmRlZmluZWQpIHtcbiAgICAgICAgVC5tYXAucmVtb3ZlQ29udHJvbCh0bXBDdCk7XG4gICAgICAgIGRlbGV0ZSB0aGlzLmN0c1tjdF07XG4gICAgICB9XG4gICAgfVxuICB9LFxuICBoaWRlOiBmdW5jdGlvbiAoY3QpIHtcbiAgICBjdC5oaWRlKCk7XG4gIH0sXG4gIHNob3c6IGZ1bmN0aW9uIChjdCkge1xuICAgIGN0LnNob3coKTtcbiAgfSxcbiAgaGlkZUFsbDogZnVuY3Rpb24gKCkge1xuICAgIGZvciAobGV0IGsgaW4gdGhpcy5jdHMpIHtcbiAgICAgIHRoaXMuY3RzW2tdLmhpZGUoKTtcbiAgICB9XG4gIH0sXG4gIHNob3dBbGw6IGZ1bmN0aW9uICgpIHtcbiAgICBmb3IgKGxldCBrIGluIHRoaXMuY3RzKSB7XG4gICAgICB0aGlzLmN0c1trXS5zaG93KCk7XG4gICAgfVxuICB9XG59O1xuXG5leHBvcnQgZGVmYXVsdCBjb250cm9scztcbiIsImltcG9ydCBNYXBPcHRpb24gZnJvbSAnLi4vY29tcG9uZW50L01hcE9wdGlvbic7XG5pbXBvcnQge3JlY3RhbmdsZX0gZnJvbSAnLi4vY29tcG9uZW50L1RSZWN0YW5nbGUnO1xuaW1wb3J0IHtjaXJjbGV9IGZyb20gJy4uL2NvbXBvbmVudC9UQ2lyY2xlJztcbmltcG9ydCB7cG9seWxpbmV9IGZyb20gJy4uL2NvbXBvbmVudC9UUG9seWxpbmUnO1xuaW1wb3J0IHtjaXJjbGVNYXJrZXJ9IGZyb20gJy4uL2NvbXBvbmVudC9UQ2lyY2xlTWFya2VyJztcbmltcG9ydCB7cG9seWdvbn0gZnJvbSAnLi4vY29tcG9uZW50L1RQb2x5Z29uJztcbmltcG9ydCBjb250cm9scyBmcm9tICcuL0NvbnRyb2xNYW5hZ2VyJztcblxubGV0IFQgPSBuZXcgUHJveHkoe1xuICBtYXA6IG51bGwsXG4gIHJlY3RhbmdsZTogcmVjdGFuZ2xlLFxuICBjaXJjbGU6IGNpcmNsZSxcbiAgY2lyY2xlTWFya2VyOiBjaXJjbGVNYXJrZXIsXG4gIG1hcmtlcjogbnVsbCxcbiAgcG9seWxpbmU6IHBvbHlsaW5lLFxuICBwb2x5Z29uOiBwb2x5Z29uLFxuICBjb250cm9sczogY29udHJvbHNcblxufSwge30pO1xuVC5jcmVhdGVNYXAgPSBmdW5jdGlvbiAoZG9tKSB7XG4gIFQubWFwID0gTC5tYXAoZG9tLCBNYXBPcHRpb24pO1xuICBULmNvbnRyb2xzLmluaXQoKTtcbiAgcmV0dXJuIFQubWFwO1xufTtcblQubWFya2VyID0gZnVuY3Rpb24gKG9wdGlvbnMpIHtcblxufTtcblxuZXhwb3J0IGRlZmF1bHQgVDtcblxuXG4iLCJpbXBvcnQgVCBmcm9tICcuL2NvcmUvVE1hcCc7XG5cbndpbmRvdy5UID0gVDtcblQuY3JlYXRlTWFwKCdtYXAnKTtcbkwudGlsZUxheWVyKCdodHRwczovL3tzfS50aWxlLm9wZW5zdHJlZXRtYXAub3JnL3t6fS97eH0ve3l9LnBuZz97Zm9vfScsIHtmb286ICdiYXInfSkuYWRkVG8oVC5tYXApO1xudmFyIGJvdW5kcyA9IFtbNTQuNTU5MzIyLCAyMC43Njc4MjJdLCBbNTYuMTIxMDYwNCwgMzMuMDIxMjQwXV07XG4vLyBjcmVhdGUgYW4gb3JhbmdlIHJlY3RhbmdsZVxubGV0IHMgPSBULnJlY3RhbmdsZShib3VuZHMsIHtjb2xvcjogJyNmZjc4MDAnLCB3ZWlnaHQ6IDF9KS5hZGRUbyhULm1hcCk7XG53aW5kb3cucyA9IHM7XG4vLyB6b29tIHRoZSBtYXAgdG8gdGhlIHJlY3RhbmdsZSBib3VuZHNcblQubWFwLmZpdEJvdW5kcyhib3VuZHMpO1xuVC5tYXAuYWRkQ29udHJvbChULmNvbnRyb2xzLnpvb20oKSk7XG5jb25zb2xlLmxvZyhzKTtcbmNvbnNvbGUubG9nKFQpO1xuIl0sInNvdXJjZVJvb3QiOiIifQ==

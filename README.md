@@ -1,8 +1,7 @@
-# Webpack library starter
+# GISFramework-leaflet
 
 Webpack based boilerplate for producing libraries (Input: ES6, Output: universal library)
 
-![Travis](https://travis-ci.org/krasimir/webpack-library-starter.svg?branch=master)
 
 ## Features
 
@@ -59,27 +58,4 @@ ES6 source files
 
 In the following example we are excluding React and Lodash:
 
-```js
-{
-  devtool: 'source-map',
-  output: {
-    path: '...',
-    libraryTarget: 'umd',
-    library: '...'
-  },
-  entry: '...',
-  ...
-  externals: {
-    react: 'react'
-    // Use more complicated mapping for lodash.
-    // We need to access it differently depending
-    // on the environment.
-    lodash: {
-      commonjs: 'lodash',
-      commonjs2: 'lodash',
-      amd: '_',
-      root: '_'
-    }
-  }
-}
-```
+

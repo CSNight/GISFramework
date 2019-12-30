@@ -1,12 +1,18 @@
 import T from './TMap';
 import {zoomControl} from '../controls/Zoom';
+import {latLngGraticule} from '../controls/Graticule';
+import {scaleBar} from '../controls/ScaleBar';
+import {pointer} from '../controls/Position';
+import {printer} from '../controls/Printer';
 
 let controls = {
   zoom: zoomControl,
   drawer: '',
-  scaleBar: '',
-  graticule: '',
-  printer: '',
+  scaleBar: scaleBar,
+  graticule: latLngGraticule,
+  printer: printer,
+  pointer: pointer,
+  legend: '',
   cts: {},
   init: function () {
     T.map.addControl = new Proxy(T.map.addControl, {

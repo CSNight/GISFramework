@@ -10,5 +10,9 @@ window.s = s;
 // zoom the map to the rectangle bounds
 T.map.fitBounds(bounds);
 T.map.addControl(T.controls.zoom());
+T.map.addControl(T.controls.scaleBar());
+T.map.addControl(T.controls.graticule());
+T.map.addControl(T.controls.pointer());
+T.map.addControl(T.controls.printer());
 console.log(s);
 console.log(T);

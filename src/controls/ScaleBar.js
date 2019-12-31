@@ -11,20 +11,30 @@ let scaleBarOpt = {
   }
 };
 let scaleBar = function () {
-  let options = new Proxy(Object.assign({}, scaleBarOpt), {});
-  let Tz = L.control.betterscale(scaleBarOpt.opt);
+  let opt = Object.assign({}, scaleBarOpt.opt);
+  let Tz = L.control.betterscale(opt);
   Tz._leaflet_id = 'scalebar_control';
-  Tz.$options = options;
   Tz.__proto__.show = function () {
     this.$options.show = true;
-    this.$options.activate = true;
-    this._container.style.display = 'block';
   };
   Tz.__proto__.hide = function () {
     this.$options.show = false;
-    this.$options.activate = false;
-    this._container.style.display = 'none';
   };
+  Tz.$options = new Proxy(Object.assign({}, scaleBarOpt), {
+    set: function (target, p, value, receiver) {
+      Reflect.set(target, p, value, receiver);
+      if (p === 'show') {
+        if (value) {
+          Tz.$options.activate = true;
+          Tz._container.style.display = 'block';
+        } else {
+          Tz.$options.activate = false;
+          Tz._container.style.display = 'none';
+        }
+      }
+      return true;
+    }
+  });
   return Tz;
 };
 

@@ -8,20 +8,30 @@ let printerOpt = {
   }
 };
 let printer = function () {
-  let options = new Proxy(Object.assign({}, printerOpt), {});
-  let Tz = L.control.browserPrint(printerOpt.opt);
-  Tz.$options = options;
-  Tz.$options.title = document.title;
+  let opt = Object.assign({}, printerOpt.opt);
+  let Tz = L.control.browserPrint(opt);
   Tz.__proto__.show = function () {
     this.$options.show = true;
-    this.$options.activate = true;
-    this._container.style.display = 'block';
   };
   Tz.__proto__.hide = function () {
     this.$options.show = false;
-    this.$options.activate = false;
-    this._container.style.display = 'none';
   };
+  Tz.$options = new Proxy(Object.assign({}, printerOpt), {
+    set: function (target, p, value, receiver) {
+      Reflect.set(target, p, value, receiver);
+      if (p === 'show') {
+        if (value) {
+          Tz.$options.activate = true;
+          Tz._container.style.display = 'block';
+        } else {
+          Tz.$options.activate = false;
+          Tz._container.style.display = 'none';
+        }
+      }
+      return true;
+    }
+  });
+  Tz.$options.title = document.title;
   T.map.on('browser-print', (e => {
     let tit = prompt('输入地图名称：', Tz.$options.title);
     if (tit) {

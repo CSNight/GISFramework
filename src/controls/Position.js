@@ -6,8 +6,8 @@ let pointerOpt = {
   }
 };
 let pointer = function () {
-  let options = new Proxy(Object.assign({}, pointerOpt), {});
-  let Tz = L.control(pointerOpt.opt);
+  let opt = Object.assign({}, pointerOpt.opt);
+  let Tz = L.control(opt);
   Tz._leaflet_id = 'pointer_control';
   Tz.onAdd = function () {
     let me = this;
@@ -28,17 +28,27 @@ let pointer = function () {
   T.map.on('mousemove', (e) => {
     Tz._container.innerText = Number(e.latlng.lng).toFixed(6) + ',' + Number(e.latlng.lat).toFixed(6);
   });
-  Tz.$options = options;
   Tz.__proto__.show = function () {
     this.$options.show = true;
-    this.$options.activate = true;
-    this._container.style.display = 'block';
   };
   Tz.__proto__.hide = function () {
     this.$options.show = false;
-    this.$options.activate = false;
-    this._container.style.display = 'none';
   };
+  Tz.$options = new Proxy(Object.assign({}, pointerOpt), {
+    set: function (target, p, value, receiver) {
+      Reflect.set(target, p, value, receiver);
+      if (p === 'show') {
+        if (value) {
+          Tz.$options.activate = true;
+          Tz._container.style.display = 'block';
+        } else {
+          Tz.$options.activate = false;
+          Tz._container.style.display = 'none';
+        }
+      }
+      return true;
+    }
+  });
   return Tz;
 };
 

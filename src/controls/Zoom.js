@@ -10,19 +10,29 @@ let zoomOpt = {
   }
 };
 let zoomControl = function () {
-  let options = new Proxy(Object.assign({}, zoomOpt), {});
-  let Tz = L.control.zoom(options.opt);
-  Tz.$options = options;
+  let opt = Object.assign({}, zoomOpt.opt);
+  let Tz = L.control.zoom(opt);
   Tz.__proto__.show = function () {
     this.$options.show = true;
-    this.$options.activate = true;
-    this._container.style.display = 'block';
   };
   Tz.__proto__.hide = function () {
     this.$options.show = false;
-    this.$options.activate = false;
-    this._container.style.display = 'none';
   };
+  Tz.$options = new Proxy(Object.assign({}, zoomOpt), {
+    set: function (target, p, value, receiver) {
+      Reflect.set(target, p, value, receiver);
+      if (p === 'show') {
+        if (value) {
+          Tz.$options.activate = true;
+          Tz._container.style.display = 'block';
+        } else {
+          Tz.$options.activate = false;
+          Tz._container.style.display = 'none';
+        }
+      }
+      return true;
+    }
+  });
   return Tz;
 };
 

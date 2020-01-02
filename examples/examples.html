@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>TGIS-Examples</title>
+  <script src="js/theme.js"></script>
+  <script src="js/config.js"></script>
+  <script src="libs/jquery-3.4.1.min.js"></script>
+  <script src="libs/jquery-ui/jquery-ui.min.js"></script>
+  <link rel="stylesheet" href="libs/layui/css/layui.css"/>
+  <link rel="stylesheet" href="css/editor.css"/>
+  <link rel="stylesheet" href="libs/jquery-ui/jquery-ui.min.css"/>
+</head>
+<body class="layui-layout-body">
+<a href="javascript:" class="open-btn" title="编辑代码">
+  <i class="layui-icon layui-icon-util" style="font-size:20px"></i>
+</a>
+<div class="layui-layout">
+  <div class="layui-body" style="left:0;top:0;bottom: 0">
+    <div class="wrapper" style="height: 100%">
+      <div class="editorSet">
+        <div class="editor codeRegion">
+          <div style="align-items: center;height: 35px">
+            <span class="label">html</span>
+            <div class="themes"><label for="themes">Themes:</label><select id="themes"></select></div>
+            <div class="themes"><label for="examples">Examples:</label><select id="examples"></select>
+            </div>
+            <button class="edit-btn submit-btn" id="submit">提交运行</button>
+            <button class="edit-btn close-btn" id="close">最小化</button>
+          </div>
+          <pre id="editor1" class="edit-area"></pre>
+        </div>
+        <div class="editor preview">
+          <iframe style="top: 0;background: #fff;" class="edit-area" id="preview" frameborder="0" srcdoc=""></iframe>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script src="libs/layui/layui.all.js"></script>
+<script>
+  //JavaScript代码区域
+  layui.use('element', function () {
+    let element = layui.element;
+  });
+</script>
+<script type="text/javascript" src="libs/ace/ace.js"></script>
+<script type="text/javascript" src="libs/ace/ext-language_tools.js"></script>
+<script type="text/javascript">
+  (function () {
+    let editor = ace.edit('editor1', {
+      theme: 'ace/theme/chrome',
+      mode: 'ace/mode/html',
+      wrap: true,
+      autoScrollEditorIntoView: true,
+      enableBasicAutocompletion: true,
+      enableSnippets: true,
+      enableLiveAutocompletion: true
+    });
+    for (let i = 0; i < themes.length; i++) {
+      $('#themes').append('<option value="' + themes[i].theme + '">' + themes[i].caption + '</option>');
+    }
+    for (let i = 0; i < examples.length; i++) {
+      $('#examples').append('<option value="' + examples[i].path + '">' + examples[i].name + '</option>');
+    }
+    $('#examples').change(function () {
+      $.ajax({
+        url: $('#examples').val(),
+        type: 'get',
+        success: function (res) {
+          editor.setValue(res);
+          $('.submit-btn').click();
+        }
+      });
+    });
+    $('#examples')[0].selectedIndex = 0;
+    $('#examples').change();
+    $('#themes').val('ace/theme/chrome');
+    console.log(editor);
+    $('#themes').change(function () {
+      editor.setTheme($('#themes').val());
+    });
+    let submit = document.querySelector('#submit');
+    submit.addEventListener('click', function () {
+      let htmlValue = editor.getValue();
+      document.getElementById('preview').srcdoc = '<!DOCTYPE html><html lang=""><head><meta charset="utf-8" /><title>代码测试</title>' +
+        '<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>' +
+        '<meta name="format-detection" content="telephone=no" />' +
+        '<meta name="apple-mobile-web-app-status-bar-style" content="black" />' +
+        '<meta name="apple-mobile-web-app-capable" content="yes" />' +
+        '<meta http-equiv="X-UA-Compatible" content="chrome=1,IE=edge"/>' +
+        '<link rel="stylesheet" href="css/console.css"/>' +
+        '<script type="text/javascript" src="libs/vconsole.min.js">' + '<\/script>' +
+        '<script type="text/javascript">' + 'new window.VConsole();' + '<\/script>' +
+        '</head><body>' + htmlValue + '</body></html>';
+    });
+  })();
+  $('.open-btn').click(function () {
+    $('.codeRegion').show();
+    $('.preview').width('60%');
+    $('.open-btn').hide();
+  });
+  $('.close-btn').click(function () {
+    $('.codeRegion').hide();
+    $('.preview').width('100%');
+    $('.open-btn').show();
+  });
+
+  $('.codeRegion').resizable({
+    handles: 'e', //'e'是east，允许拖动右侧边框的意思
+    //resize方法在#left大小改变后被执行
+    resize: function (event, ui) { //由于我们调整的是#left的大小，当#left改变时，要同时改变#middle的大小
+      event.stopPropagation()
+      $('.preview').width($('.editorSet').width() - $('.codeRegion').width());
+    }
+  });
+</script>
+</body>
+</html>

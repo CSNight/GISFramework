@@ -4,9 +4,11 @@ import {latLngGraticule} from '../controls/Graticule';
 import {scaleBar} from '../controls/ScaleBar';
 import {pointer} from '../controls/Position';
 import {printer} from '../controls/Printer';
+import {measure} from '../controls/Measure';
 
 let controls = {
   zoom: zoomControl,
+  measure: measure,
   drawer: '',
   scaleBar: scaleBar,
   graticule: latLngGraticule,

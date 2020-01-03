@@ -21,7 +21,7 @@ if (env === 'build') {
 const config = {
   mode: mode,
   entry: __dirname + '/src/index.js',
- // devtool: 'inline-source-map',
+  // devtool: 'inline-source-map',
   output: {
     path: __dirname + '/dist',
     filename: outputFile,
@@ -39,6 +39,9 @@ const config = {
       }, {
         test: /\.css$/,
         use: ['style-loader', 'css-loader']
+      }, {
+        test: /\.(png|svg|jpg|gif)$/,
+        use: ['url-loader']
       }
     ]
   },

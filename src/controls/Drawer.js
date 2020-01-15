@@ -1,8 +1,22 @@
-import {FeatureGroup} from '../leaflet/leaflet-src.esm';
+import '../plugins/draw/leaflet.draw-src';
+import '../plugins/draw/leaflet.draw.css';
 
 let drawer = {
   show: true,
   activate: false,
+  drawer: {
+    polyline: true,
+    polygon: true,
+    circle: true,
+    rectangle: true,
+    marker: true,
+    circlemarker: true
+  },
+  editor: {
+    poly: {},
+    edit: {},
+    remove: {}
+  },
   local: {
     draw: {
       toolbar: {
@@ -111,6 +125,141 @@ let drawer = {
       }
     }
   },
-  opt: {},
-  targetLayer: new FeatureGroup()
+  opt: {
+    position: 'topright', //控件位置
+    draw: {
+      polyline: { //线style
+        shapeOptions: {
+          color: '#f357a1',
+          weight: 10
+        }
+      },
+      polygon: { //面style
+        allowIntersection: false,
+        drawError: {
+          color: '#e1e100',
+          message: '错误'
+        },
+        shapeOptions: {
+          color: '#bada55'
+        }
+      },
+      circle: true,
+      circlemarker: true,
+      rectangle: {
+        shapeOptions: {
+          clickable: true
+        }
+      },
+      marker: true
+    },
+    edit: {
+      featureGroup: null,
+      poly: {},
+      edit: {},
+      remove: {},
+      allowIntersection: false
+    }
+  },
+  targetLayer: null
 };
+L.drawLocal = drawer.local;
+
+let drawerPlugin = function (targetLayer, options) {
+  let opt = {
+    position: 'topright'
+  };
+  if (options.hasOwnProperty('draw')) {
+    if (typeof (options.draw) === 'boolean') {
+      if (options.draw) {
+        opt.draw = JSON.parse(JSON.stringify(drawer.opt.draw));
+      }
+    } else if (typeof (options.draw) === 'object') {
+      opt.draw = {};
+      for (let key in drawer.drawer) {
+        if (options.draw.hasOwnProperty(key) && options.draw[key]) {
+          opt.draw[key] = JSON.parse(JSON.stringify(drawer.opt.draw[key]));
+        } else {
+          opt.draw[key] = false;
+        }
+      }
+    }
+  }
+  if (options.hasOwnProperty('edit')) {
+    if (typeof (options.edit) === 'boolean') {
+      if (options.edit) {
+        opt.edit = JSON.parse(JSON.stringify(drawer.opt.edit));
+        opt.edit.featureGroup = targetLayer;
+      }
+    } else if (typeof (options.edit) === 'object') {
+      opt.edit = {};
+      for (let key in drawer.editor) {
+        if (options.edit.hasOwnProperty(key) && options.edit[key]) {
+          opt.edit[key] = JSON.parse(JSON.stringify(drawer.opt.edit[key]));
+        } else {
+          opt.edit[key] = false;
+        }
+      }
+      opt.edit.featureGroup = targetLayer;
+    }
+  }
+  let Tz = new L.Control.Draw(opt);
+  Tz.__proto__.show = function () {
+    this.$options.show = true;
+  };
+  Tz.__proto__.hide = function () {
+    this.$options.show = false;
+  };
+  Tz.__proto__.disableAll = function () {
+    if (Tz._toolbars.hasOwnProperty('edit')) {
+      Tz._toolbars.edit.disable();
+    }
+    if (Tz._toolbars.hasOwnProperty('draw')) {
+      Tz._toolbars.draw.disable();
+    }
+  };
+  Tz.__proto__.enableAll = function () {
+    if (Tz._toolbars.hasOwnProperty('edit')) {
+      Tz._toolbars.edit.enable();
+    }
+    if (Tz._toolbars.hasOwnProperty('draw')) {
+      Tz._toolbars.draw.enable();
+    }
+  };
+  Tz.__proto__.enable = function (item) {
+    if (Tz._toolbars.hasOwnProperty(item)) {
+      Tz._toolbars.edit.enable();
+    }
+  };
+  Tz.__proto__.disable = function (item) {
+    if (Tz._toolbars.hasOwnProperty(item)) {
+      Tz._toolbars.edit.disable();
+    }
+  };
+  let drawOpt = JSON.parse(JSON.stringify(drawer));
+  drawOpt.opt = opt;
+  T.map.on(L.Draw.Event.CREATED, function (event) {
+    let layer = event.layer;
+    targetLayer.addLayer(layer);
+  });
+  Tz.$groups = targetLayer;
+  Tz.$options = new Proxy(Object.assign({}, drawOpt), {
+    set: function (target, p, value, receiver) {
+      Reflect.set(target, p, value, receiver);
+      if (p === 'show') {
+        if (value) {
+          Tz.$options.activate = true;
+          Tz._container.style.display = 'block';
+          Tz.enableAll();
+        } else {
+          Tz.$options.activate = false;
+          Tz._container.style.display = 'none';
+          Tz.disableAll();
+        }
+      }
+      return true;
+    }
+  });
+  return Tz;
+};
+export {drawerPlugin};

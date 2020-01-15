@@ -5,11 +5,12 @@ import {scaleBar} from '../controls/ScaleBar';
 import {pointer} from '../controls/Position';
 import {printer} from '../controls/Printer';
 import {measure} from '../controls/Measure';
+import {drawerPlugin} from '../controls/Drawer';
 
 let controls = {
   zoom: zoomControl,
   measure: measure,
-  drawer: '',
+  drawer: drawerPlugin,
   scaleBar: scaleBar,
   graticule: latLngGraticule,
   printer: printer,

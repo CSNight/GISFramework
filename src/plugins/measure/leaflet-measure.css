@@ -153,7 +153,8 @@
 
 .leaflet-control-measure a.cancel:hover {
   opacity: .5;
-  text-decoration: none
+  text-decoration: none;
+  display: inline !important;
 }
 
 .leaflet-control-measure a.finish {
@@ -174,7 +175,7 @@
 }
 
 .leaflet-control-measure a.finish, .leaflet-control-measure a.finish:hover {
-  background-color: transparent
+  background-color: transparent;
 }
 
 .leaflet-retina .leaflet-control-measure a.finish {
@@ -183,7 +184,8 @@
 
 .leaflet-control-measure a.finish:hover {
   opacity: .5;
-  text-decoration: none
+  text-decoration: none;
+  display: inline !important;
 }
 
 .leaflet-measure-resultpopup a.zoomto {

@@ -28,6 +28,8 @@
   T.map.addControl(T.controls.pointer());
   T.map.addControl(T.controls.printer());
   T.map.addControl(T.controls.measure());
+  let featg=L.featureGroup().addTo(T.map);
+  T.map.addControl(T.controls.drawer(featg, {draw: {polyline:true}, edit: true}));
 </script>
 </body>
 </html>

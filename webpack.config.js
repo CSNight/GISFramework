@@ -23,7 +23,7 @@ const config = {
   entry: __dirname + '/src/index.js',
   // devtool: 'inline-source-map',
   output: {
-    path: __dirname + '/dist',
+    path: __dirname + '/t-gis',
     filename: outputFile,
     library: libraryName,
     libraryTarget: 'umd',
@@ -41,7 +41,16 @@ const config = {
         use: ['style-loader', 'css-loader']
       }, {
         test: /\.(png|svg|jpg|gif)$/,
-        use: ['url-loader']
+        use: [{
+          loader: 'url-loader',
+          options: {
+            limit: 0,
+            name: 'images/[name].[ext]', // 利用[path]路径获取文件夹名称并设置文件名
+            fallback: 'file-loader',  // 当超过8192byte时，会回退使用file-loader
+            context: path.resolve(__dirname, '../src'),//过滤掉[path]的相对路径
+            publicPath: './t-gis' //采用根路径
+          }
+        }]
       }
     ]
   },

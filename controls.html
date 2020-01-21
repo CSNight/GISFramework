@@ -3,15 +3,18 @@
 <head>
   <meta charset="UTF-8">
   <title>Title</title>
-  <script src="../examples/libs/jquery-3.4.1.min.js"></script>
-  <link rel="stylesheet" href="../examples/libs/layui/css/layui.css">
-  <script src="../src/leaflet/leaflet-src.js"></script>
-  <link rel="stylesheet" href="../src/leaflet/leaflet.css"/>
-  <script src="../t-gis/tmap.js"></script>
+  <!--  <script src="../examples/libs/jquery-3.4.1.min.js"></script>-->
+  <!--  <link rel="stylesheet" href="../examples/libs/layui/css/layui.css">-->
+  <script src="src/leaflet/leaflet-src.js"></script>
+  <link rel="stylesheet" href="src/leaflet/leaflet.css"/>
+  <script src="t-gis/tmap.js"></script>
 </head>
 <body style=";width:100%;height:100%;padding:0;margin: 0">
 <div id="map" style=";width:100%;height:100%"></div>
 <button style="position:absolute;top:0;z-index:9999999" onclick="tojson()">toJson</button>
+<button style="position:absolute;top:0;left:80px;z-index:9999999" onclick="hide()">hide</button>
+<button style="position:absolute;top:0;left:160px;z-index:9999999" onclick="show()">show</button>
+<button style="position:absolute;top:0;left:220px;z-index:9999999" onclick="setLoc()">setLocation</button>
 <script>
   T.createMap('map');
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png?{foo}', {foo: 'bar'}).addTo(T.map);
@@ -27,12 +30,28 @@
   T.map.addControl(T.controls.pointer());
   T.map.addControl(T.controls.printer());
   T.map.addControl(T.controls.measure());
+
   let featg = L.featureGroup().addTo(T.map);
   let drawer = T.controls.drawer(featg, {draw: true, edit: true});
   T.map.addControl(drawer);
+  layert = null;
 
   function tojson() {
-    drawer.featToJson();
+    console.log(drawer.featToJson());
+    layert = T.layerTree();
+    layert.init();
+  }
+
+  function hide() {
+    layert.hideLayer(layert.treeIds);
+  }
+
+  function show() {
+    layert.showLayer(layert.treeIds);
+  }
+
+  function setLoc() {
+    layert.setLocation(121);
   }
 </script>
 </body>

@@ -1,5 +1,6 @@
 import '../plugins/draw/leaflet.draw-src';
 import '../plugins/draw/leaflet.draw.css';
+import {resetStyleHandler} from '../component/VectorOptProxy';
 
 let drawer = {
   show: true,
@@ -204,6 +205,7 @@ let drawerPlugin = function (targetLayer, options) {
     }
   }
   let Tz = new L.Control.Draw(opt);
+  Tz._leaflet_id = 'drawer_control';
   Tz.__proto__.show = function () {
     this.$options.show = true;
   };
@@ -236,10 +238,62 @@ let drawerPlugin = function (targetLayer, options) {
       Tz._toolbars.edit.disable();
     }
   };
+  Tz.__proto__.featToJson = function () {
+    if (!Tz.$groups) {
+      return null;
+    }
+    let featArr = [];
+    for (let k in Tz.$groups._layers) {
+      let feat = Tz.$groups._layers[k];
+      if (feat instanceof L.Circle) {
+        let geoC = feat.toGeoJSON();
+        if (feat.options.hasOwnProperty('icon')) {
+          delete feat.options.icon;
+        }
+        geoC.properties.style = feat.options;
+        geoC.properties.type = 'circle';
+        geoC.properties.style.radius = feat._mRadius;
+        featArr.push(geoC);
+      } else if (feat instanceof L.CircleMarker) {
+        let geoCm = feat.toGeoJSON();
+        if (feat.options.hasOwnProperty('icon')) {
+          delete feat.options.icon;
+        }
+        geoCm.properties.style = feat.options;
+        geoCm.properties.type = 'circlemarker';
+        featArr.push(geoCm);
+      }
+      if (feat instanceof L.Marker) {
+        let geoM = feat.toGeoJSON();
+        if (feat.options.icon.options.hasOwnProperty('iconUrl')) {
+          geoM.properties.style = icon.options;
+        } else {
+          geoM.properties.style = {
+            icon: 'default'
+          };
+        }
+        geoM.properties.type = 'marker';
+        featArr.push(geoM);
+      }
+      if (feat instanceof L.Polygon) {
+        let geoPolygon = feat.toGeoJSON();
+        geoPolygon.properties.style = feat.options;
+        geoPolygon.properties.type = 'polygon';
+        featArr.push(geoPolygon);
+      } else if (feat instanceof L.Polyline) {
+        let geoLine = feat.toGeoJSON();
+        geoLine.properties.style = feat.options;
+        geoLine.properties.type = 'polyline';
+        featArr.push(geoLine);
+      }
+    }
+    return featArr;
+  };
   let drawOpt = JSON.parse(JSON.stringify(drawer));
   drawOpt.opt = opt;
   T.map.on(L.Draw.Event.CREATED, function (event) {
     let layer = event.layer;
+    layer=resetStyleHandler(layer);
     targetLayer.addLayer(layer);
   });
   Tz.$groups = targetLayer;

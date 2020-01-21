@@ -38,7 +38,12 @@ export function resetStyleHandler(layer) {
       return true;
     }
   };
-  layer.setStyle = new Proxy(layer.setStyle, handler);
-  layer = new Proxy(layer, handlerLayer);
+  if (layer.setStyle) {
+    if (!layer.$options) {
+      layer.$options = {};
+    }
+    layer.setStyle = new Proxy(layer.setStyle, handler);
+    layer = new Proxy(layer, handlerLayer);
+  }
   return layer;
 }

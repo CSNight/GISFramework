@@ -6,6 +6,7 @@ import {circleMarker} from '../component/TCircleMarker';
 import {polygon} from '../component/TPolygon';
 import controls from './ControlManager';
 import {icon} from '../component/TIcon';
+import {LayerTree} from '../controls/LayerTree';
 
 let T = new Proxy({
   map: null,
@@ -16,6 +17,7 @@ let T = new Proxy({
   polyline: polyline,
   polygon: polygon,
   controls: controls,
+  layerTree: LayerTree,
   icon: icon
 }, {});
 T.createMap = function (dom) {

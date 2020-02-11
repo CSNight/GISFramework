@@ -6,6 +6,7 @@ import {pointer} from '../controls/Position';
 import {printer} from '../controls/Printer';
 import {measure} from '../controls/Measure';
 import {drawerPlugin} from '../controls/Drawer';
+import {switchControl} from "../controls/BaseSwitcher";
 
 let controls = {
   zoom: zoomControl,
@@ -15,6 +16,7 @@ let controls = {
   graticule: latLngGraticule,
   printer: printer,
   pointer: pointer,
+  switcher: switchControl,
   legend: '',
   cts: {},
   init: function () {

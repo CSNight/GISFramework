@@ -1,6 +1,7 @@
 import '../plugins/draw/leaflet.draw-src';
 import '../plugins/draw/leaflet.draw.css';
 import {resetStyleHandler} from '../component/VectorOptProxy';
+import T from "../core/TMap";
 
 let drawer = {
   show: true,
@@ -293,8 +294,9 @@ let drawerPlugin = function (targetLayer, options) {
   drawOpt.opt = opt;
   T.map.on(L.Draw.Event.CREATED, function (event) {
     let layer = event.layer;
-    layer=resetStyleHandler(layer);
+    layer = resetStyleHandler(layer);
     targetLayer.addLayer(layer);
+    T.layert.refresh();
   });
   Tz.$groups = targetLayer;
   Tz.$options = new Proxy(Object.assign({}, drawOpt), {

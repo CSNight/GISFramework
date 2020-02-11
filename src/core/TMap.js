@@ -1,3 +1,4 @@
+import '../component/TTileLayer'
 import MapOption from '../component/MapOption';
 import {rectangle} from '../component/TRectangle';
 import {circle} from '../component/TCircle';
@@ -7,6 +8,7 @@ import {polygon} from '../component/TPolygon';
 import controls from './ControlManager';
 import {icon} from '../component/TIcon';
 import {LayerTree} from '../controls/LayerTree';
+
 
 let T = new Proxy({
   map: null,
@@ -23,6 +25,8 @@ let T = new Proxy({
 T.createMap = function (dom) {
   T.map = L.map(dom, MapOption);
   T.controls.init();
+  T.layert = T.layerTree();
+  T.layert.init();
   return T.map;
 };
 T.marker = function (options) {

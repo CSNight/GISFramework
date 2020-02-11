@@ -6,6 +6,8 @@ export function LayerTree(options) {
     tree: [],
     treeIds: [],
     init: function () {
+      this.treeIds = [];
+      this.tree = [];
       this.options = Object.assign(this.options, options);
       this.tree = this.buildTree(T.map._layers);
       console.log(this.tree);
@@ -35,6 +37,8 @@ export function LayerTree(options) {
       return nodes;
     },
     refresh() {
+      this.treeIds = [];
+      this.tree = [];
       this.tree = this.buildTree(T.map._layers);
     },
     getLayerType(layer) {
@@ -80,6 +84,9 @@ export function LayerTree(options) {
           if (lt === 'LayerGroup' || lt === 'FeatureGroup') {
             let idc = [];
             for (let j in layer._layers) {
+              if (idk.indexOf(layer._leaflet_id) !== -1) {
+                continue;
+              }
               idc.push(layer._layers[j]._leaflet_id);
             }
             this.hideLayer(idc);
@@ -103,15 +110,19 @@ export function LayerTree(options) {
           if (lt === 'LayerGroup' || lt === 'FeatureGroup') {
             let idc = [];
             for (let j in layer._layers) {
+              if (idk.indexOf(layer._leaflet_id) !== -1) {
+                continue;
+              }
               idc.push(layer._layers[j]._leaflet_id);
             }
-            this.hideLayer(idc);
+            this.showLayer(idc);
           } else {
             this._toggle(lt, layer, true);
           }
         }
       }
     }, _toggle(type, layer, visibility) {
+      console.log(layer._leaflet_id);
       switch (type) {
         case 'TileLayer':
           layer.setOpacity((visibility ? 1 : 0));
@@ -121,12 +132,12 @@ export function LayerTree(options) {
         case'Polygon':
           if (visibility) {
             layer.setStyle({
-              opacity: layer._tempVis.opacity,
-              fillOpacity: layer._tempVis.fillOpacity
+              opacity: layer['_tempVis'].opacity,
+              fillOpacity: layer['_tempVis'].fillOpacity
             });
-            delete layer._tempVis;
+            delete layer['_tempVis'];
           } else {
-            layer._tempVis = {
+            layer['_tempVis'] = {
               opacity: layer.options.opacity ? layer.options.opacity : 1,
               fillOpacity: layer.options.fillOpacity ? layer.options.fillOpacity : 1
             };

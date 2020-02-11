@@ -17,8 +17,8 @@
 <button style="position:absolute;top:0;left:220px;z-index:9999999" onclick="setLoc()">setLocation</button>
 <script>
   T.createMap('map');
-  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png?{foo}', {foo: 'bar'}).addTo(T.map);
-  var bounds = [[54.559322, 20.767822], [56.1210604, 33.021240]];
+  //L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png?{foo}', {foo: 'bar'}).addTo(T.map);
+  let bounds = [[34.559322, 114.767822], [36.1210604, 112.021240]];
   // create an orange rectangle
   let s = T.rectangle(bounds, {color: '#ff7800', weight: 1}).addTo(T.map);
   window.s = s;
@@ -30,28 +30,53 @@
   T.map.addControl(T.controls.pointer());
   T.map.addControl(T.controls.printer());
   T.map.addControl(T.controls.measure());
-
+  var basemaps = [
+    L.tileLayer.chinaProvider("OSM.Normal.Map", {
+      attribution: '',
+      subdomains: "abcd",
+      maxZoom: 20,
+      minZoom: 0,
+      label: "OpenStreet"
+    }),
+    L.tileLayer.chinaProvider('Google.Satellite.Map', {
+      maxZoom: 20,
+      minZoom: 0,
+      label: "Google"
+    }),
+    L.tileLayer.chinaProvider("TianDiTu.Normal.Map", {
+      maxZoom: 18,
+      minZoom: 1,
+      annotation: "TianDiTu.Normal.Annotation",
+      label: "天地图"
+    })
+  ];
+  let switcher = T.controls.switcher({
+    basemaps: basemaps,
+    tileX: 0,
+    tileY: 0,
+    tileZ: 1
+  });
   let featg = L.featureGroup().addTo(T.map);
   let drawer = T.controls.drawer(featg, {draw: true, edit: true});
   T.map.addControl(drawer);
-  layert = null;
+  T.map.addControl(switcher);
 
   function tojson() {
     console.log(drawer.featToJson());
-    layert = T.layerTree();
-    layert.init();
   }
 
   function hide() {
-    layert.hideLayer(layert.treeIds);
+
+    T.layert.hideLayer(T.layert.treeIds);
   }
 
   function show() {
-    layert.showLayer(layert.treeIds);
+
+    T.layert.showLayer(T.layert.treeIds);
   }
 
   function setLoc() {
-    layert.setLocation(121);
+    T.layert.setLocation(634);
   }
 </script>
 </body>

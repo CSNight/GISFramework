@@ -1,5 +1,4 @@
 L.TileLayer.ChinaProvider = L.TileLayer.extend({
-
   initialize: function (type, options) { // (type, Object)
     let providers = L.TileLayer.ChinaProvider.providers;
     let parts = type.split('.');
@@ -14,7 +13,7 @@ L.TileLayer.ChinaProvider = L.TileLayer.extend({
 });
 
 L.TileLayer.ChinaProvider.providers = {
-  TianDiTu: {
+  "T-TianDiTu": {
     Normal: {
       Map: "http://t{s}.tianditu.com/DataServer?T=vec_w&X={x}&Y={y}&L={z}&tk={key}",
       Annotation: "http://t{s}.tianditu.com/DataServer?T=cva_w&X={x}&Y={y}&L={z}&tk={key}"
@@ -31,7 +30,7 @@ L.TileLayer.ChinaProvider.providers = {
     key: "f5a5b965118d9f64418ff38c6bcf25f3"
   },
 
-  GaoDe: {
+  "T-GaoDe": {
     Normal: {
       Map: 'http://webrd0{s}.is.autonavi.com/appmaptile?lang=zh_cn&size=1&scale=1&style=8&x={x}&y={y}&z={z}'
     },
@@ -42,7 +41,7 @@ L.TileLayer.ChinaProvider.providers = {
     Subdomains: ["1", "2", "3", "4"]
   },
 
-  Google: {
+  "T-Google": {
     Normal: {
       Map: "http://www.google.cn/maps/vt?lyrs=m@189&gl=cn&x={x}&y={y}&z={z}"
     },
@@ -52,7 +51,7 @@ L.TileLayer.ChinaProvider.providers = {
     Subdomains: []
   },
 
-  Geoq: {
+  "T-Geoq": {
     Normal: {
       Map: "http://map.geoq.cn/ArcGIS/rest/services/ChinaOnlineCommunity/MapServer/tile/{z}/{y}/{x}",
       PurplishBlue: "http://map.geoq.cn/ArcGIS/rest/services/ChinaOnlineStreetPurplishBlue/MapServer/tile/{z}/{y}/{x}",
@@ -65,7 +64,7 @@ L.TileLayer.ChinaProvider.providers = {
     Subdomains: []
   },
 
-  OSM: {
+  "T-OSM": {
     Normal: {
       Map: "http://{s}.tile.osm.org/{z}/{x}/{y}.png",
     },
@@ -73,8 +72,41 @@ L.TileLayer.ChinaProvider.providers = {
   }
 
 };
-
 L.tileLayer.chinaProvider = function (type, options) {
   return new L.TileLayer.ChinaProvider(type, options);
 };
-export default {}
+
+function removejscssfile(filename, filetype) {
+  let targetelement = (filetype === "js") ? "script" : (filetype === "css") ? "link" : "none";
+  let targetattr = (filetype === "js") ? "src" : (filetype === "css") ? "href" : "none";
+  let allsuspects = document.getElementsByTagName(targetelement);
+  for (let i = allsuspects.length; i >= 0; i--) {
+    if (allsuspects[i] && allsuspects[i].getAttribute(targetattr) != null && allsuspects[i].getAttribute(targetattr).indexOf(filename) !== -1)
+      allsuspects[i].parentNode.removeChild(allsuspects[i])
+  }
+}
+
+export function CusTileLayer(url, options, isCache) {
+  if (!options || options === {}) {
+    options = {
+      maxZoom: T.map.getMaxZoom(),
+      minZoom: T.map.getMinZoom()
+    }
+  }
+  if (url.indexOf("iserver") !== -1) {
+    options.cacheEnabled = isCache;
+    return L.supermap.tiledMapLayer(url, options);
+  } else if (url.indexOf("arcgis") !== -1) {
+    options.url = url;
+    if (isCache) {
+      return L.esri.tiledMapLayer(options);
+    } else {
+      return L.esri.dynamicMapLayer(options);
+    }
+  } else if (url.indexOf("T-") !== -1) {
+    return L.tileLayer.chinaProvider(url, options)
+  } else {
+    return L.tileLayer(url, options);
+  }
+}
+

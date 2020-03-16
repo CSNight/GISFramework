@@ -1,4 +1,4 @@
-import '../component/TTileLayer'
+import {CusTileLayer} from '../component/TTileLayer'
 import MapOption from '../component/MapOption';
 import {rectangle} from '../component/TRectangle';
 import {circle} from '../component/TCircle';
@@ -8,7 +8,10 @@ import {polygon} from '../component/TPolygon';
 import controls from './ControlManager';
 import {icon} from '../component/TIcon';
 import {LayerTree} from '../controls/LayerTree';
-
+import EventBus from "./EventBus";
+import clientAnalysis from "../analysis/clients/clientAnalysis";
+import sma from '../analysis/server/sma';
+import esria from '../analysis/server/esria';
 
 let T = new Proxy({
   map: null,
@@ -20,7 +23,12 @@ let T = new Proxy({
   polygon: polygon,
   controls: controls,
   layerTree: LayerTree,
-  icon: icon
+  icon: icon,
+  EvBus: EventBus,
+  cusTileLayer: CusTileLayer,
+  turf: clientAnalysis,
+  sma: sma,
+  esria: esria
 }, {});
 T.createMap = function (dom) {
   T.map = L.map(dom, MapOption);

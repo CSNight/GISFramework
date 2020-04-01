@@ -8,7 +8,6 @@ import {
   distance,
   intersect,
   isolines,
-  lineString,
   nearestPointOnLine,
   planepoint,
   point,
@@ -19,13 +18,13 @@ import {
   toWgs84,
   union
 } from "@turf/turf";
-import {collectionOf, geojsonType} from "@turf/invariant";
+import {getType} from "@turf/invariant";
 
 export default {
   //距离计算
   calDistance: function (X1, Y1, X2, Y2, units) {
-    let from = turf.point([X1, Y1]);
-    let to = turf.point([X2, Y2]);
+    let from = point([X1, Y1]);
+    let to = point([X2, Y2]);
     let options = {units: units};
     return distance(from, to, options);
   },
@@ -38,11 +37,11 @@ export default {
     let bufferFeat = buffer(srcFeature, radius, {units: units, step: 64});
     let result = [];
     for (let i = 0; i < tarFeatures.length; i++) {
-      if (geojsonType(bufferFeat, "Polygon", "Polygon")) {
+      if (getType(bufferFeat) === "Polygon") {
         if (booleanContains(bufferFeat, tarFeatures[i])) {
           result.push(tarFeatures[i])
         }
-      } else if (collectionOf(bufferFeat, "Polygon", "Polygon")) {
+      } else if (bufferFeat.type === "FeatureCollection") {
         for (let j = 0; j < bufferFeat.features.length; j++) {
           if (booleanContains(bufferFeat.features[j], tarFeatures[i])) {
             result.push(tarFeatures[i])
@@ -117,7 +116,7 @@ export default {
   },
   //计算外包络凹多边形 geoJson（FeatureCollection）点集,最大边长，边长单位
   genConcave: function (pointFeatureCollection, maxEdge, units) {
-    let options = {units: arguments[2] ? arguments[2] : 'kilometers', maxEdge: arguments[1] ? arguments[1] : Infinity};
+    let options = {units: arguments[2] ? arguments[2] : 'miles', maxEdge: arguments[1] ? arguments[1] : 10};
     return concave(pointFeatureCollection, options);
   },
   //计算外包络凸多边形 geoJson（FeatureCollection）点集
@@ -126,7 +125,7 @@ export default {
   },
   //生成等值线
   generateIsoLines: function (pointArrWithZ, breaks, zProperty) {
-    if (pointArrWithZ.length > 0 && pointArrWithZ[0].properties.hasOwnProperty(zProperty)) {
+    if (pointArrWithZ.features.length > 0 && pointArrWithZ.features[0].properties.hasOwnProperty(zProperty)) {
       return isolines(pointArrWithZ, breaks, {zProperty: zProperty});
     }
     return null;
@@ -141,7 +140,7 @@ export default {
   //插值分析
   isoIntersect: function (tin, x, y) {
     if (tin.hasOwnProperty("type") && tin['type'] === "FeatureCollection") {
-      let p = point(x, y);
+      let p = point([x, y]);
       if (tin.features.length > 0 && p) {
         let tris = tin.features;
         for (let i = 0; i < tris.length; i++) {
@@ -154,11 +153,10 @@ export default {
     return null;
   },
   //求线上最近点
-  calNearestPointOnLine: function (LinePointArr, geoPoint, units) {
-    if (LinePointArr.length > 0 && geoPoint.type === 'Point') {
-      let line = lineString(LinePointArr);
-      if (line) {
-        return nearestPointOnLine(line, geoPoint, {units: units})
+  calNearestPointOnLine: function (geoLine, geoPoint, units) {
+    if (geoPoint.type === 'Feature') {
+      if (geoLine) {
+        return nearestPointOnLine(geoLine, geoPoint, {units: units})
       }
     }
     return null;

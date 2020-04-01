@@ -31,7 +31,8 @@ export default {
           resolve(serviceResult.result);
         });
     });
-  }, searchByGeo: function (url, ds, dt, feature, mode, callback) {
+  },
+  searchByGeo: function (url, ds, dt, feature, mode, callback) {
     let geometryParam = new SuperMap.GetFeaturesByGeometryParameters({
       datasetNames: [ds + ":" + dt],
       geometry: feature,
@@ -45,7 +46,8 @@ export default {
           resolve(serviceResult.result);
         });
     });
-  }, bufferGeoAnalysis(url, bufDistance, geo,) {
+  },
+  bufferGeoAnalysis(url, bufDistance, geo,) {
     let bufferAnalystService = L.supermap.spatialAnalystService(url);
     let geoBufferAnalystParams = new SuperMap.GeometryBufferAnalystParameters({
       sourceGeometry: geo,
@@ -61,7 +63,8 @@ export default {
         resolve(result.result);
       });
     })
-  }, bufferDatasetAnalysis(url, bufDistance, dataset, datasource, filter) {
+  },
+  bufferDatasetAnalysis(url, bufDistance, dataset, datasource, filter) {
     let bufferAnalystService = L.supermap.spatialAnalystService(url);
     let dsBufferAnalystParameters = new SuperMap.DatasetBufferAnalystParameters({
       dataset: dataset + "@" + datasource,
@@ -80,7 +83,8 @@ export default {
         resolve(result.result);
       });
     })
-  }, overlayDatasetAnalysis(url, srcDtSet, srcDtSource, tarDtSet, tarDtSource, Op) {
+  },
+  overlayDatasetAnalysis(url, srcDtSet, srcDtSource, tarDtSet, tarDtSource, Op) {
     let overlayAnalystService = L.supermap.spatialAnalystService(url);
 
     function getOp(operator) {
@@ -114,7 +118,8 @@ export default {
         resolve(serviceResult.result);
       });
     })
-  }, surfaceAnalystProcess: function (url, region, dataset, resolution, zField, interval) {
+  },
+  surfaceAnalystProcess: function (url, region, dataset, resolution, zField, interval) {
     let surfaceAnalystParameters = new SuperMap.DatasetSurfaceAnalystParameters({
       extractParameter: new SuperMap.SurfaceAnalystParametersSetting({
         datumValue: 0,
@@ -139,7 +144,8 @@ export default {
         }
       });
     });
-  }, findPath: function (url, endPoints, weightField) {
+  },
+  findPath: function (url, endPoints, weightField) {
 //创建最佳路径分析服务实例
     let findPathService = L.supermap.networkAnalystService(url);
     //创建最佳路径分析参数实例
@@ -172,7 +178,8 @@ export default {
         }
       });
     });
-  }, findServiceAreas: function (url, centers, weights, weightField) {
+  },
+  findServiceAreas: function (url, centers, weights, weightField) {
     //添加中心点
     let resultSetting = new SuperMap.TransportationAnalystResultSetting({
       returnEdgeFeatures: true,
@@ -205,7 +212,8 @@ export default {
         }
       });
     });
-  }, findClosetFacilities: function (url, evtPoint, facilities, weightField) {
+  },
+  findClosetFacilities: function (url, evtPoint, facilities, weightField) {
     //创建最近设施分析服务实例
     let findClosetFacilitiesService = L.supermap.networkAnalystService(url);
     //创建最近设施分析参数实例
@@ -245,5 +253,47 @@ export default {
         }
       });
     });
+  }, addressMatch: function (url, address, count, spatialRef) {
+    let addressMatchService = L.supermap.addressMatchService(url);
+    let geoCodeParam = new SuperMap.GeoCodingParameter({
+      address: address,
+      fromIndex: 0,
+      toIndex: count,
+      filters: '',
+      prjCoordSys: {epsgcode: spatialRef},
+      maxReturn: -1
+    });
+    return new Promise(function (resolve, reject) {
+      addressMatchService.code(geoCodeParam, function (serviceResult) {
+        let result = serviceResult.result;
+        if (result) {
+          resolve(result)
+        } else {
+          reject(serviceResult.error.errorMsg);
+        }
+      });
+    })
+  }, getAddressCoord: function (url, x, y, count, spatialRef) {
+    let addressMatchService = L.supermap.addressMatchService(url);
+    let geoDecodeParam = new SuperMap.GeoDecodingParameter({
+      x: x,
+      y: y,
+      fromIndex: 0,
+      toIndex: count,
+      filters: '',
+      prjCoordSys: {epsgcode: spatialRef},
+      maxReturn: -1,
+      geoDecodingRadius: -1,
+    });
+    return new Promise(function (resolve, reject) {
+      addressMatchService.code(geoDecodeParam, function (serviceResult) {
+        let result = serviceResult.result;
+        if (result) {
+          resolve(result)
+        } else {
+          reject(serviceResult.error.errorMsg);
+        }
+      });
+    })
   }
 }

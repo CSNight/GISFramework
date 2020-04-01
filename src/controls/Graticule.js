@@ -16,8 +16,8 @@ let graticuleOpt = {
   }
 };
 
-let latLngGraticule = function () {
-  let opt = Object.assign({}, graticuleOpt.opt);
+let latLngGraticule = function (cusOpt) {
+  let opt = Object.assign(graticuleOpt.opt, cusOpt);
   let Tz = L.latlngGraticule(opt);
   Tz.__proto__.show = function () {
     T.map.removeLayer(this);

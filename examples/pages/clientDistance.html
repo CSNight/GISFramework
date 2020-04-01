@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>客户端工具</title>
+  <script src="../examples/libs/jquery-3.4.1.min.js"></script>
+  <link rel="stylesheet" href="../examples/libs/layui/css/layui.css">
+  <link rel="stylesheet" href="../examples/css/style.css">
+  <script src="../src/leaflet/leaflet-src.js"></script>
+  <link rel="stylesheet" href="../src/leaflet/leaflet.css"/>
+  <script src="./t-gis/tmap.js"></script>
+</head>
+<body>
+<div id="map" style=";width:100%;height:100%"></div>
+<div class="layui-card ctr-panel" style="width: 150px;">
+  <div class="layui-card-header ">操作面板</div>
+  <div class="layui-card-body">
+    <button onclick="calDis()" type="button" class="layui-btn layui-btn-sm" style="width: 100px;margin-left: 10px">
+      距离计算
+    </button>
+    <button onclick="calNearestPoint()" type="button" class="layui-btn layui-btn-sm"
+            style="width: 100px;margin-top:10px;">
+      求线最近点
+    </button>
+    <button onclick="wgsToMec()" type="button" class="layui-btn  layui-btn-sm"
+            style="width: 100px;margin-top:10px;">
+      wgs84转墨卡托
+    </button>
+    <button onclick="mecToWgs()" type="button" class="layui-btn  layui-btn-sm" style="width: 100px;margin-top:10px;">
+      墨卡托转wgs84
+    </button>
+    <button onclick="clearLayer()" type="button" class="layui-btn  layui-btn-sm" style="width: 100px;margin-top:10px;">
+      清除
+    </button>
+  </div>
+</div>
+<script>
+  T.createMap('map');
+  T.map.setView([35, 105], 4);
+  T.map.addControl(T.controls.pointer());
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png?{foo}', {foo: 'bar'}).addTo(T.map);
+  let feats = [];
+
+  function calDis() {
+    clearLayer();
+    let mark1 = L.marker([28, 117]).addTo(T.map);
+    let mark2 = L.marker([33, 117]).addTo(T.map);
+    let distance = T.turf.calDistance(117, 28, 117, 33, 'meters');
+    let Line = L.polyline([[28, 117], [33, 117]]).bindTooltip('两点间距离是' + distance + '米', {permanent: true}).addTo(T.map);
+    feats.push(mark1);
+    feats.push(mark2);
+    feats.push(Line);
+  }
+
+  function calNearestPoint() {
+    clearLayer();
+    let Line = L.polyline([[28, 117], [33, 115], [23, 114], [26, 116]]).addTo(T.map);
+    let mark1 = L.marker([32, 112]).bindTooltip('原始点', {permanent: true}).addTo(T.map);
+    feats.push(mark1);
+    feats.push(Line);
+    let mark2 = L.geoJSON(T.turf.calNearestPointOnLine(Line.toGeoJSON(), mark1.toGeoJSON(), 'meters'))
+      .bindTooltip(function (layer) {
+        return "线上最近点"
+      }, {permanent: true, direction: 'right'}).addTo(T.map);
+    feats.push(mark2);
+  }
+
+  function wgsToMec() {
+    clearLayer();
+    let mark1 = L.marker([32, 112]).addTo(T.map);
+    let point = T.turf.pointToMercator(mark1.toGeoJSON());
+    mark1.bindTooltip('原始WGS84坐标为112,32' + "</br>" + "转换后墨卡托坐标为" +
+      point.geometry.coordinates[0] + "," + point.geometry.coordinates[1], {permanent: true});
+    feats.push(mark1);
+  }
+
+  function mecToWgs() {
+    clearLayer();
+    let point = T.turf.pointToWGS84(L.marker([3763310.627, 12467782.968]).toGeoJSON());
+    let mark1 = L.marker([point.geometry.coordinates[1], point.geometry.coordinates[0]]).addTo(T.map);
+    mark1.bindTooltip('原始墨卡托坐标为12467782.968,3763310.627' + "</br>" + "转换后WGS84坐标为" +
+      point.geometry.coordinates[0] + "," + point.geometry.coordinates[1], {permanent: true});
+    feats.push(mark1);
+  }
+
+  function clearLayer() {
+    if (feats.length > 0) {
+      for (let i = 0; i < feats.length; i++) {
+        T.map.removeLayer(feats[i]);
+      }
+    }
+  }
+
+</script>
+</body>
+</html>

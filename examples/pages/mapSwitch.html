@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>地图切换控件</title>
+  <script src="../examples/libs/jquery-3.4.1.min.js"></script>
+  <link rel="stylesheet" href="../examples/libs/layui/css/layui.css">
+  <link rel="stylesheet" href="../examples/css/style.css">
+  <script src="../src/leaflet/leaflet-src.js"></script>
+  <link rel="stylesheet" href="../src/leaflet/leaflet.css"/>
+  <script src="./t-gis/tmap.js"></script>
+</head>
+<body>
+<div id="map" style=";width:100%;height:100%"></div>
+<script>
+  T.createMap('map');
+  T.map.setView([35, 105], 4);
+  T.map.addControl(T.controls.pointer());
+  var basemaps = [
+    L.tileLayer.chinaProvider("T-OSM.Normal.Map", {
+      attribution: '',
+      subdomains: "abcd",
+      maxZoom: 20,
+      minZoom: 0,
+      label: "OpenStreet"
+    }),
+    L.tileLayer.chinaProvider('T-Google.Satellite.Map', {
+      maxZoom: 20,
+      minZoom: 0,
+      label: "Google"
+    }),
+    L.tileLayer.chinaProvider("T-TianDiTu.Normal.Map", {
+      maxZoom: 18,
+      minZoom: 1,
+      annotation: "T-TianDiTu.Normal.Annotation",
+      label: "天地图"
+    })
+  ];
+  let switcher = T.controls.switcher({
+    basemaps: basemaps,
+    tileX: 0,
+    tileY: 0,
+    tileZ: 1
+  });
+  T.map.addControl(switcher);
+</script>
+</body>
+</html>

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>瓦片地图</title>
+  <script src="../examples/libs/jquery-3.4.1.min.js"></script>
+  <link rel="stylesheet" href="../examples/libs/layui/css/layui.css">
+  <link rel="stylesheet" href="../examples/css/style.css">
+  <script src="../src/leaflet/leaflet-src.js"></script>
+  <script src="../src/plugins/esri/esri-leaflet-debug.js"></script>
+  <script src="../src/plugins/supermap/iclient-leaflet.js"></script>
+  <link rel="stylesheet" href="../src/leaflet/leaflet.css"/>
+  <script src="./t-gis/tmap.js"></script>
+</head>
+<body>
+<div id="map" style=";width:100%;height:100%"></div>
+<div class="layui-card ctr-panel" style="width: 150px;">
+  <div class="layui-card-header ">操作面板</div>
+  <div class="layui-card-body">
+    <button onclick="addEsri()" type="button" class="layui-btn layui-btn-sm" style="width: 100px;margin-left: 10px">
+      ArcGIS
+    </button>
+    <button onclick="addSupermap()" type="button" class="layui-btn layui-btn-sm" style="width: 100px;margin-top:10px;">
+      SuperMap
+    </button>
+    <button onclick="addTdt()" type="button" class="layui-btn layui-btn-sm" style="width:100px;margin-top:10px;">天地图
+    </button>
+    <button onclick="addOpenstreet()" type="button" class="layui-btn  layui-btn-sm"
+            style="width: 100px;margin-top:10px;">
+      OpenStreetMap
+    </button>
+  </div>
+</div>
+<script>
+  T.createMap('map');
+  T.map.setView([35, 105], 4);
+  T.map.addControl(T.controls.pointer());
+  let layers = [];
+
+  function addEsri() {
+    if (layers.length > 0) {
+      T.map.removeLayer(layers[0]);
+      layers.pop();
+    }
+    let esriLayer = T.cusTileLayer("https://services.arcgisonline.com/ArcGIS/rest/services/USA_Topo_Maps/MapServer", {
+      maxZoom: 18,
+      minZoom: 0
+    }, true);
+    T.map.addLayer(esriLayer);
+    T.map.setView([35, 105], 4);
+    layers.push(esriLayer);
+  }
+
+  function addSupermap() {
+    if (layers.length > 0) {
+      T.map.removeLayer(layers[0]);
+      layers.pop();
+    }
+    let supermapLayer = T.cusTileLayer("https://iserver.supermap.io/iserver/services/map-china400/rest/maps/China", {
+      maxZoom: 18,
+      minZoom: 0
+    }, false);
+    T.map.addLayer(supermapLayer);
+    layers.push(supermapLayer);
+    T.map.setView([35, 105], 4);
+  }
+
+  function addTdt() {
+    if (layers.length > 0) {
+      T.map.removeLayer(layers[0]);
+      layers.pop();
+    }
+    let tdtLayer = T.cusTileLayer("T-TianDiTu.Normal.Map", {
+      maxZoom: 18,
+      minZoom: 1,
+      annotation: "T-TianDiTu.Normal.Annotation",
+      label: "天地图"
+    }, false);
+    T.map.addLayer(tdtLayer);
+    layers.push(tdtLayer);
+    T.map.setView([35, 105], 4);
+  }
+
+  function addOpenstreet() {
+    if (layers.length > 0) {
+      T.map.removeLayer(layers[0]);
+      layers.pop();
+    }
+    let openLayer = T.cusTileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+      maxZoom: 18,
+      minZoom: 0
+    }, false);
+    T.map.addLayer(openLayer);
+    layers.push(openLayer);
+    T.map.setView([35, 105], 4);
+  }
+
+  addSupermap();
+</script>
+</body>
+</html>
+

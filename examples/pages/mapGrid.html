@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>地图格网</title>
+  <script src="../examples/libs/jquery-3.4.1.min.js"></script>
+  <link rel="stylesheet" href="../examples/libs/layui/css/layui.css">
+  <link rel="stylesheet" href="../examples/css/style.css">
+  <script src="../src/leaflet/leaflet-src.js"></script>
+  <link rel="stylesheet" href="../src/leaflet/leaflet.css"/>
+  <script src="./t-gis/tmap.js"></script>
+</head>
+<body>
+<div id="map" style=";width:100%;height:100%"></div>
+<script>
+  T.createMap('map');
+  T.map.setView([35, 105], 4);
+  T.map.addControl(T.controls.pointer());
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png?{foo}', {foo: 'bar'}).addTo(T.map);
+  //格网间隔配置
+  let opt = {
+    showLabel: true,
+    color: '#333333',
+    dashArray: [5, 5],
+    zoomInterval: [{start: 1, end: 3, interval: 10},
+      {start: 4, end: 4, interval: 5},
+      {start: 5, end: 7, interval: 2},
+      {start: 8, end: 10, interval: 1},
+      {start: 10, end: 12, interval: 0.5},
+      {start: 13, end: 15, interval: 0.1}]
+  };
+  //opt参数可不填
+  T.map.addControl(T.controls.graticule(opt));
+</script>
+</body>
+</html>

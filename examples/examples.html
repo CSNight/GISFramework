@@ -14,7 +14,7 @@
 </head>
 <body class="layui-layout-body">
 <a href="javascript:" class="open-btn" title="编辑代码">
-  <i class="layui-icon layui-icon-util" style="font-size:20px"></i>
+  <i class="layui-icon layui-icon-fonts-code" style="font-size:20px"></i>
 </a>
 <div class="layui-layout">
   <div class="layui-body" style="left:0;top:0;bottom: 0">
@@ -50,7 +50,7 @@
 <script type="text/javascript">
   (function () {
     let editor = ace.edit('editor1', {
-      theme: 'ace/theme/chrome',
+      theme: 'ace/theme/dracula',
       mode: 'ace/mode/html',
       wrap: true,
       autoScrollEditorIntoView: true,
@@ -76,7 +76,7 @@
     });
     $('#examples')[0].selectedIndex = 0;
     $('#examples').change();
-    $('#themes').val('ace/theme/chrome');
+    $('#themes').val('ace/theme/dracula');
     console.log(editor);
     $('#themes').change(function () {
       editor.setTheme($('#themes').val());

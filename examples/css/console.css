@@ -23,8 +23,8 @@
 #__vconsole .vc-switch {
   display: block;
   position: fixed;
-  right: .76923077em;
-  bottom: .76923077em;
+  right: 10em;
+  top: .76923077em;
   color: #fff;
   background-color: #04be02;
   line-height: 1;

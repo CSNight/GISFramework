@@ -70,5 +70,33 @@ let examples = [
   {
     name: '客户端插值分析',
     path: './pages/clientIsoIntersect.html'
+  },
+  {
+    name: '超图几何查询服务',
+    path: './pages/smGeoSearch.html'
+  },
+  {
+    name: '超图SQL查询服务',
+    path: './pages/smSQLSearch.html'
+  },
+  {
+    name: '超图缓冲区查询服务',
+    path: './pages/smBufferSearch.html'
+  },
+  {
+    name: '超图数据集缓冲分析',
+    path: './pages/smBufferDs.html'
+  },
+  {
+    name: '超图几何缓冲分析',
+    path: './pages/smBufferGeo.html'
+  },
+  {
+    name: '超图叠加分析',
+    path: './pages/smOverlayDs.html'
+  },
+  {
+    name: '超图表面分析',
+    path: './pages/smSurface.html'
   }
 ];

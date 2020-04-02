@@ -1,5 +1,16 @@
 export default {
-  searchBySQL: function (url, ds, dt, filter, callback) {
+  spatialQueryMode: {
+    CONTAIN: 'CONTAIN',
+    CROSS: 'CROSS',
+    DISJOINT: 'DISJOINT',
+    IDENTITY: 'IDENTITY',
+    INTERSECT: 'INTERSECT',
+    NONE: 'NONE',
+    OVERLAP: 'OVERLAP',
+    TOUCH: 'TOUCH',
+    WITHIN: 'WITHIN',
+  },
+  searchBySQL: function (url, ds, dt, filter) {
     let sqlParam = new SuperMap.GetFeaturesBySQLParameters({
       queryParameter: {
         name: dt + "@" + ds,
@@ -16,7 +27,7 @@ export default {
         });
     });
   },
-  searchByBuff: function (url, ds, dt, feature, dis, callback) {
+  searchByBuff: function (url, ds, dt, feature, dis) {
     let bufferParam = new SuperMap.GetFeaturesByBufferParameters({
       datasetNames: [ds + ":" + dt],
       bufferDistance: dis,
@@ -32,7 +43,7 @@ export default {
         });
     });
   },
-  searchByGeo: function (url, ds, dt, feature, mode, callback) {
+  searchByGeo: function (url, ds, dt, feature, mode) {
     let geometryParam = new SuperMap.GetFeaturesByGeometryParameters({
       datasetNames: [ds + ":" + dt],
       geometry: feature,
@@ -47,7 +58,7 @@ export default {
         });
     });
   },
-  bufferGeoAnalysis(url, bufDistance, geo,) {
+  bufferGeoAnalysis(url, bufDistance, geo) {
     let bufferAnalystService = L.supermap.spatialAnalystService(url);
     let geoBufferAnalystParams = new SuperMap.GeometryBufferAnalystParameters({
       sourceGeometry: geo,
@@ -59,8 +70,13 @@ export default {
       })
     });
     return new Promise(function (resolve, reject) {
-      bufferAnalystService.bufferAnalysis(geoBufferAnalystParams, function (result) {
-        resolve(result.result);
+      bufferAnalystService.bufferAnalysis(geoBufferAnalystParams, function (serviceResult) {
+        let result = serviceResult.result;
+        if (result && result.hasOwnProperty('resultGeometry')) {
+          resolve(result.resultGeometry);
+        } else {
+          reject(result.error.message);
+        }
       });
     })
   },
@@ -115,21 +131,38 @@ export default {
     });
     return new Promise(function (resolve, reject) {
       overlayAnalystService.overlayAnalysis(datasetOverlayAnalystParameters, function (serviceResult) {
-        resolve(serviceResult.result);
+        let result = serviceResult.result;
+        if (result) {
+          resolve(result);
+        } else {
+          reject(result.error.message);
+        }
       });
     })
   },
-  surfaceAnalystProcess: function (url, region, dataset, resolution, zField, interval) {
+  /**
+   * @param url ss
+   * @param region
+   * @param dataset
+   * @param datasource
+   * @param resolution
+   * @param zField
+   * @param interval
+   * @param startVal
+   * @return
+   */
+  surfaceAnalystProcess: function (url, region, dataset, datasource, resolution, zField, interval, startVal) {
+
     let surfaceAnalystParameters = new SuperMap.DatasetSurfaceAnalystParameters({
       extractParameter: new SuperMap.SurfaceAnalystParametersSetting({
-        datumValue: 0,
+        datumValue: startVal ? startVal : 0,
         interval: interval,
         resampleTolerance: 0,
         smoothMethod: SuperMap.SmoothMethod.BSPLINE,
         smoothness: 3,
         clipRegion: region
       }),
-      dataset: dataset,
+      dataset: dataset + "@" + datasource,
       resolution: resolution,
       zValueFieldName: zField
     });
@@ -253,7 +286,8 @@ export default {
         }
       });
     });
-  }, addressMatch: function (url, address, count, spatialRef) {
+  },
+  addressMatch: function (url, address, count, spatialRef) {
     let addressMatchService = L.supermap.addressMatchService(url);
     let geoCodeParam = new SuperMap.GeoCodingParameter({
       address: address,
@@ -273,7 +307,8 @@ export default {
         }
       });
     })
-  }, getAddressCoord: function (url, x, y, count, spatialRef) {
+  },
+  getAddressCoord: function (url, x, y, count, spatialRef) {
     let addressMatchService = L.supermap.addressMatchService(url);
     let geoDecodeParam = new SuperMap.GeoDecodingParameter({
       x: x,

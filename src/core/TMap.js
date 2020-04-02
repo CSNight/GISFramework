@@ -30,8 +30,13 @@ let T = new Proxy({
   sma: sma,
   esria: esria
 }, {});
-T.createMap = function (dom) {
-  T.map = L.map(dom, MapOption);
+T.createMap = function (dom, opt) {
+  let options = {};
+  if (!opt) {
+    options = MapOption;
+  }
+  options = Object.assign(MapOption, opt);
+  T.map = L.map(dom, options);
   T.controls.init();
   T.layert = T.layerTree();
   T.layert.init();

@@ -19,6 +19,7 @@ const Path = function () {
 };
 
 export default {
+  returnDirections: true,
   overlayType: {
     CUT: 'cut',
     DIFFERENCE: 'difference',
@@ -28,10 +29,12 @@ export default {
   },
   constantType: {
     "point": "esriGeometryPoint",
-    "multipoint": "Multipoint",
+    "multipoint": "esriGeometryMultipoint",
     "polyline": "esriGeometryPolyline",
     "linestring": "esriGeometryPolyline",
     "polygon": "esriGeometryPolygon",
+    "multilinestring": 'esriGeometryPolyline',
+    "multipolygon": "esriGeometryPolygon",
     "esrigeometrypoint": "esriGeometryPoint",
     "esrigeometrymultipoint": "esriGeometryMultipoint",
     "esrigeometrypolyline": "esriGeometryPolyline",
@@ -77,175 +80,6 @@ export default {
         params: params
       })
     }
-  },
-  queryGisData: function (url, layerId, param) {
-    return new Promise(function (resolve, reject) {
-      let query = L.esri.query({
-        url: url + layerId
-      });
-      let where = param.where;
-      //1 属性过滤
-      if (where) {
-        query.where(where);
-      }
-      //2 空间过滤
-      let within = param.within,
-        intersects = param.intersects,
-        contains = param.contains,
-        overlaps = param.overlaps,
-        nearby = param.nearby;
-      //包含
-      if (within) {
-        query.within(within);
-      }
-      //相交
-      if (intersects) {
-        query.intersects(intersects);
-      }
-      //包含
-      if (contains) {
-        query.contains(contains);
-      }
-      //搭界
-      if (overlaps) {
-        query.overlaps(overlaps);
-      }
-      //在...附近
-      if (nearby) {
-        query.nearby(nearby.latlng, nearby.radius);
-      }
-      //3 确定需要字段
-      let outFields = param.outFields;
-      if (outFields) {
-        query.params.outFields = outFields;
-      }
-      //4 执行查询操作
-      query.run(function (error, states) {
-        if (error) {
-          console.log("查询地图数据：图层ID" + layerId + "时出错。");
-          reject(error);
-        } else {
-          resolve(states);
-        }
-      });
-    });
-  },
-  createServiceArea(url, spatialRef, facilities) {
-    let strFAC = '';
-    for (let i = 0; i < facilities.length; i++) {
-      strFAC += facilities[i][0] + "," + facilities[i][1] + ";";
-    }
-    let params = {
-      facilities: strFAC,
-      barriers: null,
-      polylineBarriers: null,
-      polygonBarriers: null,
-      defaultBreaks: 1000,
-      excludeSourcesFromPolygons: [],
-      mergeSimilarPolygonRanges: false,
-      overlapLines: true,
-      overlapPolygons: true,
-      splitLinesAtBreaks: false,
-      splitPolygonsAtBreaks: true,
-      trimOuterPolygon: true,
-      trimPolygonDistance: 100,
-      trimPolygonDistanceUnits: 'esriMeters',
-      outSR: spatialRef,
-      accumulateAttributeNames: null,
-      impedanceAttributeName: 'Length',
-      restrictionAttributeNames: null,
-      attributeParameterValues: null,
-      restrictUTurns: 'esriNFSBAllowBacktrack',
-      returnFacilities: false,
-      returnBarriers: false,
-      returnPolylineBarriers: false,
-      returnPolygonBarriers: false,
-      outputLines: 'esriNAOutputLineNone',
-      outputPolygons: 'esriNAOutputPolygonSimplified',
-      travelDirection: 'esriNATravelDirectionFromFacility',
-      outputGeometryPrecision: null,
-      outputGeometryPrecisionUnits: 'esriDecimalDegrees',
-      useHierarchy: false,
-      timeOfDay: null,
-      timeOfDayIsUTC: false,
-      returnZ: false,
-      travelMode: null,
-      f: 'json'
-    };
-    url = url.endsWith("/") ? url : url + "/";
-    return this.request(url + "Service%20Area/solveServiceArea", null, params, 'post');
-  },
-  findPath(url, spatialRef, stops) {
-    let strFAC = '';
-    for (let i = 0; i < stops.length; i++) {
-      strFAC += stops[i][0] + "," + stops[i][1] + ";";
-    }
-    let params = {
-      stops: strFAC,
-      barriers: '',
-      polylineBarriers: '',
-      polygonBarriers: '',
-      outSR: spatialRef,
-      ignoreInvalidLocations: true,
-      impedanceAttributeName: 'Length',
-      restrictUTurns: 'esriNFSBAllowBacktrack',
-      useHierarchy: false,
-      returnDirections: true,
-      returnRoutes: true,
-      returnStops: false,
-      returnBarriers: false,
-      returnPolylineBarriers: false,
-      returnPolygonBarriers: false,
-      directionsLanguage: 'zh_CN',
-      directionsStyleName: '',
-      outputLines: 'esriNAOutputLineTrueShape',
-      findBestSequence: false,
-      preserveFirstStop: true,
-      preserveLastStop: true,
-      useTimeWindows: false,
-      startTime: new Date().toString(),
-      startTimeIsUTC: false,
-      outputGeometryPrecision: '0.00000001',
-      outputGeometryPrecisionUnits: 'esriDecimalDegrees',
-      directionsOutputType: 'esriDOTComplete',
-      directionsTimeAttributeName: '',
-      directionsLengthUnits: 'esriNAUKilometers',
-      returnZ: false,
-      travelMode: '',
-      f: 'pjson'
-    };
-    return new Promise((resolve, reject) => {
-      url = url.endsWith("/") ? url : url + "/";
-      this.request(url + "Route/solve", null, params, 'post').then((resp) => {
-        let dt = {};
-        if (resp.data.routes && resp.data.routes.features.length > 0) {
-          dt.lengthM = resp.data.routes.features[0].attributes.Total_Length;
-          dt.lengthD = resp.data.routes.features[0].attributes.Shape_Length;
-          let dirs = resp.data.directions[0].features;
-          dt.roads = [];
-          for (let h = 0; h < dirs.length; h++) {
-            if (dirs[h].hasOwnProperty("strings")) {
-              let strings = dirs[h]["strings"];
-              for (let q = 0; q < strings.length; q++) {
-                if (strings[q].stringType === 'esriDSTStreetName') {
-                  let road = {
-                    seg: strings[q].string,
-                    geo: this.createPathFromCompressedGeometry(dirs[h].compressedGeometry),
-                  };
-                  dt.roads.push(road);
-                }
-              }
-            }
-          }
-        } else {
-          dt.lengthD = Math.sqrt(Math.pow(stops[0][0] - stops[1][0], 2) + Math.pow(stops[0][1] - stops[1][1], 2));
-          dt.lengthM = T.turf.calDistance(stops[0][0], stops[0][1], stops[1][0], stops[1][1]);
-        }
-        resolve(dt);
-      }).catch((resp) => {
-        reject(resp);
-      })
-    })
   },
   extractInt(cgString, index) {
     let i = index[0] + 1;
@@ -314,7 +148,254 @@ export default {
     }
     return path.getPath();
   },
-  closestFacilities(url, spatialRef, froms, tos,) {
+  geoJsonToArcGISFormatCol: function (geoJson) {
+    let geometries = {
+      geometryType: '',
+      geometries: []
+    };
+    if (!geoJson) {
+      return null;
+    }
+    if (geoJson.type === 'FeatureCollection' && geoJson.features.length > 0) {
+      geometries.geometryType = this.constantType[geoJson.features[0].geometry.type.toLowerCase()];
+      for (let i = 0; i < geoJson.features.length; i++) {
+        if (geometries.geometryType === 'esriGeometryPolyline') {
+          let paths = geoJson.features[i].geometry.coordinates;
+          geometries.geometries.push({"paths": paths});
+        } else if (geometries.geometryType === 'esriGeometryPolygon') {
+          let rings = geoJson.features[i].geometry.coordinates;
+          geometries.geometries.push({"rings": rings});
+        } else if (geometries.geometryType === 'esriGeometryPoint') {
+          let x = geoJson.features[i].geometry.coordinates[0];
+          let y = geoJson.features[i].geometry.coordinates[1];
+          geometries.geometries.push({x: x, y: y})
+        } else {
+          return null;
+        }
+      }
+      return geometries;
+    } else if (geoJson.type === 'Feature') {
+      geometries.geometryType = this.constantType[geoJson.geometry.type.toLowerCase()];
+      if (geometries.geometryType === 'esriGeometryPolyline') {
+        let paths = geoJson.geometry.coordinates;
+        geometries.geometries.push({"paths": paths});
+      } else if (geometries.geometryType === 'esriGeometryPolygon') {
+        let rings = geoJson.geometry.coordinates;
+        geometries.geometries.push({"rings": rings});
+      } else if (geometries.geometryType === 'esriGeometryPoint') {
+        let x = geoJson.geometry.coordinates[0];
+        let y = geoJson.geometry.coordinates[1];
+        geometries.geometries.push({x: x, y: y})
+      } else {
+        return null;
+      }
+      return geometries;
+    }
+    return null;
+  },
+  geoJsonToArcGISFormat: function (geoJson) {
+    let geometries = {
+      geometryType: '',
+      geometry: {}
+    };
+    if (!geoJson) {
+      return null;
+    }
+    if (geoJson.type === 'Feature') {
+      geometries.geometryType = this.constantType[geoJson.geometry.type.toLowerCase()];
+      if (geometries.geometryType === 'esriGeometryPolyline') {
+        let paths = geoJson.geometry.coordinates;
+        geometries.geometry = {"paths": paths};
+      } else if (geometries.geometryType === 'esriGeometryPolygon') {
+        let rings = geoJson.geometry.coordinates;
+        geometries.geometry = {"rings": rings}
+      } else if (geometries.geometryType === 'esriGeometryPoint') {
+        let x = geoJson.geometry.coordinates[0];
+        let y = geoJson.geometry.coordinates[1];
+        geometries.geometry = {x: x, y: y};
+      } else {
+        return null;
+      }
+      return geometries;
+    }
+    return null;
+  },
+  queryGisData: function (url, layerId, param) {
+    return new Promise(function (resolve, reject) {
+      url = url.endsWith("/") ? url : url + "/";
+      let query = L.esri.query({
+        url: url + layerId
+      });
+      let where = param.where;
+      //1 属性过滤
+      if (where) {
+        query.where(where);
+      }
+      //2 空间过滤
+      let within = param.within,
+        intersects = param.intersects,
+        contains = param.contains,
+        overlaps = param.overlaps,
+        nearby = param.nearby;
+      //包含
+      if (within) {
+        query.within(within);
+      }
+      //相交
+      if (intersects) {
+        query.intersects(intersects);
+      }
+      //包含
+      if (contains) {
+        query.contains(contains);
+      }
+      //搭界
+      if (overlaps) {
+        query.overlaps(overlaps);
+      }
+      //在...附近
+      if (nearby) {
+        query.nearby(nearby.latlng, nearby.radius);
+      }
+      //3 确定需要字段
+      let outFields = param.outFields;
+      if (outFields) {
+        query.params.outFields = outFields;
+      }
+      //4 执行查询操作
+      query.run(function (error, states) {
+        if (error) {
+          console.log("查询地图数据：图层ID" + layerId + "时出错。");
+          reject(error);
+        } else {
+          resolve(states);
+        }
+      });
+    });
+  },
+  createServiceArea(url, spatialRef, facilities, breaks) {
+    let strFAC = '';
+    for (let i = 0; i < facilities.length; i++) {
+      strFAC += facilities[i][0] + "," + facilities[i][1] + ";";
+    }
+    let strBreaks = '';
+    for (let i = 0; i < breaks.length; i++) {
+      strBreaks += breaks[i] + ",";
+    }
+    let params = {
+      facilities: strFAC,
+      barriers: null,
+      polylineBarriers: null,
+      polygonBarriers: null,
+      defaultBreaks: strBreaks,
+      excludeSourcesFromPolygons: [],
+      mergeSimilarPolygonRanges: false,
+      overlapLines: true,
+      overlapPolygons: true,
+      splitLinesAtBreaks: false,
+      splitPolygonsAtBreaks: true,
+      trimOuterPolygon: true,
+      trimPolygonDistance: 100,
+      trimPolygonDistanceUnits: 'esriMeters',
+      outSR: spatialRef,
+      accumulateAttributeNames: null,
+      impedanceAttributeName: 'Length',
+      restrictionAttributeNames: null,
+      attributeParameterValues: null,
+      restrictUTurns: 'esriNFSBAllowBacktrack',
+      returnFacilities: false,
+      returnBarriers: false,
+      returnPolylineBarriers: false,
+      returnPolygonBarriers: false,
+      outputLines: 'esriNAOutputLineNone',
+      outputPolygons: 'esriNAOutputPolygonSimplified',
+      travelDirection: 'esriNATravelDirectionFromFacility',
+      outputGeometryPrecision: null,
+      outputGeometryPrecisionUnits: 'esriDecimalDegrees',
+      useHierarchy: false,
+      timeOfDay: null,
+      timeOfDayIsUTC: false,
+      returnZ: false,
+      travelMode: null,
+      f: 'json'
+    };
+    url = url.endsWith("/") ? url : url + "/";
+    return this.request(url + "Service%20Area/solveServiceArea", null, params, 'post');
+  },
+  findPath(url, spatialRef, stops) {
+    let strFAC = '';
+    for (let i = 0; i < stops.length; i++) {
+      strFAC += stops[i][0] + "," + stops[i][1] + ";";
+    }
+    let params = {
+      stops: strFAC,
+      barriers: '',
+      polylineBarriers: '',
+      polygonBarriers: '',
+      outSR: spatialRef,
+      ignoreInvalidLocations: true,
+      impedanceAttributeName: 'Length',
+      restrictUTurns: 'esriNFSBAllowBacktrack',
+      useHierarchy: false,
+      returnDirections: this.returnDirections,
+      returnRoutes: true,
+      returnStops: false,
+      returnBarriers: false,
+      returnPolylineBarriers: false,
+      returnPolygonBarriers: false,
+      directionsLanguage: 'zh_CN',
+      directionsStyleName: '',
+      outputLines: 'esriNAOutputLineTrueShape',
+      findBestSequence: false,
+      preserveFirstStop: true,
+      preserveLastStop: true,
+      useTimeWindows: false,
+      startTime: new Date().toString(),
+      startTimeIsUTC: false,
+      outputGeometryPrecision: '0.00000001',
+      outputGeometryPrecisionUnits: 'esriDecimalDegrees',
+      directionsOutputType: 'esriDOTComplete',
+      directionsTimeAttributeName: '',
+      directionsLengthUnits: 'esriNAUKilometers',
+      returnZ: false,
+      travelMode: '',
+      f: 'pjson'
+    };
+    return new Promise((resolve, reject) => {
+      url = url.endsWith("/") ? url : url + "/";
+      this.request(url + "Route/solve", null, params, 'post').then((resp) => {
+        let dt = {};
+        if (resp.data.routes && resp.data.routes.features.length > 0) {
+          dt.lengthM = resp.data.routes.features[0].attributes.Total_Length;
+          dt.lengthD = resp.data.routes.features[0].attributes.Shape_Length;
+          let dirs = resp.data.directions[0].features;
+          dt.roads = [];
+          for (let h = 0; h < dirs.length; h++) {
+            if (dirs[h].hasOwnProperty("strings")) {
+              let strings = dirs[h]["strings"];
+              for (let q = 0; q < strings.length; q++) {
+                if (strings[q].stringType === 'esriDSTStreetName') {
+                  let road = {
+                    seg: strings[q].string,
+                    geo: this.createPathFromCompressedGeometry(dirs[h].compressedGeometry),
+                  };
+                  dt.roads.push(road);
+                }
+              }
+            }
+          }
+        } else {
+          dt.lengthD = Math.sqrt(Math.pow(stops[0][0] - stops[1][0], 2) + Math.pow(stops[0][1] - stops[1][1], 2));
+          dt.lengthM = T.turf.calDistance(stops[0][0], stops[0][1], stops[1][0], stops[1][1]);
+        }
+        dt.source = resp.data;
+        resolve(dt);
+      }).catch((resp) => {
+        reject(resp);
+      })
+    })
+  },
+  closestFacilities(url, spatialRef, froms, tos) {
     let strFroms = '';
     for (let i = 0; i < froms.length; i++) {
       strFroms += froms[i][0] + "," + froms[i][1] + ";";
@@ -339,7 +420,7 @@ export default {
       attributeParameterValues: "",
       restrictUTurns: "esriNFSBAllowBacktrack",
       useHierarchy: false,
-      returnDirections: true,
+      returnDirections: this.returnDirections,
       returnCFRoutes: true,
       returnFacilities: true,
       returnIncidents: true,
@@ -349,7 +430,7 @@ export default {
       directionsLanguage: "zh-CN",
       directionsOutputType: "esriDOTComplete",
       directionsStyleName: null,
-      outputLines: 'esriNAOutputLineTrueShapeWithMeasure',
+      outputLines: 'esriNAOutputLineTrueShape',
       outputGeometryPrecision: null,
       outputGeometryPrecisionUnits: 'esriDecimalDegrees',
       directionsTimeAttributeName: null,
@@ -364,16 +445,9 @@ export default {
     url = url.endsWith("/") ? url : url + "/";
     return this.request(url + "Closest%20Facility/solveClosestFacility", null, params, 'post');
   },
-  bufferAnalysis: function (url, geometries, spatialRef, distance, unit) {
-    if (typeof geometries === 'object') {
-      if (geometries.hasOwnProperty("geometryType") && geometries.hasOwnProperty("geometries")) {
-        if (!geometries.geometries instanceof Array) {
-          return;
-        }
-      } else {
-        return;
-      }
-    } else {
+  bufferAnalysis: function (url, geoJson, spatialRef, distance, unit) {
+    let geoFormat = this.geoJsonToArcGISFormat(geoJson);
+    if (!geoFormat) {
       return;
     }
     let units = this.constantUnit[unit.toLowerCase()];
@@ -382,7 +456,7 @@ export default {
       bufRef = 3857
     }
     let params = {
-      geometries: JSON.stringify(geometries),
+      geometries: JSON.stringify(geoFormat),
       inSR: spatialRef,
       outSR: bufRef,
       distances: distance,
@@ -397,67 +471,50 @@ export default {
   overlayAnalysis: function (url, sourceGeo, targetGeo, overlayType, spatialRef) {
     let params = {
       sr: spatialRef,
-      format: 'json'
+      f: 'json'
     };
     let suffix = '';
+    let sourceGeoFormat = this.geoJsonToArcGISFormatCol(sourceGeo);
+    let targetGeoFormat = this.geoJsonToArcGISFormat(targetGeo);
     switch (overlayType) {
       case"cut":
         suffix = 'cut';
-        if (typeof sourceGeo === 'object'
-          && sourceGeo.hasOwnProperty("geometryType")
-          && sourceGeo.hasOwnProperty("geometries")
-          && sourceGeo.geometries instanceof Array
-          && targetGeo.hasOwnProperty("paths")) {
-          params['target'] = JSON.stringify(sourceGeo);
-          params['cutter'] = JSON.stringify(targetGeo);
+        if (sourceGeoFormat && targetGeoFormat) {
+          params['target'] = JSON.stringify(sourceGeoFormat);
+          params['cutter'] = JSON.stringify(targetGeoFormat);
         }
         break;
       case"difference":
         suffix = 'difference';
-        if (typeof sourceGeo === 'object'
-          && sourceGeo.hasOwnProperty("geometryType")
-          && sourceGeo.hasOwnProperty("geometries")
-          && sourceGeo.geometries instanceof Array
-          && targetGeo.hasOwnProperty("geometryType")
-          && targetGeo.hasOwnProperty("geometry")) {
-          params['geometries'] = JSON.stringify(sourceGeo);
-          params['geometry'] = JSON.stringify(targetGeo);
+        if (sourceGeoFormat && targetGeoFormat) {
+          params['geometries'] = JSON.stringify(sourceGeoFormat);
+          params['geometry'] = JSON.stringify(targetGeoFormat);
         }
         break;
       case"intersect":
         suffix = 'intersect';
-        if (typeof sourceGeo === 'object'
-          && sourceGeo.hasOwnProperty("geometryType")
-          && sourceGeo.hasOwnProperty("geometries")
-          && sourceGeo.geometries instanceof Array
-          && targetGeo.hasOwnProperty("geometryType")
-          && targetGeo.hasOwnProperty("geometry")) {
-          params['geometries'] = JSON.stringify(sourceGeo);
-          params['geometry'] = JSON.stringify(targetGeo);
+        if (sourceGeoFormat && targetGeoFormat) {
+          params['geometries'] = JSON.stringify(sourceGeoFormat);
+          params['geometry'] = JSON.stringify(targetGeoFormat);
         }
         break;
       case"union":
         suffix = 'union';
-        if (typeof sourceGeo === 'object'
-          && sourceGeo.hasOwnProperty("geometryType")
-          && sourceGeo.hasOwnProperty("geometries")
-          && sourceGeo.geometries instanceof Array) {
-          params['geometries'] = JSON.stringify(sourceGeo);
+        if (sourceGeoFormat) {
+          params['geometries'] = JSON.stringify(sourceGeoFormat);
         }
         break;
       case"convexHull":
         suffix = 'convexHull';
-        if (typeof sourceGeo === 'object'
-          && sourceGeo.hasOwnProperty("geometryType")
-          && sourceGeo.hasOwnProperty("geometries")
-          && sourceGeo.geometries instanceof Array) {
-          params['geometries'] = JSON.stringify(sourceGeo);
+        if (sourceGeoFormat) {
+          params['geometries'] = JSON.stringify(sourceGeoFormat);
         }
         break;
     }
     url = url.endsWith("/") ? url : url + "/";
     return this.request(url + suffix, null, params, 'post');
-  }, addAddressControl(map_url, label, layers, fields) {
+  },
+  addAddressControl(map_url, label, layers, fields) {
     T.map.addControl(T.controls.searcher({
       map_url: map_url,
       label: label,

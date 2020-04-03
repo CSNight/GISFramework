@@ -19,9 +19,9 @@
       bounds: L.bounds([48.4, -7668.25], [8958.85, -55.58]),
       origin: L.point(48.4, -55.58)
     }),
-    center: [-3375, 5105],
+    center: [-3600, 4700],
     maxZoom: 18,
-    zoom: 6
+    zoom: 2
   });
   T.map.addControl(T.controls.pointer());
   let supermapLayer = T.cusTileLayer("https://iserver.supermap.io/iserver/services/map-changchun/rest/maps/长春市区图", {
@@ -29,6 +29,21 @@
     minZoom: 0
   }, false);
   T.map.addLayer(supermapLayer);
+  //添加设施点
+  let marker1 = L.marker([-3500, 2500]).addTo(T.map);
+  marker1.bindTooltip("设施1", {permanent: true});
+  let marker2 = L.marker([-2500, 5500]).addTo(T.map);
+  marker2.bindTooltip("设施2", {permanent: true});
+  let marker3 = L.marker([-4000, 7000]).addTo(T.map);
+  marker3.bindTooltip("设施3", {permanent: true});
+  let marker4 = L.circleMarker([-3700, 5000], {color: 'red'}).bindTooltip('事件点', {permanent: true}).addTo(T.map);
+  let urlNet = "https://iserver.supermap.io/iserver/services/transportationanalyst-sample/rest/networkanalyst/RoadNet@Changchun";
+  let facilities = [marker1.getLatLng(), marker2.getLatLng(), marker3.getLatLng()];
+  T.sma.findClosetFacilities(urlNet, marker4.getLatLng(), facilities, 'length').then((resp) => {
+    resp.facilityPathList.map(function (result) {
+      resultLayer = L.geoJSON(result.route).addTo(T.map);
+    });
+  })
 </script>
 </body>
 </html>

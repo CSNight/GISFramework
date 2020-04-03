@@ -19,9 +19,9 @@
       bounds: L.bounds([48.4, -7668.25], [8958.85, -55.58]),
       origin: L.point(48.4, -55.58)
     }),
-    center: [-3375, 5105],
+    center: [-3500, 5200],
     maxZoom: 18,
-    zoom: 6
+    zoom: 3
   });
   T.map.addControl(T.controls.pointer());
   let supermapLayer = T.cusTileLayer("https://iserver.supermap.io/iserver/services/map-changchun/rest/maps/长春市区图", {
@@ -29,6 +29,14 @@
     minZoom: 0
   }, false);
   T.map.addLayer(supermapLayer);
+  let marker = L.marker([-3375, 5605]).addTo(T.map);
+  let resultLayer = L.featureGroup().addTo(T.map);
+  let urlNet = "https://iserver.supermap.io/iserver/services/transportationanalyst-sample/rest/networkanalyst/RoadNet@Changchun";
+  T.sma.findServiceAreas(urlNet, [marker.getLatLng()], [300], 'length').then((resp) => {
+    resp.serviceAreaList.map(function (serviceArea) {
+      resultLayer.addLayer(L.geoJSON(serviceArea.serviceRegion));
+    });
+  })
 </script>
 </body>
 </html>

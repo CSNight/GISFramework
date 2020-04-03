@@ -98,5 +98,53 @@ let examples = [
   {
     name: '超图表面分析',
     path: './pages/smSurface.html'
+  },
+  {
+    name: '超图最短路径分析',
+    path: './pages/smFindPath.html'
+  },
+  {
+    name: '超图服务区分析',
+    path: './pages/smFindSa.html'
+  },
+  {
+    name: '超图邻近设施查找',
+    path: './pages/smFindCloseFc.html'
+  },
+  {
+    name: 'ArcGIS SQL查询',
+    path: './pages/esriSQLQuery.html'
+  },
+  {
+    name: 'ArcGIS几何查询',
+    path: './pages/esriGeoQuery.html'
+  },
+  {
+    name: 'ArcGIS缓冲区查询',
+    path: './pages/esriBufferQuery.html'
+  },
+  {
+    name: 'ArcGIS缓冲区分析',
+    path: './pages/esriBufferAnalysis.html'
+  },
+  {
+    name: 'ArcGIS凸包分析',
+    path: './pages/esriConvexAnalysis.html'
+  },
+  {
+    name: 'ArcGIS叠加分析',
+    path: './pages/esriOverlayAnalysis.html'
+  },
+  {
+    name: 'ArcGIS最短路径分析',
+    path: './pages/esriFindPath.html'
+  },
+  {
+    name: 'ArcGIS服务区分析',
+    path: './pages/esriFindSa.html'
+  },
+  {
+    name: 'ArcGIS邻近设施分析',
+    path: './pages/esriFindCloseFc.html'
   }
 ];

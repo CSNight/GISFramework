@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>ArcGIS最短路径分析</title>
+  <link rel="stylesheet" href="../examples/libs/layui/css/layui.css">
+  <link rel="stylesheet" href="../examples/css/style.css">
+  <link rel="stylesheet" href="../src/leaflet/leaflet.css"/>
+  <script src="../src/leaflet/leaflet-src.js"></script>
+  <script src="../examples/libs/jquery-3.4.1.min.js"></script>
+  <script src="../src/plugins/esri/esri-leaflet-debug.js"></script>
+  <script src="./t-gis/tmap.js"></script>
+</head>
+<body>
+<div id="map" style=";width:100%;height:100%"></div>
+<script>
+  T.createMap('map');
+  T.map.addControl(T.controls.pointer());
+  let openLayer = T.cusTileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+    maxZoom: 18,
+    minZoom: 0
+  }, false);
+  T.map.addLayer(openLayer);
+  T.map.setView([35, 111], 5);
+  let urlNet = 'http://10.10.50.15:6080/arcgis/rest/services/haiyang/Highspeed/NAServer';
+  let mark1 = L.marker([117.15203, 35.889].reverse()).addTo(T.map);
+  let mark2 = L.marker([116, 28].reverse()).addTo(T.map);
+  T.esria.findPath(urlNet, 4326, [[117.15203, 35.889], [116, 28]]).then((resp) => {
+    let paths = resp.source.routes.features[0].geometry.paths;
+    let latlngRing = [];
+    latlngRing.push([]);
+    for (let i = 0; i < paths[0].length; i++) {
+      latlngRing[0].push(paths[0][i].reverse())
+    }
+    //生成最短路径
+    let path = T.polyline(latlngRing, {
+      color: '#2fb',
+      fillOpacity: 0.8
+    }).bindTooltip('最短路径', {permanent: true}).addTo(T.map);
+  })
+</script>
+</body>
+</html>

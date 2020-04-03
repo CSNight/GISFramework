@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>ArcGIS缓冲区查询</title>
+  <link rel="stylesheet" href="../examples/libs/layui/css/layui.css">
+  <link rel="stylesheet" href="../examples/css/style.css">
+  <link rel="stylesheet" href="../src/leaflet/leaflet.css"/>
+  <script src="../src/leaflet/leaflet-src.js"></script>
+  <script src="../examples/libs/jquery-3.4.1.min.js"></script>
+  <script src="../src/plugins/esri/esri-leaflet-debug.js"></script>
+  <script src="./t-gis/tmap.js"></script>
+</head>
+<body>
+<div id="map" style=";width:100%;height:100%"></div>
+<script>
+  T.createMap('map', {
+    crs: L.CRS.EPSG4326,
+    center: [30, 40],
+    maxZoom: 18,
+    zoom: 3
+  });
+  T.map.addControl(T.controls.pointer());
+  let url = 'http://10.10.50.15:6080/arcgis/rest/services/SampleWorldCities/MapServer';
+  let esriLayer = T.cusTileLayer(url, {
+    maxZoom: 18,
+    minZoom: 0
+  }, false);
+  T.map.addLayer(esriLayer);
+  let latlngs = [[30, 60], [40, 60], [40, 40], [30, 40]];
+  let polygon = T.polygon(latlngs, {color: 'blue'}).addTo(T.map);
+  let urlGeo = 'http://10.10.50.15:6080/arcgis/rest/services/Utilities/Geometry/GeometryServer';
+  //缓冲区分析
+  T.esria.bufferAnalysis(urlGeo, polygon.toGeoJSON(), 4326, 5, 'degree').then((resp) => {
+    resp.data.geometries.map(function (item) {
+      //结果坐标反转为latlng
+      let rings = item.rings;
+      let latlngRing = [];
+      latlngRing.push([]);
+      for (let i = 0; i < rings[0].length; i++) {
+        latlngRing[0].push(rings[0][i].reverse())
+      }
+      //生成缓冲面
+      let buffer = T.polygon(latlngRing, {color: 'red'}).addTo(T.map);
+      //查询要素
+      T.esria.queryGisData(url, 0, {intersects: buffer.toGeoJSON()}).then((resp) => {
+        L.geoJSON(resp).bindTooltip(function (layer) {
+          return layer.feature.properties.CITY_NAME;
+        }).addTo(T.map);
+      })
+    })
+  });
+
+</script>
+</body>
+</html>

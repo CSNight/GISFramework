@@ -65,6 +65,7 @@
       $('#examples').append('<option value="' + examples[i].path + '">' + examples[i].name + '</option>');
     }
     $('#examples').change(function () {
+      document.title = $('#examples')[0].selectedOptions[0].label;
       $.ajax({
         url: $('#examples').val(),
         type: 'get',

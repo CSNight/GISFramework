@@ -9,12 +9,32 @@ export function LayerTree(options) {
       this.treeIds = [];
       this.tree = [];
       this.options = Object.assign(this.options, options);
-      this.tree = this.buildTree(T.map._layers);
-      console.log(this.tree);
+      this.inner = this.findInnerLayer(T.map._layers);
+      this.tree = this.buildNestTree(T.map, this.inner, 0);
     },
-    buildTree(layerCols) {
-      let nodes = [];
+    findInnerLayer: function (layerCols) {
+      let inner = [];
       for (let k in layerCols) {
+        let feat = T.map._layers[k];
+        let lt = this.getLayerType(feat);
+        if (lt === 'LayerGroup' || lt === 'FeatureGroup') {
+          for (let m in feat._layers) {
+            let featChild = T.map._layers[m];
+            let ltChild = this.getLayerType(featChild);
+            if (ltChild === 'LayerGroup' || ltChild === 'FeatureGroup') {
+              let childInner = this.findInnerLayer(featChild._layers);
+              inner.push.apply(inner, childInner);
+            } else {
+              inner.push(featChild._leaflet_id);
+            }
+          }
+        }
+      }
+      return inner;
+    },
+    buildNestTree: function (root, inner, level) {
+      let nodes = [];
+      for (let k in root._layers) {
         let feat = T.map._layers[k];
         let lt = this.getLayerType(feat);
         if (this.options.exclude.indexOf(lt) !== -1) {
@@ -22,12 +42,20 @@ export function LayerTree(options) {
         }
         let node = {
           id: feat._leaflet_id,
+          pid: root._leaflet_id,
+          name: feat.options.hasOwnProperty('name') ? feat.options.name : (lt + '-' + feat._leaflet_id),
+          title: feat.options.hasOwnProperty('title') ? feat.options.title : (lt + '-' + feat._leaflet_id),
           layer: feat,
+          show: true,
           type: lt,
           children: []
         };
         if (lt === 'LayerGroup' || lt === 'FeatureGroup') {
-          node.children = this.buildTree(feat._layers);
+          let newLevel = level + 1;
+          node.children = this.buildNestTree(feat, inner, newLevel);
+        }
+        if (this.inner.indexOf(node.id) !== -1 && level === 0) {
+          continue;
         }
         if (this.treeIds.indexOf(node.id) === -1) {
           nodes.push(node);
@@ -36,10 +64,51 @@ export function LayerTree(options) {
       }
       return nodes;
     },
-    refresh() {
+    buildFlatTree: function (root, inner, level) {
+      let nodes = [];
+      for (let k in root._layers) {
+        let feat = T.map._layers[k];
+        let lt = this.getLayerType(feat);
+        if (this.options.exclude.indexOf(lt) !== -1) {
+          continue;
+        }
+        let node = {
+          id: feat._leaflet_id,
+          pid: root._leaflet_id,
+          name: feat.options.hasOwnProperty('name') ? feat.options.name : (lt + '-' + feat._leaflet_id),
+          title: feat.options.hasOwnProperty('title') ? feat.options.title : (lt + '-' + feat._leaflet_id),
+          layer: feat,
+          show: true,
+          type: lt
+        };
+        if (lt === 'LayerGroup' || lt === 'FeatureGroup') {
+          let newLevel = level + 1;
+          let childNodes = this.buildFlatTree(feat, inner, newLevel);
+          nodes.push.apply(nodes, childNodes)
+        }
+        if (this.inner.indexOf(node.id) !== -1 && level === 0) {
+          continue;
+        }
+        if (this.treeIds.indexOf(node.id) === -1) {
+          nodes.push(node);
+          this.treeIds.push(node.id);
+        }
+      }
+      return nodes;
+    },
+    getNestTree() {
       this.treeIds = [];
       this.tree = [];
-      this.tree = this.buildTree(T.map._layers);
+      this.inner = this.findInnerLayer(T.map._layers);
+      this.tree = this.buildNestTree(T.map, this.inner, 0);
+      return this.tree;
+    },
+    getFlatTree() {
+      this.treeIds = [];
+      this.tree = [];
+      this.inner = this.findInnerLayer(T.map._layers);
+      this.tree = this.buildFlatTree(T.map, this.inner, 0);
+      return this.tree;
     },
     getLayerType(layer) {
       if (layer instanceof L.Circle) {
@@ -70,7 +139,8 @@ export function LayerTree(options) {
       if (layer instanceof L.LatLngGraticule) {
         return 'Canvas';
       }
-    }, hideLayer(ids) {
+    },
+    hideLayer(ids) {
       let idk = [];
       if (ids instanceof Number) {
         idk = [ids];
@@ -84,7 +154,7 @@ export function LayerTree(options) {
           if (lt === 'LayerGroup' || lt === 'FeatureGroup') {
             let idc = [];
             for (let j in layer._layers) {
-              if (idk.indexOf(layer._leaflet_id) !== -1) {
+              if (idk.indexOf(layer._layers[j]._leaflet_id) !== -1) {
                 continue;
               }
               idc.push(layer._layers[j]._leaflet_id);
@@ -96,7 +166,8 @@ export function LayerTree(options) {
         }
       }
 
-    }, showLayer(ids) {
+    },
+    showLayer(ids) {
       let idk = [];
       if (ids instanceof Number) {
         idk = [ids];
@@ -110,7 +181,7 @@ export function LayerTree(options) {
           if (lt === 'LayerGroup' || lt === 'FeatureGroup') {
             let idc = [];
             for (let j in layer._layers) {
-              if (idk.indexOf(layer._leaflet_id) !== -1) {
+              if (idk.indexOf(layer._layers[j]._leaflet_id) !== -1) {
                 continue;
               }
               idc.push(layer._layers[j]._leaflet_id);
@@ -121,8 +192,8 @@ export function LayerTree(options) {
           }
         }
       }
-    }, _toggle(type, layer, visibility) {
-      console.log(layer._leaflet_id);
+    },
+    _toggle(type, layer, visibility) {
       switch (type) {
         case 'TileLayer':
           layer.setOpacity((visibility ? 1 : 0));
@@ -131,10 +202,12 @@ export function LayerTree(options) {
         case'CircleMarker':
         case'Polygon':
           if (visibility) {
-            layer.setStyle({
-              opacity: layer['_tempVis'].opacity,
-              fillOpacity: layer['_tempVis'].fillOpacity
-            });
+            if (layer.hasOwnProperty('_tempVis')) {
+              layer.setStyle({
+                opacity: layer['_tempVis'].opacity,
+                fillOpacity: layer['_tempVis'].fillOpacity
+              });
+            }
             delete layer['_tempVis'];
           } else {
             layer['_tempVis'] = {
@@ -149,10 +222,12 @@ export function LayerTree(options) {
           break;
         case'Polyline':
           if (visibility) {
-            layer.setStyle({
-              opacity: layer._tempVis.opacity
-            });
-            delete layer._tempVis;
+            if (layer.hasOwnProperty('_tempVis')) {
+              layer.setStyle({
+                opacity: layer._tempVis.opacity
+              });
+              delete layer._tempVis;
+            }
           } else {
             layer._tempVis = {
               opacity: layer.options.opacity ? layer.options.opacity : 1
@@ -166,9 +241,11 @@ export function LayerTree(options) {
           layer.setOpacity((visibility ? 1 : 0));
           break;
       }
-    }, getLayerById(ids) {
+    },
+    getLayerById(ids) {
       return T.map._layers[ids];
-    }, setLocation(ids, zoom) {
+    },
+    setLocation(ids, zoom) {
       let layer = this.getLayerById(ids);
       if (layer) {
         let lt = this.getLayerType(layer);
@@ -203,7 +280,8 @@ export function LayerTree(options) {
           this._setLocation(lt, layer, zoom);
         }
       }
-    }, _findChild(layerG) {
+    },
+    _findChild(layerG) {
       let layers = [];
       for (let i in layerG._layers) {
         let lt = this.getLayerType(layerG._layers[i]);
@@ -214,7 +292,8 @@ export function LayerTree(options) {
         }
       }
       return layers;
-    }, _setLocation(type, layer, zoom) {
+    },
+    _setLocation(type, layer, zoom) {
       switch (type) {
         case'CircleMarker':
         case'Marker':
@@ -234,7 +313,6 @@ export function LayerTree(options) {
           break;
       }
     }
-
   };
   return layerTree;
 }

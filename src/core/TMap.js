@@ -22,7 +22,7 @@ let T = new Proxy({
   polyline: polyline,
   polygon: polygon,
   controls: controls,
-  layerTree: LayerTree,
+  LayerTree: LayerTree,
   icon: icon,
   EvBus: EventBus,
   cusTileLayer: CusTileLayer,
@@ -38,8 +38,8 @@ T.createMap = function (dom, opt) {
   options = Object.assign(MapOption, opt);
   T.map = L.map(dom, options);
   T.controls.init();
-  T.layert = T.layerTree();
-  T.layert.init();
+  T.layerTree = T.LayerTree();
+  T.layerTree.init();
   return T.map;
 };
 export default T;

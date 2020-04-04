@@ -51,9 +51,9 @@
   L.featureGroup([polygon1, polygon2]).addTo(T.map);
   L.layerGroup([marker1, marker2, marker3]).addTo(T.map);
   //嵌套图层树
-  let nestTree = T.layert.getNestTree();
+  let nestTree = T.layerTree.getNestTree();
   //扁平图层树
-  let flatTree = T.layert.getFlatTree();
+  let flatTree = T.layerTree.getFlatTree();
   layui.tree.render({
     elem: '#layerTree',
     data: nestTree,
@@ -61,9 +61,9 @@
     id: 'demo',
     oncheck: function (obj) {
       if (obj.checked) {
-        T.layert.showLayer([obj.data.id])
+        T.layerTree.showLayer([obj.data.id])
       } else {
-        T.layert.hideLayer([obj.data.id])
+        T.layerTree.hideLayer([obj.data.id])
       }
     }
   });

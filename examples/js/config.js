@@ -112,6 +112,14 @@ let examples = [
     path: './pages/smFindCloseFc.html'
   },
   {
+    name: '超图正地理编码',
+    path: './pages/smGeocode.html'
+  },
+  {
+    name: '超图逆地理编码',
+    path: './pages/smGeocodeReverse.html'
+  },
+  {
     name: 'ArcGIS SQL查询',
     path: './pages/esriSQLQuery.html'
   },
@@ -146,5 +154,17 @@ let examples = [
   {
     name: 'ArcGIS邻近设施分析',
     path: './pages/esriFindCloseFc.html'
+  },
+  {
+    name: 'ArcGIS地址查询服务',
+    path: './pages/esriAddressSearch.html'
+  },
+  {
+    name: 'ArcGIS正地理编码',
+    path: './pages/esriGeocode.html'
+  },
+  {
+    name: 'ArcGIS逆地理编码',
+    path: './pages/esriGeocodeReverse.html'
   }
 ];

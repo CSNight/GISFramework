@@ -31,7 +31,7 @@
   let polygon = T.polygon(latlngs, {color: 'blue'}).addTo(T.map);
   let urlGeo = 'http://10.10.50.15:6080/arcgis/rest/services/Utilities/Geometry/GeometryServer';
   //缓冲区分析
-  T.esria.bufferAnalysis(urlGeo, polygon.toGeoJSON(), 4326, 5, 'degree').then((resp) => {
+  T.esria.bufferGeoAnalysis(urlGeo, polygon.toGeoJSON(), 4326, 5, 'degree').then((resp) => {
     resp.data.geometries.map(function (item) {
       //结果坐标反转为latlng
       let rings = item.rings;

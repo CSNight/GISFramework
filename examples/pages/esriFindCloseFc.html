@@ -27,7 +27,7 @@
   let marker2 = L.marker([115, 35.97].reverse()).bindTooltip('设施点2').addTo(T.map);
   let marker3 = L.marker([117, 33.97].reverse()).bindTooltip('设施点3').addTo(T.map);
   let marker4 = L.circleMarker([116, 33.97].reverse()).bindTooltip('事件点', {permanent: true}).addTo(T.map);
-  T.esria.closestFacilities(urlNet, 4326, [[116, 33.97]], [[116, 34.97], [115, 35.97], [117, 33.97]]).then((resp) => {
+  T.esria.findClosetFacilities(urlNet, 4326, [[116, 33.97]], [[116, 34.97], [115, 35.97], [117, 33.97]]).then((resp) => {
     let paths = resp.data.routes.features[0].geometry.paths;
     let latlngRing = [];
     latlngRing.push([]);

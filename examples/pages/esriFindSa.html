@@ -28,7 +28,7 @@
     breaks: [6000, 10000],
     breaksColor: ["#2fb", "#f2b"]
   };
-  T.esria.createServiceArea(urlNet, 4326, [[116, 34.97]], breaksInfo.breaks).then((resp) => {
+  T.esria.findServiceAreas(urlNet, 4326, [[116, 34.97]], breaksInfo.breaks).then((resp) => {
     let features = resp.data.saPolygons.features;
     let i = 0;
     features.map(function (feature) {

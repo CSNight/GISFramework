@@ -140,17 +140,6 @@ export default {
       });
     })
   },
-  /**
-   * @param url ss
-   * @param region
-   * @param dataset
-   * @param datasource
-   * @param resolution
-   * @param zField
-   * @param interval
-   * @param startVal
-   * @return
-   */
   surfaceAnalystProcess: function (url, region, dataset, datasource, resolution, zField, interval, startVal) {
 
     let surfaceAnalystParameters = new SuperMap.DatasetSurfaceAnalystParameters({
@@ -287,7 +276,7 @@ export default {
       });
     });
   },
-  addressMatch: function (url, address, count, spatialRef) {
+  geocode: function (url, address, count, spatialRef) {
     let addressMatchService = L.supermap.addressMatchService(url);
     let geoCodeParam = new SuperMap.GeoCodingParameter({
       address: address,
@@ -308,7 +297,7 @@ export default {
       });
     })
   },
-  getAddressCoord: function (url, x, y, count, spatialRef) {
+  geocodeReverse: function (url, x, y, count, spatialRef) {
     let addressMatchService = L.supermap.addressMatchService(url);
     let geoDecodeParam = new SuperMap.GeoDecodingParameter({
       x: x,
@@ -321,7 +310,7 @@ export default {
       geoDecodingRadius: -1,
     });
     return new Promise(function (resolve, reject) {
-      addressMatchService.code(geoDecodeParam, function (serviceResult) {
+      addressMatchService.decode(geoDecodeParam, function (serviceResult) {
         let result = serviceResult.result;
         if (result) {
           resolve(result)

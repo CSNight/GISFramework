@@ -33,7 +33,7 @@
     L.geoJSON(resp).bindTooltip(function (layer) {
       return layer.feature.properties.CITY_NAME;
     }).addTo(T.map);
-    T.esria.overlayAnalysis(urlGeo, resp, null, T.esria.overlayType.CONVEXHULL, 4326).then((result) => {
+    T.esria.overlayGeoAnalysis(urlGeo, resp, null, T.esria.overlayType.CONVEXHULL, 4326).then((result) => {
       let rings = result.data.geometry.rings;
       let latlngRing = [];
       latlngRing.push([]);

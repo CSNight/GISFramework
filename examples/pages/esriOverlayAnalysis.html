@@ -34,7 +34,7 @@
   let latlngs2 = [[35, 40], [50, 40], [50, 60], [35, 60]];
   let polygon2 = T.polygon(latlngs2, {color: 'red'}).addTo(T.map);
 
-  T.esria.overlayAnalysis(urlGeo, polygon1.toGeoJSON(), polygon2.toGeoJSON(), T.esria.overlayType.INTERSECT, 4326).then((result) => {
+  T.esria.overlayGeoAnalysis(urlGeo, polygon1.toGeoJSON(), polygon2.toGeoJSON(), T.esria.overlayType.INTERSECT, 4326).then((result) => {
     result.data.geometries.map(function (item) {
       //结果坐标反转为latlng
       let rings = item.rings;

@@ -1,3 +1,5 @@
+import '../plugins/esri/esri-leaflet-geocoder.css';
+
 let searcher = {
   show: true,
   activate: false,
@@ -9,7 +11,7 @@ let searcher = {
   }
 };
 let AddressControl = function (opt) {
-  let options = Object.assign({}, opt);
+  let options = Object.assign(searcher.opt, opt);
   let Tz = L.esri.Geocoding.geosearch({
     providers: [
       L.esri.Geocoding.mapServiceProvider({
@@ -26,7 +28,7 @@ let AddressControl = function (opt) {
   Tz.__proto__.hide = function () {
     this.$options.show = false;
   };
-  Tz.$options = new Proxy(Object.assign({}, switcher), {
+  Tz.$options = new Proxy(Object.assign({}, searcher), {
     set: function (target, p, value, receiver) {
       Reflect.set(target, p, value, receiver);
       if (p === 'show') {

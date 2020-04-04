@@ -273,7 +273,7 @@ export default {
       });
     });
   },
-  createServiceArea(url, spatialRef, facilities, breaks) {
+  findServiceAreas(url, spatialRef, facilities, breaks) {
     let strFAC = '';
     for (let i = 0; i < facilities.length; i++) {
       strFAC += facilities[i][0] + "," + facilities[i][1] + ";";
@@ -395,7 +395,7 @@ export default {
       })
     })
   },
-  closestFacilities(url, spatialRef, froms, tos) {
+  findClosetFacilities(url, spatialRef, froms, tos) {
     let strFroms = '';
     for (let i = 0; i < froms.length; i++) {
       strFroms += froms[i][0] + "," + froms[i][1] + ";";
@@ -445,8 +445,8 @@ export default {
     url = url.endsWith("/") ? url : url + "/";
     return this.request(url + "Closest%20Facility/solveClosestFacility", null, params, 'post');
   },
-  bufferAnalysis: function (url, geoJson, spatialRef, distance, unit) {
-    let geoFormat = this.geoJsonToArcGISFormat(geoJson);
+  bufferGeoAnalysis: function (url, geoJson, spatialRef, distance, unit) {
+    let geoFormat = this.geoJsonToArcGISFormatCol(geoJson);
     if (!geoFormat) {
       return;
     }
@@ -468,7 +468,7 @@ export default {
     url = url.endsWith("/") ? url : url + "/";
     return this.request(url + "buffer", null, params, 'post');
   },
-  overlayAnalysis: function (url, sourceGeo, targetGeo, overlayType, spatialRef) {
+  overlayGeoAnalysis: function (url, sourceGeo, targetGeo, overlayType, spatialRef) {
     let params = {
       sr: spatialRef,
       f: 'json'
@@ -514,12 +514,28 @@ export default {
     url = url.endsWith("/") ? url : url + "/";
     return this.request(url + suffix, null, params, 'post');
   },
-  addAddressControl(map_url, label, layers, fields) {
-    T.map.addControl(T.controls.searcher({
-      map_url: map_url,
-      label: label,
-      layers: layers,
-      fields: fields
-    }));
+  geocode: function (url, address) {
+    let service = L.esri.Geocoding.geocodeService({url: url}).geocode();
+    return new Promise(function (resolve, reject) {
+      service.text(address).run(function (err, results, response) {
+        if (err) {
+          reject.log(err);
+          return;
+        }
+        resolve(results);
+      });
+    })
+  },
+  geocodeReverse: function (url, x, y) {
+    let service = L.esri.Geocoding.geocodeService({url: url}).reverse();
+    return new Promise(function (resolve, reject) {
+      service.latlng([y, x]).run(function (err, results, response) {
+        if (err) {
+          reject.log(err);
+          return;
+        }
+        resolve(results);
+      });
+    })
   }
 }

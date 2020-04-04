@@ -12,7 +12,7 @@
 </head>
 <body>
 <div id="map" style=";width:100%;height:100%"></div>
-<div class="layui-panel-window ctr-panel" style="width: 100px;height:100px;">
+<div class="layui-panel-window ctr-panel" style="width: 100px;height:40px;left: 20px!important;">
   <button class="layui-btn layui-btn-sm" onclick="tojson()">要素转JSON</button>
 </div>
 <script>
@@ -23,6 +23,7 @@
   let featg = L.featureGroup().addTo(T.map);
   let drawer = T.controls.drawer(featg, {draw: true, edit: true});
   T.map.addControl(drawer);
+  T.map.addControl(T.controls.styleEditor({}));
 
   function tojson() {
     alert(JSON.stringify(drawer.featToJson()));

@@ -267,7 +267,7 @@ let drawerPlugin = function (targetLayer, options) {
       if (feat instanceof L.Marker) {
         let geoM = feat.toGeoJSON();
         if (feat.options.icon.options.hasOwnProperty('iconUrl')) {
-          geoM.properties.style = icon.options;
+          geoM.properties.style = feat.options.icon.options;
         } else {
           geoM.properties.style = {
             icon: 'default'

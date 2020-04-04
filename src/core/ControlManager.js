@@ -8,6 +8,7 @@ import {measure} from '../controls/Measure';
 import {drawerPlugin} from '../controls/Drawer';
 import {switchControl} from "../controls/BaseSwitcher";
 import {AddressControl} from "../controls/AddressControl";
+import {styleEditor} from '../controls/StyleEditor';
 
 let controls = {
   zoom: zoomControl,
@@ -20,6 +21,7 @@ let controls = {
   switcher: switchControl,
   legend: '',
   searcher: AddressControl,
+  styleEditor: styleEditor,
   cts: {},
   init: function () {
     T.map.addControl = new Proxy(T.map.addControl, {

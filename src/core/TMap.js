@@ -42,10 +42,6 @@ T.createMap = function (dom, opt) {
   T.layert.init();
   return T.map;
 };
-T.marker = function (options) {
-
-};
-
 export default T;
 
 

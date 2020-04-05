@@ -65,6 +65,9 @@
       } else {
         T.layerTree.hideLayer([obj.data.id])
       }
+    },
+    click: function (obj) {
+      T.layerTree.setLocation(obj.data.id, 12)
     }
   });
   let roots = [];

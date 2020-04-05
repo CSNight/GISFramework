@@ -34,8 +34,9 @@ T.createMap = function (dom, opt) {
   let options = {};
   if (!opt) {
     options = MapOption;
+  }else{
+    options = Object.assign(MapOption, opt);
   }
-  options = Object.assign(MapOption, opt);
   T.map = L.map(dom, options);
   T.controls.init();
   T.layerTree = T.LayerTree();

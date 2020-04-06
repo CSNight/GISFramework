@@ -296,7 +296,6 @@ let drawerPlugin = function (targetLayer, options) {
     let layer = event.layer;
     layer = resetStyleHandler(layer);
     targetLayer.addLayer(layer);
-    T.layert.refresh();
   });
   Tz.$groups = targetLayer;
   Tz.$options = new Proxy(Object.assign({}, drawOpt), {

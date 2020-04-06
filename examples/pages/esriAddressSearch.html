@@ -18,7 +18,7 @@
   let map = T.createMap('map').setView([40.91, -96.63], 4);
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(T.map);
   let searchControl = T.controls.searcher({
-    url: 'https://sampleserver6.arcgisonline.com/arcgis/rest/services/Census/MapServer',
+    map_url: 'https://sampleserver6.arcgisonline.com/arcgis/rest/services/Census/MapServer',
     label: 'States and Counties',
     layers: [2, 3],
     searchFields: ['NAME', 'STATE_NAME']

@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <title>TGIS-Examples</title>
   <script src="js/theme.js"></script>
-  <script src="js/config.js"></script>
   <script src="libs/jquery-3.4.1.min.js"></script>
   <script src="libs/jquery-ui/jquery-ui.min.js"></script>
   <link rel="stylesheet" href="libs/layui/css/layui.css"/>
@@ -24,10 +23,15 @@
           <div style="align-items: center;height: 35px">
             <span class="label">html</span>
             <div class="themes"><label for="themes">Themes:</label><select id="themes"></select></div>
-            <div class="themes"><label for="examples">Examples:</label><select id="examples"></select>
-            </div>
-            <button class="edit-btn submit-btn" id="submit">提交运行</button>
-            <button class="edit-btn close-btn" id="close">最小化</button>
+            <button class="layui-btn layui-btn-xs submit-btn" id="submit">
+              <i class="layui-icon layui-icon-play"></i>提交运行
+            </button>
+            <button class="layui-btn layui-btn-xs close-btn" id="close">
+              <i class="layui-icon layui-icon-screen-restore"></i>最小化
+            </button>
+            <button class="layui-btn layui-btn-xs reload-btn" id="reload">
+              <i class="layui-icon layui-icon-refresh"></i>重置
+            </button>
           </div>
           <pre id="editor1" class="edit-area"></pre>
         </div>
@@ -61,24 +65,28 @@
     for (let i = 0; i < themes.length; i++) {
       $('#themes').append('<option value="' + themes[i].theme + '">' + themes[i].caption + '</option>');
     }
-    for (let i = 0; i < examples.length; i++) {
-      $('#examples').append('<option value="' + examples[i].path + '">' + examples[i].name + '</option>');
+
+    function loadCode() {
+      let locationPath = location.href;
+      let parmas = locationPath.split('?')[1].split('$');
+      if (parmas && parmas.length > 0) {
+        document.title = parmas[1];
+        $.ajax({
+          url: './pages/' + parmas[0].split('=')[1] + ".html",
+          type: 'get',
+          success: function (res) {
+            editor.setValue(res);
+            $('.submit-btn').click();
+          }
+        });
+      }
     }
-    $('#examples').change(function () {
-      document.title = $('#examples')[0].selectedOptions[0].label;
-      $.ajax({
-        url: $('#examples').val(),
-        type: 'get',
-        success: function (res) {
-          editor.setValue(res);
-          $('.submit-btn').click();
-        }
-      });
+
+    loadCode();
+    $('.reload-btn').click(function () {
+      loadCode();
     });
-    $('#examples')[0].selectedIndex = 0;
-    $('#examples').change();
     $('#themes').val('ace/theme/dracula');
-    console.log(editor);
     $('#themes').change(function () {
       editor.setTheme($('#themes').val());
     });
@@ -93,7 +101,7 @@
         '<meta http-equiv="X-UA-Compatible" content="chrome=1,IE=edge"/>' +
         '<link rel="stylesheet" href="css/console.css"/>' +
         '<script type="text/javascript" src="libs/vconsole.min.js">' + '<\/script>' +
-        '<script type="text/javascript">' + 'new window.VConsole();' + '<\/script>' +
+       // '<script type="text/javascript">' + 'new window.VConsole();' + '<\/script>' +
         '</head><body>' + htmlValue + '</body></html>';
     });
   })();

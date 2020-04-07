@@ -74,7 +74,7 @@ L.control.betterscale = function (options) {
 (function (window, document, undefined) {
 
   L.LatLngGraticule = L.Layer.extend({
-    includes: L.Mixin.Events,
+
 
     options: {
       showLabel: true,
@@ -258,7 +258,7 @@ L.control.betterscale = function (options) {
       if (lat < 0) {
         return '' + Number(lat * -1).toFixed(2) + 'S';
       } else if (lat > 0) {
-        return '' +  Number(lat).toFixed(2) + 'N';
+        return '' + Number(lat).toFixed(2) + 'N';
       }
       return '' + Number(lat).toFixed(2);
     },
@@ -583,7 +583,7 @@ L.control.betterscale = function (options) {
     }
 
   });
-
+  L.LatLngGraticule.include(L.Evented);
   L.latlngGraticule = function (options) {
     return new L.LatLngGraticule(options);
   };
@@ -612,7 +612,7 @@ L.Path.include({
     }
   },
 
-  _onDashFrame: function(){
+  _onDashFrame: function () {
     if (!this._renderer) {
       return;
     }

@@ -1,11 +1,9 @@
 /* global __dirname, require, module*/
 
 // eslint-disable-next-line no-unused-vars
-const webpack = require('webpack');
 const path = require('path');
 const env = require('yargs').argv.env; // use --env with webpack 2
-const pkg = require('./package.json');
-
+// const Ex = require("extract-text-webpack-plugin");//css单独打包
 let libraryName = 'tmap';
 
 let outputFile, mode;
@@ -39,6 +37,10 @@ const config = {
       }, {
         test: /\.css$/,
         use: ['style-loader', 'css-loader']
+        // use: ExtractTextPlugin.extract({  //css单独打包
+        //   fallback: "style-loader",
+        //   use: "css-loader"
+        // })
       }, {
         test: /\.(png|svg|jpg|gif)$/,
         use: [{
@@ -54,6 +56,9 @@ const config = {
       }
     ]
   },
+  // plugins: [
+  //   new Ex("tmap.css"),//打包后的文件名 css单独打包
+  // ],
   resolve: {
     modules: [path.resolve('./node_modules'), path.resolve('./src')],
     extensions: ['.json', '.js']

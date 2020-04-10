@@ -184,5 +184,17 @@ let examples = [
         name: 'ArcGIS逆地理编码',
         path: 'esriGeocodeReverse'
       }]
+  },
+  {
+    title: '大数据可视化',
+    index: 5,
+    name: 'BigData',
+    icon: 'layui-icon-component',
+    children: [
+      {
+        name: '热力图',
+        path: 'heatMap'
+      }
+    ]
   }
 ];

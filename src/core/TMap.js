@@ -12,6 +12,7 @@ import EventBus from "./EventBus";
 import clientAnalysis from "../analysis/clients/clientAnalysis";
 import sma from '../analysis/server/sma';
 import esria from '../analysis/server/esria';
+import Visualize from './Visualize'
 
 let T = new Proxy({
   map: null,
@@ -28,13 +29,14 @@ let T = new Proxy({
   cusTileLayer: CusTileLayer,
   turf: clientAnalysis,
   sma: sma,
-  esria: esria
+  esria: esria,
+  vis: Visualize
 }, {});
 T.createMap = function (dom, opt) {
   let options = {};
   if (!opt) {
     options = MapOption;
-  }else{
+  } else {
     options = Object.assign(MapOption, opt);
   }
   T.map = L.map(dom, options);

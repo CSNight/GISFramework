@@ -21,7 +21,7 @@ const config = {
   entry: __dirname + '/src/index.js',
   // devtool: 'inline-source-map',
   output: {
-    path: __dirname + '/examples/t-gis',
+    path: __dirname + '/docs/t-gis',
     filename: outputFile,
     library: libraryName,
     libraryTarget: 'umd',

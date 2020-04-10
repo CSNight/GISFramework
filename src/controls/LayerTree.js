@@ -139,6 +139,7 @@ export function LayerTree(options) {
       if (layer instanceof L.LatLngGraticule) {
         return 'Canvas';
       }
+      return 'Custom'
     },
     hideLayer(ids) {
       let idk = [];
@@ -239,6 +240,16 @@ export function LayerTree(options) {
           break;
         case'Marker':
           layer.setOpacity((visibility ? 1 : 0));
+          break;
+        case 'Custom':
+          if (layer.hasOwnProperty('canvas')) {
+            visibility ? layer.canvas.style.display = 'block' : layer.canvas.style.display = 'none';
+          }
+          break;
+        default:
+          if (typeof layer.hide === 'function' && typeof layer.show === 'function') {
+            visibility ? layer.show() : layer.hide();
+          }
           break;
       }
     },

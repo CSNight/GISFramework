@@ -194,6 +194,18 @@ let examples = [
       {
         name: '热力图',
         path: 'heatMap'
+      },
+      {
+        name: '格网聚合图',
+        path: 'heatMapGrid'
+      },
+      {
+        name: '蜂巢聚合图',
+        path: 'heatMapComb'
+      },
+      {
+        name: '风场',
+        path: 'windyShield'
       }
     ]
   }

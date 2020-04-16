@@ -36,16 +36,23 @@ let FlowField = function () {
     //没有风的情况
     NULL_WIND_VECTOR: [NaN, NaN, null],
     min_color: 0, // 风速为0使用的颜色
-    max_color: 10, // 风速最大使用的颜色
+    max_color: 12, // 风速最大使用的颜色
     FRAME_RATE: 35, //定义每秒执行的次数
     FRAME_TIME: 0, // desired frames per second
     globalAlpha: 0.92, //定义透明度，透明度越大，尾巴越长
     //存放颜色的数组
+    // colorScale: [
+    //   "rgb(0,255,255)", "rgb(100,240,255)", "rgb(135,225,255)",
+    //   "rgb(160,208,255)", "rgb(181,192,255)", "rgb(198,173,255)",
+    //   "rgb(212,155,255)", "rgb(225,133,255)", "rgb(236,109,255)",
+    //   "rgb(255,30,219)", "rgb(245,82,162)", "rgb(245,84,82)",
+    //   "rgb(237,45,28)", "rgb(220,24,32)", "rgb(180,0,35)"
+    // ],
     colorScale: [
-      "rgb(0,255,255)", "rgb(100,240,255)", "rgb(135,225,255)",
-      "rgb(160,208,255)", "rgb(181,192,255)", "rgb(198,173,255)",
-      "rgb(212,155,255)", "rgb(225,133,255)", "rgb(236,109,255)",
-      "rgb(255,30,219)", "rgb(245,82,162)", "rgb(245,84,82)",
+      "rgb(36,104, 180)", "rgb(60,157, 194)", "rgb(128,205,193 )",
+      "rgb(151,218,168 )", "rgb(198,231,181)", "rgb(238,247,217)",
+      "rgb(255,238,159)", "rgb(252,217,125)", "rgb(255,182,100)",
+      "rgb(252,150,75)", "rgb(250,112,52)", "rgb(245,64,32)",
       "rgb(237,45,28)", "rgb(220,24,32)", "rgb(180,0,35)"
     ],
     //粒子动画的速度，为参数乘以屏幕的像素密度开三次方
@@ -55,66 +62,20 @@ let FlowField = function () {
     map: null
   };
 
-  let setOptions = function (options) {
-    _options = Object.assign(_options, options);
-    if (!_options.data || _options.data.length === 0 || !map) {
-      throw Error('Data option can not be null or empty');
+  //start function debounce
+  function debounce(fn, wait) {
+    let timeout = null;
+    return function () {
+      let context = this
+      if (timeout !== null)
+        clearTimeout(timeout);
+      timeout = setTimeout(() => {
+        fn.apply(context, arguments)
+      }, wait);
     }
-    if (!map) {
-      throw Error('map option can not be null or empty');
-    }
-    _options.FRAME_TIME = 1000 / _options.FRAME_RATE;
-    _options.colorScale.indexFor = (m) => {
-      // map velocity speed to a style
-      return Math.max(
-        0,
-        Math.min(_options.colorScale.length - 1,
-          Math.round((m - _options.max_color) / (_options.max_color - _options.min_color) * (_options.colorScale.length - 1))));
-    };
-    columns = []; //插值网格
-    buckets = _options.colorScale.map(function () {
-      return [];
-    });
-    let canvasBuilder = canvasLayerBuilder();
-    canvasBuilder();
-    gridBuilder = buildGrid();
-  }
-  let setSpeed = function (speed) {
-    if (speed > 0 && speed <= 100) {
-      _options.FRAME_RATE = speed;
-      _options.FRAME_TIME = 1000 / _options.FRAME_RATE;
-    }
-  }
-  let setDensity = function (density) {
-    if (density > 100 && density <= 500) {
-      _options.PARTICLE_MULTIPLIER = 1 / density;
-    }
-  }
-  let setWindTail = function (tailLength) {
-    if (tailLength > 0 && tailLength <= 1) {
-      _options.globalAlpha = tailLength;
-      _options.context.globalAlpha = _options.globalAlpha
-    }
-  }
-  let setWidth = function (width) {
-    if (width > 0 && width <= 10) {
-      _options.PARTICLE_LINE_WIDTH = width;
-      _options.context.lineWidth = _options.PARTICLE_LINE_WIDTH;
-    }
-  }
-  let getSpeed = function () {
-    return _options.FRAME_RATE;
-  }
-  let getDensity = function () {
-    return _options.PARTICLE_MULTIPLIER;
-  }
-  let getWindTail = function () {
-    return _options.globalAlpha;
-  }
-  let getWidth = function () {
-    return _options.PARTICLE_LINE_WIDTH;
   }
 
+  //投影
   function project(lat, lon, windy) {
     // both in radians, use deg2rad if neccessary
     let ymin = Utils.mercY(windy.south);
@@ -128,6 +89,7 @@ let FlowField = function () {
     return [x, y];
   }
 
+  //扭曲
   function distort(projection, λ, φ, x, y, scale, wind, windy) {
     //projection是一个空的对象
     // λ, φ格点的经纬度
@@ -162,16 +124,18 @@ let FlowField = function () {
     ];
   }
 
+  //grid双线性差值
   function biLinearInterpolateVector(x, y, g00, g10, g01, g11) {
     let rx = (1 - x);
     let ry = (1 - y);
     let a = rx * ry, b = x * ry, c = rx * y, d = x * y;
-    let u = g00[0] * a + g10[0] * b + g01[0] * c + g11[0] * d;
-    let v = g00[1] * a + g10[1] * b + g01[1] * c + g11[1] * d;
-    return [u, v, Math.sqrt(u * u + v * v)];
+    let u = g00[0] * a + g10[0] * b + g01[0] * c + g11[0] * d; //wind u vector weight
+    let v = g00[1] * a + g10[1] * b + g01[1] * c + g11[1] * d; //wind v vector weight
+    return [u, v, Math.sqrt(u * u + v * v)]; //[u,v,magnitude] magnitude is wind strength
   }
 
-  function createWindBuilder(uComp, vComp) {
+  //create wind data builder provide data getter and interpolate function
+  function createFlowBuilder(uComp, vComp) {
     let uData = uComp.data, vData = vComp.data;
     return {
       header: uComp.header,
@@ -183,6 +147,7 @@ let FlowField = function () {
     }
   }
 
+  //filter the GFS data for wind with category and parameter number like 1,2;2,2;(u vector)2,3;1,3(v vector)
   function createBuilder(data) {
     let uComp = null, vComp = null, scalar = null;
     data.forEach(function (record) {
@@ -197,9 +162,10 @@ let FlowField = function () {
           scalar = record;
       }
     });
-    return createWindBuilder(uComp, vComp);
+    return createFlowBuilder(uComp, vComp);
   }
 
+  // map the grid coordinates to real lat lng
   function invert(x, y, extents) {
     let mapLonDelta = extents.east - extents.west;
     let worldMapRadius = extents.width / Utils.rad2deg(mapLonDelta) * 360 / (2 * Math.PI);
@@ -212,6 +178,7 @@ let FlowField = function () {
     return [lon, lat];
   }
 
+  //initialize the data to 3d grid
   let buildGrid = function () {
     let builder = createBuilder(_options.data);
 
@@ -269,6 +236,7 @@ let FlowField = function () {
     };
   };
 
+  //create the wind field random data
   function createField(bounds, callback) {
     /**
      * @returns {Array} wind vector [u, v, magnitude] at the point (x, y), or [NaN, NaN, null] if wind
@@ -283,6 +251,7 @@ let FlowField = function () {
       let x, y;
       let safetyNet = 0;
       do {
+        //random wind particle x y
         x = Math.round(Math.floor(Math.random() * bounds.width) + bounds.x);
         y = Math.round(Math.floor(Math.random() * bounds.height) + bounds.y)
       } while (field(x, y)[2] === null && safetyNet++ < 30);
@@ -290,16 +259,14 @@ let FlowField = function () {
       o.y = y;
       return o;
     };
-
-    //field.overlay = mask.imageData;
-    //return field;
     callback(bounds, field);
   }
 
+  //fill the interpolate grid with wind field
   let interpolateField = function (bounds, extent, callback) {
     let projection = {};
     let mapArea = ((extent.south - extent.north) * (extent.west - extent.east));
-    let velocityScale = _options.VELOCITY_SCALE * Math.pow(mapArea, 0.3);
+    let velocityScale = _options.VELOCITY_SCALE * Math.pow(Math.abs(mapArea), 0.3);
     columns = [];
     let x = bounds.x;
 
@@ -340,7 +307,7 @@ let FlowField = function () {
     })();
   };
 
-  let buildBounds = function (bounds, width, height) {
+  function buildBounds(bounds, width, height) {
     let upperLeft = bounds[0];
     let lowerRight = bounds[1];
     let x = Math.round(upperLeft[0]); //Math.max(Math.floor(upperLeft[0], 0), 0);
@@ -348,8 +315,9 @@ let FlowField = function () {
     let xMax = Math.min(Math.ceil(lowerRight[0], width), width - 1);
     let yMax = Math.min(Math.ceil(lowerRight[1], height), height - 1);
     return {x: x, y: y, xMax: width, yMax: yMax, width: width, height: height};
-  };
+  }
 
+  //build the canvas layer for leaflet
   function leafletBuilder() {
     if (!_options.canvas) {
       _options.canvas = L.DomUtil.create("canvas", "can");
@@ -371,7 +339,7 @@ let FlowField = function () {
         let offset = _options.map._latLngToNewLayerPoint(_options.map.getBounds().getNorthWest(), e.zoom, e.center);
 
         L.DomUtil.setTransform(_options.canvas, offset, scale);
-      })
+      });
       _options.map.on("moveend", function () {
         window.cancelAnimationFrame(animationLoop);
         _options.context.clearRect(0, 0, _options.map.getSize().x, _options.map.getSize().y);
@@ -391,23 +359,91 @@ let FlowField = function () {
     }
   }
 
+  //build the canvas layer for AMap
+  function aMapCanvasBuilder() {
+    if (!_options.canvas) {
+      _options.canvas = document.createElement('canvas');
+      _options.canvas.height = _options.map.getSize().getHeight();
+      _options.canvas.width = _options.map.getSize().getWidth();
+      let CanvasLayer = new AMap.CanvasLayer({
+        canvas: _options.canvas,
+        bounds: _options.map.getBounds(),
+        zooms: _options.map.getZooms()
+      });
+
+      let fadeFillStyle = "rgba(0, 0, 0, 0.97)";
+      _options.context = _options.canvas.getContext("2d");
+      _options.context.lineWidth = _options.PARTICLE_LINE_WIDTH;
+      _options.context.fillStyle = fadeFillStyle;
+      _options.context.globalAlpha = _options.globalAlpha;
+      CanvasLayer.setMap(_options.map);
+      _options.map.on("zoomend", function (e) {
+        const retina = AMap.Browser.retina;
+        const [width, height] = [_options.map.getSize().width, _options.map.getSize().height];
+        //多浏览器支持
+        _options.canvas.width = width * retina;
+        _options.canvas.height = height * retina;
+        const bounds = _options.map.getBounds();
+        if (CanvasLayer) {
+          CanvasLayer.setBounds(bounds);
+        }
+      });
+
+      _options.map.on("moveend", function () {
+        window.cancelAnimationFrame(animationLoop);
+        _options.context.clearRect(0, 0, _options.map.getSize().getWidth(), _options.map.getSize().getHeight());
+        _options.canvas.height = _options.map.getSize().getHeight();
+        _options.canvas.width = _options.map.getSize().getWidth();
+        _options.context.lineWidth = _options.PARTICLE_LINE_WIDTH;
+        _options.context.fillStyle = fadeFillStyle;
+        _options.context.globalAlpha = _options.globalAlpha;
+        const bounds = _options.map.getBounds();
+        if (CanvasLayer) {
+          CanvasLayer.setBounds(bounds);
+        }
+        stop();
+        start(_options.map.getBounds());
+      })
+    }
+  }
+
+  //choose the canvas builder by options BASE field
   let canvasLayerBuilder = function () {
     switch (_options.BASE) {
       default:
       case"leaflet":
         return leafletBuilder;
+      case"amap":
+        return aMapCanvasBuilder;
+    }
+  };
+
+  function extentBuilder(bound) {
+    switch (_options.BASE) {
+      default:
+      case"leaflet":
+        return {
+          south: Utils.deg2rad(bound.getSouthEast().lat),
+          north: Utils.deg2rad(bound.getNorthWest().lat),
+          east: Utils.deg2rad(bound.getSouthEast().lng),
+          west: Utils.deg2rad(bound.getNorthWest().lng),
+          width: _options.map.getSize().x,
+          height: _options.map.getSize().y
+        };
+      case"amap":
+        return {
+          south: Utils.deg2rad(bound.getSouthEast().lat),
+          north: Utils.deg2rad(bound.getNorthWest().lat),
+          east: Utils.deg2rad(bound.getSouthEast().lng),
+          west: Utils.deg2rad(bound.getNorthWest().lng),
+          width: _options.map.getSize().getWidth(),
+          height: _options.map.getSize().getHeight()
+        };
     }
   }
 
   let start = function (bound) {
-    let extent = {
-      south: Utils.deg2rad(bound.getSouthEast().lat),
-      north: Utils.deg2rad(bound.getNorthWest().lat),
-      east: Utils.deg2rad(bound.getSouthEast().lng),
-      west: Utils.deg2rad(bound.getNorthWest().lng),
-      width: _options.map.getSize().x,
-      height: _options.map.getSize().y
-    };
+    let extent = extentBuilder(bound);
     let bounds = [[0, 0], [extent.width, extent.height]]
     interpolateField(buildBounds(bounds, extent.width, extent.height), extent, (bounds, field) => {
       buckets = _options.colorScale.map(function () {
@@ -436,22 +472,10 @@ let FlowField = function () {
         })();
       }, 200)
     });
-  }
+  };
   let stop = function () {
     if (animationLoop) cancelAnimationFrame(animationLoop);
-  }
-
-  function debounce(fn, wait) {
-    let timeout = null;      //定义一个定时器
-    return function () {
-      let context = this
-      if (timeout !== null)
-        clearTimeout(timeout);  //清除这个定时器
-      timeout = setTimeout(() => {
-        fn.apply(context, arguments)
-      }, wait);
-    }
-  }
+  };
 
   let startDeb = debounce(start, 500);
 
@@ -514,6 +538,65 @@ let FlowField = function () {
     });
   }
 
+  let setOptions = function (options) {
+    _options = Object.assign(_options, options);
+    if (!_options.data || _options.data.length === 0 || !map) {
+      throw Error('Data option can not be null or empty');
+    }
+    if (!map) {
+      throw Error('map option can not be null or empty');
+    }
+    _options.FRAME_TIME = 1000 / _options.FRAME_RATE;
+    _options.colorScale.indexFor = (m) => {
+      // map velocity speed to a style
+      return Math.max(
+        0,
+        Math.min(_options.colorScale.length - 1,
+          Math.round((m - _options.max_color) / (_options.max_color - _options.min_color) * (_options.colorScale.length - 1))));
+    };
+    columns = []; //插值网格
+    buckets = _options.colorScale.map(function () {
+      return [];
+    });
+    let canvasBuilder = canvasLayerBuilder();
+    canvasBuilder();
+    gridBuilder = buildGrid();
+  };
+  let setSpeed = function (speed) {
+    if (speed > 0 && speed <= 100) {
+      _options.FRAME_RATE = speed;
+      _options.FRAME_TIME = 1000 / _options.FRAME_RATE;
+    }
+  };
+  let setDensity = function (density) {
+    if (density > 100 && density <= 500) {
+      _options.PARTICLE_MULTIPLIER = 1 / density;
+    }
+  };
+  let setWindTail = function (tailLength) {
+    if (tailLength > 0 && tailLength <= 1) {
+      _options.globalAlpha = tailLength;
+      _options.context.globalAlpha = _options.globalAlpha
+    }
+  };
+  let setWidth = function (width) {
+    if (width > 0 && width <= 10) {
+      _options.PARTICLE_LINE_WIDTH = width;
+      _options.context.lineWidth = _options.PARTICLE_LINE_WIDTH;
+    }
+  };
+  let getSpeed = function () {
+    return _options.FRAME_RATE;
+  };
+  let getDensity = function () {
+    return _options.PARTICLE_MULTIPLIER;
+  };
+  let getWindTail = function () {
+    return _options.globalAlpha;
+  };
+  let getWidth = function () {
+    return _options.PARTICLE_LINE_WIDTH;
+  };
   let flowF = {
     start: startDeb,
     stop: stop,
@@ -526,7 +609,7 @@ let FlowField = function () {
     getSpeed: getSpeed,
     getWindTail: getWindTail,
     getWidth: getWidth
-  }
+  };
   return flowF;
 };
 export {FlowField}

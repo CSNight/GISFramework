@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <script src="../libs/jquery-3.4.1.min.js"></script>
+  <script type="text/javascript"
+          src="https://webapi.amap.com/maps?v=1.4.15&key=b8aa25abad067f60c316ddc46a7948c7"></script>
+  <script src="../libs/leaflet/leaflet-src.js"></script>
+  <script src="../t-gis/tmap.js"></script>
+</head>
+<body>
+<div id="map" style=";width:100%;height:100%"></div>
+<script>
+  var map = new AMap.Map('map', {
+    zoom: 2,//级别
+    zooms:[1,18],
+    mapStyle: "amap://styles/dark",
+    center: [0.397428, 0.90923],//中心点坐标
+    resizeEnable: true,
+  });
+  let flowField = new T.vis.FlowField();
+  $.getJSON("../asset/wind.json", function (data) {
+    setTimeout(function () {
+      flowField.setOptions({
+        BASE: 'amap',
+        map: map,
+        data: data
+      })
+      flowField.start(map.getBounds())
+    }, 100)
+  });
+</script>
+</body>
+</html>

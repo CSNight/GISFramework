@@ -206,6 +206,10 @@ let examples = [
       {
         name: '风场',
         path: 'windyShield'
+      },
+      {
+        name: '点聚合图',
+        path: 'markerCluster'
       }
     ]
   }

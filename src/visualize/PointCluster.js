@@ -1,4 +1,4 @@
-import * as mapv from 'mapv'
+
 import '../plugins/marker_cluser/leaflet.markercluster-src'
 import '../plugins/marker_cluser/MarkerCluster.Default.css'
 

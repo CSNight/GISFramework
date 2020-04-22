@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>MapV等级符号专题图</title>
+  <script src="libs/jquery-3.4.1.min.js"></script>
+  <link rel="stylesheet" href="libs/layui/css/layui.css">
+  <link rel="stylesheet" href="css/style.css">
+  <script src="libs/leaflet/leaflet-src.js"></script>
+  <link rel="stylesheet" href="libs/leaflet/leaflet.css"/>
+  <script src="./t-gis/tmap.js"></script>
+</head>
+<body>
+<div id="map" style=";width:100%;height:100%"></div>
+<script>
+  T.createMap('map');
+  T.map.setView([35, 105], 4);
+  T.map.addControl(T.controls.pointer());
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png?{foo}', {foo: 'bar'}).addTo(T.map);
+  let city = ["北京", "天津", "上海", "重庆", "石家庄", "太原", "呼和浩特", "哈尔滨", "长春", "沈阳", "济南", "南京",
+    "合肥", "杭州", "南昌", "福州", "郑州", "武汉", "长沙", "广州", "南宁", "西安", "银川", "兰州", "西宁", "乌鲁木齐",
+    "成都", "贵阳", "昆明", "拉萨", "海口"];
+  let geoJson = [];
+  for (let i = 0; i < city.length; i++) {
+    let p = T.vis.cityCenter.getCenterByCityName(city[i]);
+    geoJson.push({
+      geometry: {
+        type: 'Point',
+        coordinates: [p.lng, p.lat]
+      },
+      properties: {'count': Math.floor(Math.random() * 100)},
+    })
+  }
+  T.vis.mapVClassicSymbolLayer(geoJson, 'count', {
+    fillStyle: 'rgba(255, 50, 50, 0.6)',
+    max: 100, // 数值最大值范围
+    maxSize: 20, // 显示的圆最大半径大小
+    methods: { // 一些事件回调函数
+      click: function (item) { // 点击事件，返回对应点击元素的对象值
+        console.log(item);
+      },
+    },
+  }).addTo(T.map)
+
+</script>
+</body>
+</html>

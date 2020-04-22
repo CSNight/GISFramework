@@ -186,8 +186,28 @@ let examples = [
       }]
   },
   {
-    title: '大数据可视化',
+    title: '基础专题图',
     index: 5,
+    name: 'BigData',
+    icon: 'layui-icon-component',
+    children: [
+      {
+        name: '基础等级颜色专题图',
+        path: 'classicColor'
+      },
+      {
+        name: 'mapv等级颜色专题图',
+        path: 'mapVClassicColor'
+      },
+      {
+        name: 'mapv等级符号专题图',
+        path: 'mapVClassicSymbol'
+      }
+    ]
+  },
+  {
+    title: '大数据可视化',
+    index: 6,
     name: 'BigData',
     icon: 'layui-icon-component',
     children: [

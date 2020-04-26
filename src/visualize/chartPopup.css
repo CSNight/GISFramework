@@ -1,0 +1,35 @@
+.cus-popup {
+  background: rgba(0, 0, 0, 0) !important;
+  border: none !important;
+  box-shadow: none !important;
+  overflow: visible;
+}
+
+.dis-popup {
+  background: rgba(255, 255, 255, 0) !important;
+  color: #000 !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+.dis-popup > div {
+  background: rgba(255, 255, 255, 0) !important;
+  box-shadow: none !important;
+}
+
+.p-box {
+  width: auto;
+  height: auto;
+  background: rgba(255, 255, 255, 0)
+}
+
+.pie-box {
+  min-width: 50px;
+  min-height: 50px;
+  background: rgba(255, 255, 255, 0) !important
+}
+
+.cus-popup:before {
+  background: rgba(0, 0, 0, 0) !important;
+  border: none;
+}

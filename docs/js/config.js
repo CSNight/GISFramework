@@ -202,6 +202,10 @@ let examples = [
       {
         name: 'mapv等级符号专题图',
         path: 'mapVClassicSymbol'
+      },
+      {
+        name: 'echart统计专题图',
+        path: 'echartPieLayer'
       }
     ]
   },

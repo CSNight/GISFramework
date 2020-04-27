@@ -121,7 +121,7 @@ export default {
   },
   //计算外包络凸多边形 geoJson（FeatureCollection）点集
   genConvex: function (pointFeatureCollection) {
-    return convex(pointFeatureCollection);
+    return convex(pointFeatureCollection, {concavity: Infinity});
   },
   //生成等值线
   generateIsoLines: function (pointArrWithZ, breaks, zProperty) {

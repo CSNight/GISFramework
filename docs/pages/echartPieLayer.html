@@ -22,7 +22,7 @@
     "合肥", "杭州", "南昌", "福州", "郑州", "武汉", "长沙", "广州", "南宁", "西安", "银川", "兰州", "西宁", "乌鲁木齐",
     "成都", "贵阳", "昆明", "拉萨", "海口"];
   let geoJson = [];
-  let dataSet = [];
+  let optSets = [];
   for (let i = 0; i < city.length; i++) {
     let p = T.vis.cityCenter.getCenterByCityName(city[i]);
     geoJson.push({
@@ -31,17 +31,31 @@
         coordinates: [p.lng, p.lat]
       }
     })
-    dataSet.push([
-      {value: Math.floor(335 * Math.random()), name: '直接访问'},
-      {value: Math.floor(310 * Math.random()), name: '邮件营销'},
-      {value: Math.floor(234 * Math.random()), name: '联盟广告'},
-      {value: Math.floor(135 * Math.random()), name: '视频广告'},
-      {value: Math.floor(1548 * Math.random()), name: '搜索引擎'}
-    ])
+    optSets.push({
+      tooltip: {
+        trigger: 'item',
+        backgroundColor: 'rgba(50,50,50,1)'
+      },
+      series: [{
+        hoverAnimation: true,
+        name: '测试',
+        type: 'pie',
+        radius: '65%',
+        label: {
+          show: false
+        },
+        center: ['50%', '50%'],
+        data: [
+          {value: Math.floor(335 * Math.random()), name: '直接访问'},
+          {value: Math.floor(310 * Math.random()), name: '邮件营销'},
+          {value: Math.floor(234 * Math.random()), name: '联盟广告'},
+          {value: Math.floor(135 * Math.random()), name: '视频广告'},
+          {value: Math.floor(1548 * Math.random()), name: '搜索引擎'}
+        ]
+      }]
+    })
   }
-  T.vis.echartsLayer(geoJson, {}, dataSet, 80, 80).addTo(T.map)
-
-
+  T.vis.echartsLayer(geoJson, optSets, 80, 80).addTo(T.map)
 </script>
 </body>
 </html>

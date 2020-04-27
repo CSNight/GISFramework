@@ -1,24 +1,6 @@
 import './chartPopup.css'
-import cloneDeep from 'lodash/cloneDeep'
 
 export default {
-  defaultPieChartOpt: {
-    tooltip: {
-      trigger: 'item',
-      backgroundColor: 'rgba(50,50,50,1)'
-    },
-    series: [{
-      hoverAnimation: true,
-      name: '测试',
-      type: 'pie',
-      radius: '65%',
-      label: {
-        show: false
-      },
-      center: ['50%', '50%'],
-      data: []
-    }]
-  },
   guid: function () {
     /**
      * @return {string}
@@ -31,15 +13,10 @@ export default {
     return (S4() + S4() + "-" + S4() + "-" + S4() + "-" + S4() + "-"
       + S4() + S4() + S4());
   },
-  echartsLayer(anchors, chartOpt, data, pWidth, pHeight) {
+  echartsLayer(anchors, chartOpts, pWidth, pHeight) {
     let layerGroup = L.layerGroup();
     layerGroup.chartOpts = {};
     layerGroup.charts = {};
-    let _options = this.defaultPieChartOpt;
-    if (chartOpt) {
-      _options = Object.assign(this.defaultPieChartOpt, chartOpt);
-    }
-
     let len = anchors.length;
     for (let i = 0; i < len; i++) {
       let feat = anchors[i];
@@ -49,9 +26,10 @@ export default {
       feat.id = this.guid();
       let latLng = L.latLng(feat.geometry.coordinates[1], feat.geometry.coordinates[0]);
       let marker_pie = L.circleMarker(latLng, {
+        id: feat.id,
         opacity: 0,
         fillOpacity: 0
-      }).bindPopup('<div class="pie-box ss_' + feat.id + '"></div>', {
+      }).bindPopup('<div class="pie-box cht_' + feat.id + '"></div>', {
         id: feat.id,
         minWidth: pWidth,
         className: 'cus-popup',
@@ -61,27 +39,56 @@ export default {
         closeOnClick: false,
         autoPan: false
       });
-      let featOpt = cloneDeep(_options);
-      featOpt.series[0].data = data[i];
-      layerGroup.chartOpts[feat.id] = featOpt;
+      layerGroup.chartOpts[feat.id] = chartOpts[i];
       marker_pie.on('popupopen', (e) => {
-        let box = document.querySelector('.ss_' + e.popup.options.id);
+        let box = document.querySelector('.cht_' + e.popup.options.id);
         let wrapper = box.parentElement.parentElement;
         wrapper.classList.add("dis-popup");
         box.style.height = pHeight + "px";
         box.style.width = pWidth + "px";
         wrapper.parentElement.childNodes[1].classList.add("dis-popup");
         if (!layerGroup.charts.hasOwnProperty(e.popup.options.id)) {
-          layerGroup.charts[e.popup.options.id] = echarts.init(document.querySelector('.ss_' + e.popup.options.id));
+          layerGroup.charts[e.popup.options.id] = echarts.init(document.querySelector('.cht_' + e.popup.options.id));
           layerGroup.charts[e.popup.options.id].setOption(layerGroup.chartOpts[e.popup.options.id]);
         }
       })
       layerGroup.addLayer(marker_pie);
     }
     layerGroup.on('add', () => {
-
       layerGroup.eachLayer((layer) => layer.togglePopup())
     })
+    layerGroup.updateChartOption = function (id, opt) {
+      layerGroup.charts[id].setOption(opt);
+      layerGroup.chartOpts[id] = opt;
+    }
     return layerGroup;
+  },
+  echartsPopup(layer, chartOpt, pWidth, pHeight) {
+    layer.chartId = this.guid();
+    layer.bindPopup('<div class="pie-box chtP_' + layer.chartId + '"></div>', {
+      id: layer.chartId,
+      minWidth: pWidth,
+      autoClose: false,
+      closeButton: true,
+      closeOnClick: false,
+      autoPan: false
+    });
+    layer.chartOpt = chartOpt;
+    layer.on('popupopen', (e) => {
+      let box = document.querySelector('.chtP_' + e.popup.options.id);
+      box.style.height = pHeight + "px";
+      box.style.width = pWidth + "px";
+      if (!layer.chart) {
+        layer.chart = echarts.init(document.querySelector('.chtP_' + e.popup.options.id));
+        layer.chart.setOption(layer.chartOpt);
+      }
+    })
+    layer.updateChartOption = function (opt) {
+      if (!layer.chart) {
+        layer.chart.setOption(layer.opt);
+        layer.chartOpt = opt;
+      }
+    }
+    return layer;
   }
 }

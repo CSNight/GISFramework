@@ -206,6 +206,10 @@ let examples = [
       {
         name: 'echart统计专题图',
         path: 'echartPieLayer'
+      },
+      {
+        name: 'echart气泡统计专题图',
+        path: 'echartPopupLayer'
       }
     ]
   },
@@ -234,6 +238,10 @@ let examples = [
       {
         name: '点聚合图',
         path: 'markerCluster'
+      },
+      {
+        name: '高效率点图层',
+        path: 'highPerformLayer'
       }
     ]
   }

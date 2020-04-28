@@ -244,5 +244,17 @@ let examples = [
         path: 'highPerformLayer'
       }
     ]
+  },
+  {
+    title: '矢量动画',
+    index: 7,
+    name: 'animate',
+    icon: 'layui-icon-chart',
+    children: [
+      {
+        name: '移动Marker',
+        path: 'movingMarker'
+      }
+    ]
   }
 ];

@@ -242,6 +242,14 @@ let examples = [
       {
         name: '高效率点图层',
         path: 'highPerformLayer'
+      },
+      {
+        name: '迁徙图',
+        path: 'trackLine'
+      },
+      {
+        name: '强度线',
+        path: 'strengthLine'
       }
     ]
   },
@@ -254,6 +262,14 @@ let examples = [
       {
         name: '移动Marker',
         path: 'movingMarker'
+      },
+      {
+        name: '闪烁Marker',
+        path: 'pulseMarker'
+      },
+      {
+        name: '流动虚线',
+        path: 'movingDash'
       }
     ]
   }

@@ -5,6 +5,7 @@ import ClassicRender from "../visualize/ClassicRender";
 import ChartRender from "../visualize/ChartRender";
 import CanvasHPLayer from "../visualize/CanvasHPLayer";
 import MarkAnimated from "../visualize/MarkAnimated";
+import TrackLine from "../visualize/TrackLine";
 
 export default {
   ...HeatMap,
@@ -13,7 +14,8 @@ export default {
   ...ClassicRender,
   ...ChartRender,
   ...CanvasHPLayer,
-  ...MarkAnimated
+  ...MarkAnimated,
+  ...TrackLine
 }
 
 

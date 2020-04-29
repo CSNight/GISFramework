@@ -38,7 +38,7 @@
         <div class="layui-logo" lay-href="gallery.html">
           <span>TGIS</span>
         </div>
-        <ul class="layui-nav layui-nav-tree"  id="LAY-system-side-menu"
+        <ul class="layui-nav layui-nav-tree" id="LAY-system-side-menu"
             lay-filter="layadmin-system-side-menu">
         </ul>
       </div>
@@ -92,7 +92,7 @@
     let childHtml = '<dl class="layui-nav-child">';
     for (let i = 0; i < child.length; i++) {
       childHtml += '<dd data-name="' + child[i].name
-        + '" ><a id="' + child[i].path + '" lay-href="examples.html?path=' + child[i].path + '$' + child[i].name + '">' +child[i].name + '</a></dd>'
+        + '" ><a id="' + child[i].path + '" lay-href="examples.html?path=' + child[i].path + '$' + child[i].name + '">' + child[i].name + '</a></dd>'
     }
     childHtml += '</dl>';
     return childHtml;

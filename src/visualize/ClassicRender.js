@@ -1,4 +1,4 @@
-import * as mapv from 'mapv/build/mapv.min'
+import * as mapv from 'mapv'
 import '../plugins/choropleth/choropleth'
 
 export default {

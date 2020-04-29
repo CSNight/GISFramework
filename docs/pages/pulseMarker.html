@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>闪烁点动画</title>
+  <script src="libs/jquery-3.4.1.min.js"></script>
+  <link rel="stylesheet" href="libs/layui/css/layui.css">
+  <link rel="stylesheet" href="css/style.css">
+  <script src="libs/leaflet/leaflet-src.js"></script>
+  <link rel="stylesheet" href="libs/leaflet/leaflet.css"/>
+  <script src="./t-gis/tmap.js"></script>
+</head>
+<body>
+<div id="map" style=";width:100%;height:100%"></div>
+<script>
+  T.createMap('map');
+  T.map.setView([0, 0], 2);
+  T.map.addControl(T.controls.pointer());
+  let openLayer = T.cusTileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+    maxZoom: 18,
+    minZoom: 0
+  }, false);
+  T.map.addLayer(openLayer);
+  let features = [];
+  for (let i = 0; i < 20; i++) {
+    let x = Math.random() * 20;
+    let y = Math.random() * 20
+    features.push({
+      type: 'Feature',
+      geometry: {
+        type: 'Point',
+        coordinates: [x, y]
+      }
+    })
+  }
+  T.vis.markerPulseLayer(features, {
+    iconSize: [12, 12],
+    color: '#2fb'
+  }).addTo(T.map)
+</script>
+</body>
+</html>

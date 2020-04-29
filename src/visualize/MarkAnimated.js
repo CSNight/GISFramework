@@ -1,3 +1,57 @@
+import '../plugins/pulse_icon/L.Icon.Pulse.min.css'
+
+L.Path.mergeOptions({
+  // @option dashSpeed: Number
+  // The speed of the dash array, in pixels per second
+  dashSpeed: 0
+});
+
+
+let _originalBeforeAdd = L.Path.prototype.beforeAdd;
+
+L.Path.include({
+
+  beforeAdd: function (map) {
+    _originalBeforeAdd.bind(this)(map);
+
+    if (this.options.dashSpeed) {
+      this._lastDashFrame = performance.now();
+      this._dashFrame = L.Util.requestAnimFrame(this._onDashFrame.bind(this));
+    }
+  },
+
+  _onDashFrame: function () {
+    if (!this._renderer) {
+      return;
+    }
+
+    let now = performance.now();
+    let dashOffsetDelta = (now - this._lastDashFrame) * this.options.dashSpeed / 1000;
+
+    this.options.dashOffset = Number(this.options.dashOffset || 0) + dashOffsetDelta;
+    this._renderer._updateStyle(this);
+
+    this._lastDashFrame = performance.now();
+
+    this._dashFrame = L.Util.requestAnimFrame(this._onDashFrame.bind(this));
+  }
+
+});
+
+L.Icon.Pulse = L.DivIcon.extend({
+  options: {className: "", iconSize: [12, 12], color: "red"}, initialize: function (e) {
+    L.setOptions(this, e);
+    let t = "lpi-" + (new Date).getTime() + "-" + Math.round(1e5 * Math.random());
+    this.options.className = this.options.className + " leaflet-pulsing-icon " + t;
+    let o = "." + t + "{background-color:" + this.options.color + ";}";
+    o += "." + t + ":after{box-shadow: 0 0 6px 2px " + this.options.color + ";}";
+    let n = document.createElement("style");
+    n.styleSheet ? n.styleSheet.cssText = o : n.appendChild(document.createTextNode(o)), document.getElementsByTagName("head")[0].appendChild(n), L.DivIcon.prototype.initialize.call(this, e)
+  }
+});
+L.icon.pulse = function (e) {
+  return new L.Icon.Pulse(e)
+};
 L.interpolatePosition = function (p1, p2, duration, t) {
   let k = t / duration;
   k = (k > 0) ? k : 0;
@@ -285,6 +339,11 @@ export default {
     autostart: false,
     loop: false
   },
+  defaultIconOpt: {
+    iconSize: [12, 12],
+    color: '#2fb'
+  },
+  defaultDashOpt: {dashArray: "15 15", dashSpeed: 30},
   markerMoveLayer: function (features, speed, opt) {
     let _options = this.defaultMovingOpt;
     if (opt) {
@@ -295,11 +354,11 @@ export default {
     let len = features.length;
     for (let i = 0; i < len; i++) {
       let feat = features[i];
+      if (feat.geometry.type !== 'Point') {
+        return;
+      }
       if ((i + 1) !== len) {
         let featNext = features[i + 1];
-        if (feat.geometry.type !== 'Point') {
-          return;
-        }
         let dy = featNext.geometry.coordinates[1] - feat.geometry.coordinates[1];
         let dx = featNext.geometry.coordinates[0] - feat.geometry.coordinates[0];
         let length = Math.sqrt(Math.pow(dy, 2) + Math.pow(dx, 2));
@@ -309,5 +368,96 @@ export default {
       latlngs.push([feat.geometry.coordinates[1], feat.geometry.coordinates[0]])
     }
     return movingMarker(latlngs, duration, _options);
+  },
+  markerPulseLayer: function (features, opt) {
+    let _options = this.defaultIconOpt;
+    if (opt) {
+      _options = Object.assign(this.defaultIconOpt, opt);
+    }
+    let layerGroup = L.layerGroup();
+    let len = features.length;
+    for (let i = 0; i < len; i++) {
+      let feat = features[i];
+      if (feat.geometry.type !== 'Point') {
+        return;
+      }
+      let marker = L.marker([feat.geometry.coordinates[1], feat.geometry.coordinates[0]], {
+        icon: L.icon.pulse(_options)
+      });
+      layerGroup.addLayer(marker);
+    }
+    return layerGroup;
+  },
+  movingShape: function (features, opt) {
+    let _options = this.defaultIconOpt;
+    if (opt) {
+      _options = Object.assign(this.defaultIconOpt, opt);
+    }
+    let layerGroup = L.layerGroup();
+    let len = features.length;
+    for (let i = 0; i < len; i++) {
+      let feat = features[i];
+      if (feat.geometry.type === 'Point') {
+        return;
+      } else if (feat.geometry.type === "Polyline") {
+        if (this.recursiveMax(feat.geometry.coordinates) === 2) {
+          let path = [];
+          for (let j = 0; j < feat.geometry.coordinates.length; j++) {
+            let parts = feat.geometry.coordinates[j];
+            path.push(parts.reverse());
+          }
+          layerGroup.addLayer(L.polyline(path, _options));
+        } else {
+          let path = [];
+          for (let j = 0; j < feat.geometry.coordinates.length; j++) {
+            let parts = feat.geometry.coordinates[j];
+            let part = []
+            for (let k = 0; k < parts.leading; k++) {
+              part.push(parts[k].reverse());
+            }
+            path.push(part);
+          }
+          layerGroup.addLayer(L.polyline(path, _options));
+        }
+      } else if (feat.geometry.type === "Polygon") {
+        if (this.recursiveMax(feat.geometry.coordinates) === 2) {
+          let path = [];
+          for (let j = 0; j < feat.geometry.coordinates.length; j++) {
+            let parts = feat.geometry.coordinates[j];
+            path.push(parts.reverse());
+          }
+          layerGroup.addLayer(L.polygon(path, _options));
+        } else {
+          let path = [];
+          for (let j = 0; j < feat.geometry.coordinates.length; j++) {
+            let parts = feat.geometry.coordinates[j];
+            let part = []
+            for (let k = 0; k < parts.leading; k++) {
+              part.push(parts[k].reverse());
+            }
+            path.push(part);
+          }
+          layerGroup.addLayer(L.polygon(path, _options));
+        }
+      }
+    }
+    return layerGroup;
+  },
+  recursiveMax: function (input) {
+    let flag = false;
+    let num = [];
+    for (let i = 0; i < input.length; i++) {
+      let obj = input[i];
+      if (obj instanceof Array) {
+        flag = true;
+        num.push(this.recursiveMax(obj));
+      }
+    }
+    if (flag) {
+      return Math.max.apply(null, num) + 1;
+    } else {
+      return 1
+    }
   }
+
 }

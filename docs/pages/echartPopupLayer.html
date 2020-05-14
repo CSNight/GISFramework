@@ -9,7 +9,7 @@
   <script src="libs/leaflet/leaflet-src.js"></script>
   <link rel="stylesheet" href="libs/leaflet/leaflet.css"/>
   <script src="libs/echart/echarts.js"></script>
-  <script src="t-gis/tmap.js"></script>
+  <script src="t-gis/tmap.min.js"></script>
 </head>
 <body>
 <div id="map" style=";width:100%;height:100%"></div>
@@ -47,7 +47,10 @@
         ]
       }]
     }
-    T.vis.echartsPopup(marker, opt, 80, 80).addTo(T.map)
+    T.vis.echartsPopup(marker, opt, 80, 80).addTo(T.map);
+    if(i===0){
+      marker.togglePopup();
+    }
   }
 </script>
 </body>

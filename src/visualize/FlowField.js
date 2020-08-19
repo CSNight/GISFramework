@@ -550,9 +550,12 @@ let FlowField = function () {
                 //多浏览器支持
                 _options.canvas.width = width * retina;
                 _options.canvas.height = height * retina;
+                _options.overlay.width = width * retina;
+                _options.overlay.height = height * retina;
                 const bounds = _options.map.getBounds();
                 if (CanvasLayer) {
                     CanvasLayer.setBounds(bounds);
+                    overLayLayer.setBounds(bounds);
                 }
             });
 
@@ -561,12 +564,15 @@ let FlowField = function () {
                 _options.context.clearRect(0, 0, _options.map.getSize().getWidth(), _options.map.getSize().getHeight());
                 _options.canvas.height = _options.map.getSize().getHeight();
                 _options.canvas.width = _options.map.getSize().getWidth();
+                _options.overlay.height = _options.map.getSize().getHeight();
+                _options.overlay.width = _options.map.getSize().getWidth();
                 _options.context.lineWidth = _options.PARTICLE_LINE_WIDTH;
                 _options.context.fillStyle = fadeFillStyle;
                 _options.context.globalAlpha = _options.globalAlpha;
                 const bounds = _options.map.getBounds();
                 if (CanvasLayer) {
                     CanvasLayer.setBounds(bounds);
+                    overLayLayer.setBounds(bounds);
                 }
                 stop();
                 start(_options.map.getBounds());

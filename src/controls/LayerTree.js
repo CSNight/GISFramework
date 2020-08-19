@@ -202,41 +202,15 @@ export function LayerTree(options) {
         case'Circle':
         case'CircleMarker':
         case'Polygon':
-          if (visibility) {
-            if (layer.hasOwnProperty('_tempVis')) {
-              layer.setStyle({
-                opacity: layer['_tempVis'].opacity,
-                fillOpacity: layer['_tempVis'].fillOpacity
-              });
-            }
-            delete layer['_tempVis'];
-          } else {
-            layer['_tempVis'] = {
-              opacity: layer.options.opacity ? layer.options.opacity : 1,
-              fillOpacity: layer.options.fillOpacity ? layer.options.fillOpacity : 1
-            };
-            layer.setStyle({
-              opacity: 0,
-              fillOpacity: 0
-            });
-          }
+          layer.setStyle({
+            stroke: visibility,
+            fill: visibility
+          });
           break;
         case'Polyline':
-          if (visibility) {
-            if (layer.hasOwnProperty('_tempVis')) {
-              layer.setStyle({
-                opacity: layer._tempVis.opacity
-              });
-              delete layer._tempVis;
-            }
-          } else {
-            layer._tempVis = {
-              opacity: layer.options.opacity ? layer.options.opacity : 1
-            };
-            layer.setStyle({
-              opacity: 0
-            });
-          }
+          layer.setStyle({
+            stroke: visibility,
+          });
           break;
         case'Marker':
           layer.setOpacity((visibility ? 1 : 0));

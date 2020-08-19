@@ -161,7 +161,7 @@ export default {
       for (let i = 0; i < geoJson.features.length; i++) {
         if (geometries.geometryType === 'esriGeometryPolyline') {
           let paths = geoJson.features[i].geometry.coordinates;
-          geometries.geometries.push({"paths": paths});
+          geometries.geometries.push({"paths": [paths]});
         } else if (geometries.geometryType === 'esriGeometryPolygon') {
           let rings = geoJson.features[i].geometry.coordinates;
           geometries.geometries.push({"rings": rings});
@@ -178,7 +178,7 @@ export default {
       geometries.geometryType = this.constantType[geoJson.geometry.type.toLowerCase()];
       if (geometries.geometryType === 'esriGeometryPolyline') {
         let paths = geoJson.geometry.coordinates;
-        geometries.geometries.push({"paths": paths});
+        geometries.geometries.push({"paths": [paths]});
       } else if (geometries.geometryType === 'esriGeometryPolygon') {
         let rings = geoJson.geometry.coordinates;
         geometries.geometries.push({"rings": rings});
@@ -205,7 +205,7 @@ export default {
       geometries.geometryType = this.constantType[geoJson.geometry.type.toLowerCase()];
       if (geometries.geometryType === 'esriGeometryPolyline') {
         let paths = geoJson.geometry.coordinates;
-        geometries.geometry = {"paths": paths};
+        geometries.geometry = {"paths": [paths]};
       } else if (geometries.geometryType === 'esriGeometryPolygon') {
         let rings = geoJson.geometry.coordinates;
         geometries.geometry = {"rings": rings}

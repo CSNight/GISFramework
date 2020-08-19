@@ -81,6 +81,9 @@ export default {
       if (!layer.chart) {
         layer.chart = echarts.init(document.querySelector('.chtP_' + e.popup.options.id));
         layer.chart.setOption(layer.chartOpt);
+      } else {
+        layer.chart = echarts.init(document.querySelector('.chtP_' + e.popup.options.id));
+        layer.chart.setOption(layer.chartOpt);
       }
     })
     layer.updateChartOption = function (opt) {

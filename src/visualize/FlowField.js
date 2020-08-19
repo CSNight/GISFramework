@@ -42,20 +42,20 @@ let FlowField = function () {
         FRAME_TIME: 0, // desired frames per second
         globalAlpha: 0.92, //定义透明度，透明度越大，尾巴越长
         //存放颜色的数组
-        // colorScale: [
-        //     "rgb(0,255,255)", "rgb(100,240,255)", "rgb(135,225,255)",
-        //     "rgb(160,208,255)", "rgb(181,192,255)", "rgb(198,173,255)",
-        //     "rgb(212,155,255)", "rgb(225,133,255)", "rgb(236,109,255)",
-        //     "rgb(255,30,219)", "rgb(245,82,162)", "rgb(245,84,82)",
-        //     "rgb(237,45,28)", "rgb(220,24,32)", "rgb(180,0,35)"
-        // ],
         colorScale: [
-            "rgb(237,237,237)", "rgb(237,237,237)", "rgb(237,237,237)",
-            "rgb(237,237,237)", "rgb(237,237,237)", "rgb(237,237,237)",
-            "rgb(237,237,237)", "rgb(237,237,237)", "rgb(237,237,237)",
-            "rgb(237,237,237)", "rgb(237,237,237)", "rgb(237,237,237)",
-            "rgb(237,237,237)", "rgb(237,237,237)", "rgb(237,237,237)"
+            "rgb(0,255,255)", "rgb(100,240,255)", "rgb(135,225,255)",
+            "rgb(160,208,255)", "rgb(181,192,255)", "rgb(198,173,255)",
+            "rgb(212,155,255)", "rgb(225,133,255)", "rgb(236,109,255)",
+            "rgb(255,30,219)", "rgb(245,82,162)", "rgb(245,84,82)",
+            "rgb(237,45,28)", "rgb(220,24,32)", "rgb(180,0,35)"
         ],
+        // colorScale: [
+        //     "rgb(237,237,237)", "rgb(237,237,237)", "rgb(237,237,237)",
+        //     "rgb(237,237,237)", "rgb(237,237,237)", "rgb(237,237,237)",
+        //     "rgb(237,237,237)", "rgb(237,237,237)", "rgb(237,237,237)",
+        //     "rgb(237,237,237)", "rgb(237,237,237)", "rgb(237,237,237)",
+        //     "rgb(237,237,237)", "rgb(237,237,237)", "rgb(237,237,237)"
+        // ],
         // colorScale: [
         //   "rgb(36,104, 180)", "rgb(60,157, 194)", "rgb(128,205,193 )",
         //   "rgb(151,218,168 )", "rgb(198,231,181)", "rgb(238,247,217)",
@@ -255,7 +255,7 @@ let FlowField = function () {
     };
 
     //create the wind field random data
-    function createField(bounds, callback) {
+    function createField(bounds, mask, callback) {
         /**
          * @returns {Array} wind vector [u, v, magnitude] at the point (x, y), or [NaN, NaN, null] if wind
          *          is undefined at that point.
@@ -265,6 +265,7 @@ let FlowField = function () {
             return column && column[Math.round(y)] || _options.NULL_WIND_VECTOR;
         }
 
+        field.overlay = mask.imageData;
         field.randomize = function (o) {  // UNDONE: this method is terrible
             let x, y;
             let safetyNet = 0;
@@ -280,6 +281,29 @@ let FlowField = function () {
         callback(bounds, field);
     }
 
+    // 创建风速底图
+    let createOverlayData = function (bounds) {
+        let canvas = _options.overlay;
+        canvas.width = bounds.width;
+        canvas.height = bounds.height;
+        let ctx = canvas.getContext('2d');
+        ctx.fillStyle = 'rgba(0, 0, 0, 0)';
+        ctx.fill();
+        let width = bounds.width;
+        let imageData = ctx.getImageData(0, 0, bounds.width, bounds.height);
+        let data = imageData.data; // layout: [r, g, b, a, r, g, b, a, ...]
+        return {
+            imageData: imageData,
+            set: function (x, y, rgba) {
+                let i = (y * width + x) * 4;
+                data[i] = rgba[0];
+                data[i + 1] = rgba[1];
+                data[i + 2] = rgba[2];
+                data[i + 3] = rgba[3];
+                return this;
+            }
+        };
+    };
     //fill the interpolate grid with wind field
     let interpolateField = function (bounds, extent, callback) {
         let projection = {};
@@ -287,12 +311,15 @@ let FlowField = function () {
         let velocityScale = _options.VELOCITY_SCALE * Math.pow(Math.abs(mapArea), 0.3);
         columns = [];
         let x = bounds.x;
+        let mask = createOverlayData(bounds); // 创建风速底图
+        let colorScale = productScale();
 
         function interpolateColumn(x) {
             let column = [];
             //画布上的每两个像素是一个格点
             for (let y = bounds.y; y <= bounds.yMax; y += 2) {
                 let coords = invert(x, y, extent);
+                let color = null;
                 //求出每一个格点所对应的经纬度
                 if (coords) {
                     let λ = coords[0]; //经度
@@ -301,11 +328,17 @@ let FlowField = function () {
                     if (isFinite(λ)) {
                         let wind = gridBuilder.interpolate(λ, φ);
                         //每一个格点的uv和风速大小
+                        let scaler = null;
                         if (wind) {
                             wind = distort(projection, λ, φ, x, y, velocityScale, wind, extent);
                             column[y + 1] = column[y] = wind;
+                            scaler = wind.length > 3 ? wind[3] : wind[2]
                         }
+                        color = gradientValueColor(scaler, colorScale);
                     }
+                }
+                if (_options.overlay) {
+                    mask.set(x, y, color).set(x + 1, y, color).set(x, y + 1, color).set(x + 1, y + 1, color);
                 }
             }
             columns[x + 1] = columns[x] = column;
@@ -321,7 +354,7 @@ let FlowField = function () {
                     return;
                 }
             }
-            createField(bounds, callback);
+            createField(bounds, mask, callback);
         })();
     };
 
@@ -335,16 +368,114 @@ let FlowField = function () {
         return {x: x, y: y, xMax: width, yMax: yMax, width: width, height: height};
     }
 
+    function productScale() {
+        return {
+            bounds: [0, 24],
+            // 这里是爱好者底色配色,适合深色主题
+            gradient: function (v, a) {
+                return extendedSinebowColor(Math.min(v, 100) / 100, a);
+            }
+        }
+    }
+
+    function sinebowColor(hue, a) {
+        // Map hue [0, 1] to radians [0, 5/6τ]. Don't allow a full rotation because that keeps hue == 0 and
+        // hue == 1 from mapping to the same color.
+        var rad = hue * 2 * Math.PI * 5 / 6;
+        rad *= 0.75;  // increase frequency to 2/3 cycle per rad
+
+        var s = Math.sin(rad);
+        var c = Math.cos(rad);
+        var r = Math.floor(Math.max(0, -c) * 255);
+        var g = Math.floor(Math.max(s, 0) * 255);
+        var b = Math.floor(Math.max(c, 0, -s) * 255);
+        return [r, g, b, a];
+    }
+
+    var fadeToWhite = colorInterpolator(sinebowColor(1.0, 0), [255, 255, 255]);
+
+    function extendedSinebowColor(i, a) {
+        var BOUNDARY = 0.45;
+        return i <= BOUNDARY ?
+            sinebowColor(i / BOUNDARY, a) :
+            fadeToWhite((i - BOUNDARY) / (1 - BOUNDARY), a);
+    }
+
+    function gradientValueColor(value, scale) {
+        // var bounds = scale.bounds;
+        // var minValue = parseFloat(bounds[0]);
+        //系统会默认把null的数据识别为0，所以加上=，不加=更好看
+        if (value === null || value === undefined) {
+            return [0, 0, 0, 0];
+        } else {
+            return scale.gradient(value, Math.floor(0.4 * 255));
+        }
+    }
+
+    function segmentedColorScale(segments) {
+        let points = [],
+            interpolators = [],
+            ranges = [];
+        for (let i = 0; i < segments.length - 1; i++) {
+            points.push(segments[i + 1][0]);
+            interpolators.push(colorInterpolator(segments[i][1], segments[i + 1][1]));
+            ranges.push([segments[i][0], segments[i + 1][0]]);
+        }
+
+        return function (point, alpha) {
+            let i;
+            for (i = 0; i < points.length - 1; i++) {
+                if (point <= points[i]) {
+                    break;
+                }
+            }
+            let range = ranges[i];
+            return interpolators[i](proportion(point, range[0], range[1]), alpha);
+        };
+    }
+
+    function colorInterpolator(start, end) {
+        let r = start[0],
+            g = start[1],
+            b = start[2];
+        let Δr = end[0] - r,
+            Δg = end[1] - g,
+            Δb = end[2] - b;
+        return function (i, a) {
+            return [Math.floor(r + i * Δr), Math.floor(g + i * Δg), Math.floor(b + i * Δb), a];
+        };
+    }
+
+    /**
+     * @returns {Number} the value x clamped to the range [low, high].
+     */
+    function clamp(x, low, high) {
+        return Math.max(low, Math.min(x, high));
+    }
+
+    /**
+     * @returns {number} the fraction of the bounds [low, high] covered by the value x, after clamping x to the
+     *          bounds. For example, given bounds=[10, 20], this method returns 1 for x>=20, 0.5 for x=15 and 0
+     *          for x<=10.
+     */
+    function proportion(x, low, high) {
+        return (clamp(x, low, high) - low) / (high - low);
+    }
+
     //build the canvas layer for leaflet
     function leafletBuilder() {
         if (!_options.canvas) {
+            _options.overlay = L.DomUtil.create("canvas", "backScale");
             _options.canvas = L.DomUtil.create("canvas", "can");
+            _options.overlay.height = _options.map.getSize().y;
+            _options.overlay.width = _options.map.getSize().x;
             _options.canvas.height = _options.map.getSize().y;
             _options.canvas.width = _options.map.getSize().x;
             let animated = _options.map.options.zoomAnimation && L.Browser.any3d;
             //添加下面的class之后，图层可以随着地图缩放变化
             L.DomUtil.addClass(_options.canvas, 'leaflet-zoom-' + (animated ? 'animated' : 'hide'));
             //把画布添加到overlayPane图层中
+            _options.map._panes.overlayPane.appendChild(_options.overlay);
             _options.map._panes.overlayPane.appendChild(_options.canvas);
             let fadeFillStyle = "rgba(0, 0, 0, 0.97)";
             _options.context = _options.canvas.getContext("2d");
@@ -355,11 +486,19 @@ let FlowField = function () {
                 let scale = _options.map.getZoomScale(e.zoom);
                 // -- different calc of offset in leaflet 1.0.0 and 0.0.7 thanks for 1.0.0-rc2 calc @jduggan1
                 let offset = _options.map._latLngToNewLayerPoint(_options.map.getBounds().getNorthWest(), e.zoom, e.center);
-
+                _options.overlay.getContext('2d').clearRect(0, 0, _options.map.getSize().x, _options.map.getSize().y)
+                if (_options.overlay) {
+                    _options.overlay.getContext('2d').clearRect(0, 0, _options.map.getSize().x, _options.map.getSize().y)
+                }
                 L.DomUtil.setTransform(_options.canvas, offset, scale);
+                L.DomUtil.setTransform(_options.overlay, offset, scale);
             });
             _options.map.on("moveend", function () {
                 window.cancelAnimationFrame(animationLoop);
+                _options.overlay.getContext('2d').clearRect(0, 0, _options.map.getSize().x, _options.map.getSize().y)
+                if (_options.overlay) {
+                    _options.overlay.getContext('2d').clearRect(0, 0, _options.map.getSize().x, _options.map.getSize().y)
+                }
                 _options.context.clearRect(0, 0, _options.map.getSize().x, _options.map.getSize().y);
                 _options.canvas.height = _options.map.getSize().y;
                 _options.canvas.width = _options.map.getSize().x;
@@ -371,6 +510,7 @@ let FlowField = function () {
                 let yun_lon2 = bound._southWest.lng;
                 let new_position = _options.map.latLngToLayerPoint([yun_lat1, yun_lon2]);
                 L.DomUtil.setPosition(_options.canvas, new_position);
+                L.DomUtil.setPosition(_options.overlay, new_position);
                 stop();
                 start(_options.map.getBounds());
             })
@@ -381,10 +521,18 @@ let FlowField = function () {
     function aMapCanvasBuilder() {
         if (!_options.canvas) {
             _options.canvas = document.createElement('canvas');
+            _options.overlay = document.createElement("canvas");
+            _options.overlay.height = _options.map.getSize().getHeight();
+            _options.overlay.width = _options.map.getSize().getWidth();
             _options.canvas.height = _options.map.getSize().getHeight();
             _options.canvas.width = _options.map.getSize().getWidth();
             let CanvasLayer = new AMap.CanvasLayer({
                 canvas: _options.canvas,
+                bounds: _options.map.getBounds(),
+                zooms: _options.map.getZooms()
+            });
+            let overLayLayer = new AMap.CanvasLayer({
+                canvas: _options.overlay,
                 bounds: _options.map.getBounds(),
                 zooms: _options.map.getZooms()
             });
@@ -395,6 +543,7 @@ let FlowField = function () {
             _options.context.fillStyle = fadeFillStyle;
             _options.context.globalAlpha = _options.globalAlpha;
             CanvasLayer.setMap(_options.map);
+            overLayLayer.setMap(_options.map);
             _options.map.on("zoomend", function (e) {
                 const retina = AMap.Browser.retina;
                 const [width, height] = [_options.map.getSize().width, _options.map.getSize().height];
@@ -476,6 +625,12 @@ let FlowField = function () {
                 particles.push(field.randomize({age: Math.floor(Math.random() * _options.MAX_PARTICLE_AGE)}));
             }
             flowF.field = field;
+
+            // zym这里是叠加底图
+            if (_options.overlay) {
+                let og = _options.overlay.getContext("2d");
+                og.putImageData(field.overlay, 0, 0);
+            }
             setTimeout(() => {
                 let then = Date.now();
                 (function frame() {

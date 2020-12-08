@@ -392,7 +392,7 @@ let FlowField = function () {
         return [r, g, b, a];
     }
 
-    var fadeToWhite = colorInterpolator(sinebowColor(1.0, 0), [255, 255, 255]);
+    var fadeToWhite = colorInterpolator(sinebowColor(1.0, 0), [255,255,255]);
 
     function extendedSinebowColor(i, a) {
         var BOUNDARY = 0.45;
@@ -408,7 +408,7 @@ let FlowField = function () {
         if (value === null || value === undefined) {
             return [0, 0, 0, 0];
         } else {
-            return scale.gradient(value, Math.floor(0.4 * 255));
+            return scale.gradient(value, Math.floor(0.7 * 255));
         }
     }
 
@@ -705,7 +705,7 @@ let FlowField = function () {
         buckets.forEach(function (bucket, i) {
             if (bucket.length > 0) {
                 _options.context.beginPath();
-                _options.context.strokeStyle = _options.colorScale[i];
+                _options.context.strokeStyle = '#fff';
                 bucket.forEach(function (particle) {
                     _options.context.moveTo(particle.x, particle.y);
                     _options.context.lineTo(particle.xt, particle.yt);

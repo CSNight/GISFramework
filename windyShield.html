@@ -41,19 +41,7 @@
                 map: T.map,
                 data: data
             })
-            T.vis.mapVHeatMapLayer(flowField.getDem(), {
-                gradient: {
-                    0: "rgba(49, 54, 149, 0)",
-                    0.4: "rgba(55,166,217, 0.25)",
-                    0.5: "rgba(55,200,233, 0.25)",
-                    0.6: "rgba(171,233,217, 0.25)",
-                    0.65: "rgba(116,209,173, 0.25)",
-                    0.7: "rgba(100,187,110, 0.2)",
-                    0.8: "rgba(254,224,144,0.2)",
-                    0.85: "rgba(253,174,97,0.2)",
-                    0.98: "rgba(244,109,67,0.2)",
-                },
-            }, 'strength').addTo(T.map)
+
             flowField.start(T.map.getBounds())
 
         }, 100)
